@@ -1,0 +1,1609 @@
+[
+  {
+    "module": "auth",
+    "endpoint": "POST /api/auth/login",
+    "method": "POST",
+    "path": "/api/auth/login",
+    "status": 500,
+    "statusText": "Internal Server Error",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {
+      "station_code": "CPC001",
+      "email": "admin@demo.cpc",
+      "password": "Admin12345!"
+    },
+    "responseBody": {
+      "statusCode": 500,
+      "message": "Internal server error"
+    },
+    "responseText": "{\"statusCode\":500,\"message\":\"Internal server error\"}",
+    "passed": false,
+    "timestamp": "2026-04-30T23:26:41.169Z"
+  },
+  {
+    "module": "auth",
+    "endpoint": "POST /api/auth/login",
+    "method": "POST",
+    "path": "/api/auth/login",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {
+      "station_code": "CPC001",
+      "email": "wrong@demo.cpc",
+      "password": "WrongPassword"
+    },
+    "responseBody": {
+      "message": "Invalid station code or credentials",
+      "error": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Invalid station code or credentials\",\"error\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.184Z"
+  },
+  {
+    "module": "auth",
+    "endpoint": "GET /api/auth/me",
+    "method": "GET",
+    "path": "/api/auth/me",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.194Z"
+  },
+  {
+    "module": "auth",
+    "endpoint": "POST /api/auth/logout",
+    "method": "POST",
+    "path": "/api/auth/logout",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.200Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "POST /api/tenants",
+    "method": "POST",
+    "path": "/api/tenants",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.208Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "GET /api/tenants",
+    "method": "GET",
+    "path": "/api/tenants",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.215Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "GET /api/tenants/current",
+    "method": "GET",
+    "path": "/api/tenants/current",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.222Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "GET /api/tenants/current/settings",
+    "method": "GET",
+    "path": "/api/tenants/current/settings",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.230Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "PATCH /api/tenants/current/settings",
+    "method": "PATCH",
+    "path": "/api/tenants/current/settings",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.239Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "GET /api/tenants/550e8400-e29b-41d4-a716-446655440000",
+    "method": "GET",
+    "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.246Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "PATCH /api/tenants/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.252Z"
+  },
+  {
+    "module": "tenants",
+    "endpoint": "PATCH /api/tenants/550e8400-e29b-41d4-a716-446655440000/settings",
+    "method": "PATCH",
+    "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000/settings",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.257Z"
+  },
+  {
+    "module": "portal-users",
+    "endpoint": "GET /api/portal-users",
+    "method": "GET",
+    "path": "/api/portal-users",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.262Z"
+  },
+  {
+    "module": "portal-users",
+    "endpoint": "POST /api/portal-users",
+    "method": "POST",
+    "path": "/api/portal-users",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.267Z"
+  },
+  {
+    "module": "portal-users",
+    "endpoint": "PATCH /api/portal-users/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/portal-users/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.276Z"
+  },
+  {
+    "module": "operational-roles",
+    "endpoint": "GET /api/operational-roles",
+    "method": "GET",
+    "path": "/api/operational-roles",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.283Z"
+  },
+  {
+    "module": "operational-roles",
+    "endpoint": "POST /api/operational-roles",
+    "method": "POST",
+    "path": "/api/operational-roles",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.289Z"
+  },
+  {
+    "module": "operational-roles",
+    "endpoint": "PATCH /api/operational-roles/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/operational-roles/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.300Z"
+  },
+  {
+    "module": "staff",
+    "endpoint": "GET /api/staff",
+    "method": "GET",
+    "path": "/api/staff",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.308Z"
+  },
+  {
+    "module": "staff",
+    "endpoint": "POST /api/staff",
+    "method": "POST",
+    "path": "/api/staff",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.315Z"
+  },
+  {
+    "module": "staff",
+    "endpoint": "GET /api/staff/550e8400-e29b-41d4-a716-446655440000",
+    "method": "GET",
+    "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.329Z"
+  },
+  {
+    "module": "staff",
+    "endpoint": "PATCH /api/staff/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.338Z"
+  },
+  {
+    "module": "staff",
+    "endpoint": "DELETE /api/staff/550e8400-e29b-41d4-a716-446655440000",
+    "method": "DELETE",
+    "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.344Z"
+  },
+  {
+    "module": "products",
+    "endpoint": "POST /api/products",
+    "method": "POST",
+    "path": "/api/products",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.351Z"
+  },
+  {
+    "module": "products",
+    "endpoint": "GET /api/products",
+    "method": "GET",
+    "path": "/api/products",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.357Z"
+  },
+  {
+    "module": "products",
+    "endpoint": "PATCH /api/products/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/products/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.365Z"
+  },
+  {
+    "module": "products",
+    "endpoint": "POST /api/products/550e8400-e29b-41d4-a716-446655440000/prices",
+    "method": "POST",
+    "path": "/api/products/550e8400-e29b-41d4-a716-446655440000/prices",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.369Z"
+  },
+  {
+    "module": "products",
+    "endpoint": "GET /api/products/550e8400-e29b-41d4-a716-446655440000/prices",
+    "method": "GET",
+    "path": "/api/products/550e8400-e29b-41d4-a716-446655440000/prices",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.374Z"
+  },
+  {
+    "module": "pumps",
+    "endpoint": "POST /api/pumps",
+    "method": "POST",
+    "path": "/api/pumps",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.397Z"
+  },
+  {
+    "module": "pumps",
+    "endpoint": "GET /api/pumps",
+    "method": "GET",
+    "path": "/api/pumps",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.415Z"
+  },
+  {
+    "module": "pumps",
+    "endpoint": "PATCH /api/pumps/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/pumps/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.423Z"
+  },
+  {
+    "module": "pumps",
+    "endpoint": "POST /api/pump-nozzles",
+    "method": "POST",
+    "path": "/api/pump-nozzles",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.430Z"
+  },
+  {
+    "module": "pumps",
+    "endpoint": "GET /api/pump-nozzles",
+    "method": "GET",
+    "path": "/api/pump-nozzles",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.436Z"
+  },
+  {
+    "module": "pumps",
+    "endpoint": "PATCH /api/pump-nozzles/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/pump-nozzles/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.445Z"
+  },
+  {
+    "module": "attendance",
+    "endpoint": "POST /api/attendance/clock-in",
+    "method": "POST",
+    "path": "/api/attendance/clock-in",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.451Z"
+  },
+  {
+    "module": "attendance",
+    "endpoint": "POST /api/attendance/clock-out",
+    "method": "POST",
+    "path": "/api/attendance/clock-out",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.457Z"
+  },
+  {
+    "module": "attendance",
+    "endpoint": "GET /api/attendance",
+    "method": "GET",
+    "path": "/api/attendance",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.461Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-templates",
+    "method": "POST",
+    "path": "/api/shift-templates",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.465Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "GET /api/shift-templates",
+    "method": "GET",
+    "path": "/api/shift-templates",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.470Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "PATCH /api/shift-templates/550e8400-e29b-41d4-a716-446655440000",
+    "method": "PATCH",
+    "path": "/api/shift-templates/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.473Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions",
+    "method": "POST",
+    "path": "/api/shift-sessions",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.477Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "GET /api/shift-sessions",
+    "method": "GET",
+    "path": "/api/shift-sessions",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.481Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "GET /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000",
+    "method": "GET",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.486Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/open",
+    "method": "POST",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/open",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.490Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/assignments",
+    "method": "POST",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/assignments",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.494Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/opening-readings",
+    "method": "POST",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/opening-readings",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.498Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/closing-readings",
+    "method": "POST",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/closing-readings",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.503Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/cash-submissions",
+    "method": "POST",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/cash-submissions",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.508Z"
+  },
+  {
+    "module": "shifts",
+    "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/close",
+    "method": "POST",
+    "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/close",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.513Z"
+  },
+  {
+    "module": "inventory",
+    "endpoint": "GET /api/stock-balances",
+    "method": "GET",
+    "path": "/api/stock-balances",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.517Z"
+  },
+  {
+    "module": "inventory",
+    "endpoint": "GET /api/stock-movements",
+    "method": "GET",
+    "path": "/api/stock-movements",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.521Z"
+  },
+  {
+    "module": "inventory",
+    "endpoint": "POST /api/tanks",
+    "method": "POST",
+    "path": "/api/tanks",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.526Z"
+  },
+  {
+    "module": "inventory",
+    "endpoint": "GET /api/tanks",
+    "method": "GET",
+    "path": "/api/tanks",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.535Z"
+  },
+  {
+    "module": "inventory",
+    "endpoint": "POST /api/stock-adjustments",
+    "method": "POST",
+    "path": "/api/stock-adjustments",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.542Z"
+  },
+  {
+    "module": "inventory",
+    "endpoint": "POST /api/stock-verifications/night",
+    "method": "POST",
+    "path": "/api/stock-verifications/night",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.546Z"
+  },
+  {
+    "module": "bowser-receipts",
+    "endpoint": "POST /api/bowser-receipts",
+    "method": "POST",
+    "path": "/api/bowser-receipts",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.550Z"
+  },
+  {
+    "module": "bowser-receipts",
+    "endpoint": "GET /api/bowser-receipts",
+    "method": "GET",
+    "path": "/api/bowser-receipts",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.554Z"
+  },
+  {
+    "module": "bowser-receipts",
+    "endpoint": "GET /api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000",
+    "method": "GET",
+    "path": "/api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.558Z"
+  },
+  {
+    "module": "bowser-receipts",
+    "endpoint": "POST /api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000/approve",
+    "method": "POST",
+    "path": "/api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000/approve",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.562Z"
+  },
+  {
+    "module": "stock-orders",
+    "endpoint": "POST /api/stock-orders",
+    "method": "POST",
+    "path": "/api/stock-orders",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.568Z"
+  },
+  {
+    "module": "stock-orders",
+    "endpoint": "GET /api/stock-orders",
+    "method": "GET",
+    "path": "/api/stock-orders",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.573Z"
+  },
+  {
+    "module": "stock-orders",
+    "endpoint": "POST /api/stock-orders/550e8400-e29b-41d4-a716-446655440000/approve",
+    "method": "POST",
+    "path": "/api/stock-orders/550e8400-e29b-41d4-a716-446655440000/approve",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.577Z"
+  },
+  {
+    "module": "stock-orders",
+    "endpoint": "POST /api/stock-orders/550e8400-e29b-41d4-a716-446655440000/payments",
+    "method": "POST",
+    "path": "/api/stock-orders/550e8400-e29b-41d4-a716-446655440000/payments",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.582Z"
+  },
+  {
+    "module": "credit-dues",
+    "endpoint": "POST /api/credit-customers",
+    "method": "POST",
+    "path": "/api/credit-customers",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.586Z"
+  },
+  {
+    "module": "credit-dues",
+    "endpoint": "GET /api/credit-customers",
+    "method": "GET",
+    "path": "/api/credit-customers",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.590Z"
+  },
+  {
+    "module": "credit-dues",
+    "endpoint": "POST /api/credit-sales",
+    "method": "POST",
+    "path": "/api/credit-sales",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.595Z"
+  },
+  {
+    "module": "credit-dues",
+    "endpoint": "GET /api/credit-sales",
+    "method": "GET",
+    "path": "/api/credit-sales",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.600Z"
+  },
+  {
+    "module": "credit-dues",
+    "endpoint": "POST /api/due-collections",
+    "method": "POST",
+    "path": "/api/due-collections",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.604Z"
+  },
+  {
+    "module": "credit-dues",
+    "endpoint": "GET /api/due-collections",
+    "method": "GET",
+    "path": "/api/due-collections",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.610Z"
+  },
+  {
+    "module": "cheques",
+    "endpoint": "POST /api/cheques",
+    "method": "POST",
+    "path": "/api/cheques",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.614Z"
+  },
+  {
+    "module": "cheques",
+    "endpoint": "GET /api/cheques",
+    "method": "GET",
+    "path": "/api/cheques",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.620Z"
+  },
+  {
+    "module": "cheques",
+    "endpoint": "PATCH /api/cheques/550e8400-e29b-41d4-a716-446655440000/status",
+    "method": "PATCH",
+    "path": "/api/cheques/550e8400-e29b-41d4-a716-446655440000/status",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.625Z"
+  },
+  {
+    "module": "daily-balancing",
+    "endpoint": "POST /api/daily-balancing",
+    "method": "POST",
+    "path": "/api/daily-balancing",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.629Z"
+  },
+  {
+    "module": "daily-balancing",
+    "endpoint": "GET /api/daily-balancing",
+    "method": "GET",
+    "path": "/api/daily-balancing",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.633Z"
+  },
+  {
+    "module": "daily-balancing",
+    "endpoint": "POST /api/daily-balancing/550e8400-e29b-41d4-a716-446655440000/close",
+    "method": "POST",
+    "path": "/api/daily-balancing/550e8400-e29b-41d4-a716-446655440000/close",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.637Z"
+  },
+  {
+    "module": "payroll",
+    "endpoint": "POST /api/payroll-runs",
+    "method": "POST",
+    "path": "/api/payroll-runs",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.642Z"
+  },
+  {
+    "module": "payroll",
+    "endpoint": "GET /api/payroll-runs",
+    "method": "GET",
+    "path": "/api/payroll-runs",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.647Z"
+  },
+  {
+    "module": "payroll",
+    "endpoint": "POST /api/payroll-runs/550e8400-e29b-41d4-a716-446655440000/finalize",
+    "method": "POST",
+    "path": "/api/payroll-runs/550e8400-e29b-41d4-a716-446655440000/finalize",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.652Z"
+  },
+  {
+    "module": "payroll",
+    "endpoint": "GET /api/salary-deductions",
+    "method": "GET",
+    "path": "/api/salary-deductions",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.659Z"
+  },
+  {
+    "module": "payroll",
+    "endpoint": "POST /api/salary-deductions/550e8400-e29b-41d4-a716-446655440000/approve",
+    "method": "POST",
+    "path": "/api/salary-deductions/550e8400-e29b-41d4-a716-446655440000/approve",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.664Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/dashboard",
+    "method": "GET",
+    "path": "/api/reports/dashboard",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.669Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/shift-summary",
+    "method": "GET",
+    "path": "/api/reports/shift-summary",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.675Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/stock",
+    "method": "GET",
+    "path": "/api/reports/stock",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.678Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/pump-meters",
+    "method": "GET",
+    "path": "/api/reports/pump-meters",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.682Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/attendance",
+    "method": "GET",
+    "path": "/api/reports/attendance",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.686Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/daily-sales",
+    "method": "GET",
+    "path": "/api/reports/daily-sales",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.691Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/pumper-shortfalls",
+    "method": "GET",
+    "path": "/api/reports/pumper-shortfalls",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.695Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/payroll-deductions",
+    "method": "GET",
+    "path": "/api/reports/payroll-deductions",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.699Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/bowser-receipts",
+    "method": "GET",
+    "path": "/api/reports/bowser-receipts",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.706Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/stock-orders",
+    "method": "GET",
+    "path": "/api/reports/stock-orders",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.711Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/credit-dues",
+    "method": "GET",
+    "path": "/api/reports/credit-dues",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.715Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/cheques",
+    "method": "GET",
+    "path": "/api/reports/cheques",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.720Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/bank-deposits",
+    "method": "GET",
+    "path": "/api/reports/bank-deposits",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.724Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/profit-loss",
+    "method": "GET",
+    "path": "/api/reports/profit-loss",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.728Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "GET /api/reports/cpc-stock",
+    "method": "GET",
+    "path": "/api/reports/cpc-stock",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.732Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "POST /api/reports/cpc-stock/generate",
+    "method": "POST",
+    "path": "/api/reports/cpc-stock/generate",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.739Z"
+  },
+  {
+    "module": "reports",
+    "endpoint": "POST /api/reports/cpc-stock/550e8400-e29b-41d4-a716-446655440000/submit",
+    "method": "POST",
+    "path": "/api/reports/cpc-stock/550e8400-e29b-41d4-a716-446655440000/submit",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "contentType": "application/json; charset=utf-8",
+    "requestBody": {},
+    "responseBody": {
+      "message": "Unauthorized",
+      "statusCode": 401
+    },
+    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "passed": true,
+    "timestamp": "2026-04-30T23:26:41.744Z"
+  }
+]
