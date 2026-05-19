@@ -21,6 +21,9 @@ export class AddRefreshTokensEntityChangeLogsCorrections1710000000015 implements
     // Migrate pump_meter_readings from two-row to single-row schema
     // First rename old table, create new one, migrate data, drop old
     await queryRunner.query(`ALTER TABLE pump_meter_readings RENAME TO pump_meter_readings_old`);
+    // The old table's indexes keep their original names after the table rename.
+    // Drop this one before creating the replacement table index with the same name.
+    await queryRunner.query(`DROP INDEX IF EXISTS idx_pump_meter_readings_tenant_id`);
     await queryRunner.query(`
       CREATE TABLE pump_meter_readings (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -44,7 +47,7 @@ export class AddRefreshTokensEntityChangeLogsCorrections1710000000015 implements
         UNIQUE (tenant_id, shift_session_id, nozzle_id)
       )
     `);
-    await queryRunner.query(`CREATE INDEX idx_pump_meter_readings_tenant_id ON pump_meter_readings(tenant_id)`);
+    await queryRunner.query(`CREATE INDEX IF NOT EXISTS idx_pump_meter_readings_tenant_id ON pump_meter_readings(tenant_id)`);
 
     // Migrate existing opening readings
     await queryRunner.query(`

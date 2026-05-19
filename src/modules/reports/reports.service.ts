@@ -16,10 +16,10 @@ export class ReportsService {
   async dashboard(tenantId: string) {
     const [todaySales, activeShift, stockRows, shortfallCount, pendingApprovals, credit, cheques] = await Promise.all([
       this.scalar(
-        'select coalesce(sum(expected_cash::numeric), 0) value from pumper_cash_submissions where tenant_id = $1 and created_at::date = current_date',
+        'select coalesce(sum(expected_cash::numeric), 0) as value from pumper_cash_submissions where tenant_id = $1 and created_at::date = current_date',
         [tenantId],
       ),
-      this.scalar("select count(*) value from shift_sessions where tenant_id = $1 and status in ('ACTIVE','OPEN','CLOSING')", [tenantId]),
+      this.scalar("select count(*) as value from shift_sessions where tenant_id = $1 and status in ('ACTIVE','OPEN','CLOSING')", [tenantId]),
       this.dataSource.query(
         `select p.product_code, p.product_name, p.category, b.quantity_on_hand
            from stock_balances b
@@ -29,12 +29,12 @@ export class ReportsService {
           limit 8`,
         [tenantId],
       ),
-      this.scalar("select count(*) value from salary_deductions where tenant_id = $1 and source_type = 'CASH_SHORTFALL' and status = 'PENDING_APPROVAL'", [
+      this.scalar("select count(*) as value from salary_deductions where tenant_id = $1 and source_type = 'CASH_SHORTFALL' and status = 'PENDING_APPROVAL'", [
         tenantId,
       ]),
-      this.scalar("select count(*) value from salary_deductions where tenant_id = $1 and status = 'PENDING_APPROVAL'", [tenantId]),
-      this.scalar('select coalesce(sum(outstanding_balance::numeric), 0) value from credit_customers where tenant_id = $1', [tenantId]),
-      this.scalar("select count(*) value from cheque_registry where tenant_id = $1 and status in ('RECEIVED','DEPOSITED')", [tenantId]),
+      this.scalar("select count(*) as value from salary_deductions where tenant_id = $1 and status = 'PENDING_APPROVAL'", [tenantId]),
+      this.scalar('select coalesce(sum(outstanding_balance::numeric), 0) as value from credit_customers where tenant_id = $1', [tenantId]),
+      this.scalar("select count(*) as value from cheque_registry where tenant_id = $1 and status in ('RECEIVED','DEPOSITED')", [tenantId]),
     ]);
     return {
       today_sales: todaySales,
@@ -87,7 +87,7 @@ export class ReportsService {
   }
 
   pumpMeters(tenantId: string, query: ReportQueryDto) {
-    const parts = this.parts(tenantId, query, 'r.recorded_at', 'r.tenant_id');
+    const parts = this.parts(tenantId, query, 'r.updated_at', 'r.tenant_id');
     if (query.staff_id) parts.where.push(`r.pumper_id = $${this.push(parts, query.staff_id)}`);
     if (query.product_id) parts.where.push(`n.product_id = $${this.push(parts, query.product_id)}`);
     if (query.status) parts.where.push(`s.status = $${this.push(parts, query.status)}`);
@@ -96,7 +96,9 @@ export class ReportsService {
     return this.rawPaginated(
       `select r.id, s.business_date, s.status shift_status, p.pump_code, p.pump_name,
               n.nozzle_code, n.nozzle_name, pr.product_name, staff.name pumper_name,
-              r.reading_type, r.meter_reading, r.recorded_at
+              r.opening_reading, r.closing_reading, r.is_rollover,
+              r.dispensed_litres, r.unit_price, r.expected_cash, r.status reading_status,
+              r.updated_at recorded_at
          from pump_meter_readings r
          join shift_sessions s on s.id = r.shift_session_id
          join pump_nozzles n on n.id = r.nozzle_id
@@ -279,13 +281,13 @@ export class ReportsService {
     const payments = this.parts(tenantId, query, 'payment_date', 'tenant_id');
     const deductions = this.parts(tenantId, query, 'created_at', 'tenant_id');
     const [sales, supplierPayments, approvedDeductions, creditOutstanding] = await Promise.all([
-      this.scalar(`select coalesce(sum(expected_cash::numeric),0) value from pumper_cash_submissions where ${cash.where.join(' and ')}`, cash.params),
-      this.scalar(`select coalesce(sum(amount::numeric),0) value from supplier_payments where ${payments.where.join(' and ')}`, payments.params),
+      this.scalar(`select coalesce(sum(expected_cash::numeric),0) as value from pumper_cash_submissions where ${cash.where.join(' and ')}`, cash.params),
+      this.scalar(`select coalesce(sum(amount::numeric),0) as value from supplier_payments where ${payments.where.join(' and ')}`, payments.params),
       this.scalar(
-        `select coalesce(sum(amount::numeric),0) value from salary_deductions where ${deductions.where.join(' and ')} and status = 'APPROVED'`,
+        `select coalesce(sum(amount::numeric),0) as value from salary_deductions where ${deductions.where.join(' and ')} and status = 'APPROVED'`,
         deductions.params,
       ),
-      this.scalar('select coalesce(sum(outstanding_balance::numeric),0) value from credit_customers where tenant_id = $1', [tenantId]),
+      this.scalar('select coalesce(sum(outstanding_balance::numeric),0) as value from credit_customers where tenant_id = $1', [tenantId]),
     ]);
     return {
       period: { date_from: query.date_from, date_to: query.date_to },

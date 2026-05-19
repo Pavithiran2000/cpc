@@ -64,6 +64,11 @@ export class ShiftsController {
     return this.shifts.recordOpeningReadings(tenantId, id, dto, user.id);
   }
 
+  @Post('shift-sessions/:id/closing-readings')
+  closing(@CurrentTenant() tenantId: string, @Param('id') id: string, @Body() dto: ReadingsDto, @CurrentUser() user: RequestUser) {
+    return this.shifts.recordClosingReadings(tenantId, id, dto, user.id);
+  }
+
   @Post('shift-sessions/:id/cash-submissions')
   cash(@CurrentTenant() tenantId: string, @Param('id') id: string, @Body() dto: CashSubmissionsDto, @CurrentUser() user: RequestUser) {
     return this.shifts.recordCash(tenantId, id, dto, user.id);

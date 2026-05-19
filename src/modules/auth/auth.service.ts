@@ -65,13 +65,14 @@ export class AuthService {
     };
   }
 
-  async refresh(rawRefreshToken: string, userId: string, tenantId: string, ipAddress?: string, userAgent?: string) {
+  async refresh(rawRefreshToken: string, ipAddress?: string, userAgent?: string) {
+    const { refreshToken: newRefreshToken, record } = await this.refreshTokens.rotateRefreshToken(rawRefreshToken);
+    const { userId, tenantId } = record;
     const user = await this.users.findOne({ where: { id: userId, tenantId, status: 'ACTIVE' } });
     if (!user) throw new UnauthorizedException('User not found');
     const tenant = await this.tenants.findOne({ where: { id: tenantId, status: 'ACTIVE' } });
     if (!tenant) throw new UnauthorizedException('Tenant not found');
 
-    const newRefreshToken = await this.refreshTokens.rotateRefreshToken(rawRefreshToken, userId, tenantId);
     const accessToken = await this.signAccessToken(user, tenantId);
 
     await this.audit.record({
