@@ -4,8 +4,8 @@
     "endpoint": "POST /api/auth/login",
     "method": "POST",
     "path": "/api/auth/login",
-    "status": 500,
-    "statusText": "Internal Server Error",
+    "status": 201,
+    "statusText": "Created",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {
       "station_code": "CPC001",
@@ -13,12 +13,19 @@
       "password": "Admin12345!"
     },
     "responseBody": {
-      "statusCode": 500,
-      "message": "Internal server error"
+      "user": {
+        "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
+        "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+        "email": "admin@demo.cpc",
+        "name": "Demo Admin",
+        "portalRole": "ADMIN",
+        "stationCode": "CPC001",
+        "stationName": "CPC Colombo Demo Station"
+      }
     },
-    "responseText": "{\"statusCode\":500,\"message\":\"Internal server error\"}",
-    "passed": false,
-    "timestamp": "2026-04-30T23:26:41.169Z"
+    "responseText": "{\"user\":{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"email\":\"admin@demo.cpc\",\"name\":\"Demo Admin\",\"portalRole\":\"ADMIN\",\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\"}}",
+    "passed": true,
+    "timestamp": "2026-05-19T14:04:37.988Z"
   },
   {
     "module": "auth",
@@ -40,1570 +47,2446 @@
     },
     "responseText": "{\"message\":\"Invalid station code or credentials\",\"error\":\"Unauthorized\",\"statusCode\":401}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.184Z"
+    "timestamp": "2026-05-19T14:04:37.996Z"
   },
   {
     "module": "auth",
     "endpoint": "GET /api/auth/me",
     "method": "GET",
     "path": "/api/auth/me",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "user": {
+        "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
+        "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+        "portalRole": "ADMIN",
+        "email": "admin@demo.cpc"
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"user\":{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"portalRole\":\"ADMIN\",\"email\":\"admin@demo.cpc\"}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.194Z"
-  },
-  {
-    "module": "auth",
-    "endpoint": "POST /api/auth/logout",
-    "method": "POST",
-    "path": "/api/auth/logout",
-    "status": 401,
-    "statusText": "Unauthorized",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
-    },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
-    "passed": true,
-    "timestamp": "2026-04-30T23:26:41.200Z"
+    "timestamp": "2026-05-19T14:04:38.003Z"
   },
   {
     "module": "tenants",
     "endpoint": "POST /api/tenants",
     "method": "POST",
     "path": "/api/tenants",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "station_code must be a string",
+        "station_name must be a string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"station_code must be a string\",\"station_name must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.208Z"
+    "timestamp": "2026-05-19T14:04:38.008Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants",
     "method": "GET",
     "path": "/api/tenants",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "createdAt": "2026-05-19T12:51:24.250Z",
+          "updatedAt": "2026-05-19T12:51:24.250Z",
+          "updatedBy": null,
+          "stationCode": "CPC001",
+          "stationName": "CPC Colombo Demo Station",
+          "ownerName": "Demo Owner",
+          "address": null,
+          "district": "Colombo",
+          "contactNumber": "+94110000000",
+          "email": "owner@demo.cpc",
+          "status": "ACTIVE"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 1,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"createdAt\":\"2026-05-19T12:51:24.250Z\",\"updatedAt\":\"2026-05-19T12:51:24.250Z\",\"updatedBy\":null,\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\",\"ownerName\":\"Demo Owner\",\"address\":null,\"district\":\"Colombo\",\"contactNumber\":\"+94110000000\",\"email\":\"owner@demo.cpc\",\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":1,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.215Z"
+    "timestamp": "2026-05-19T14:04:38.015Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants/current",
     "method": "GET",
     "path": "/api/tenants/current",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "id": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+      "createdAt": "2026-05-19T12:51:24.250Z",
+      "updatedAt": "2026-05-19T12:51:24.250Z",
+      "updatedBy": null,
+      "stationCode": "CPC001",
+      "stationName": "CPC Colombo Demo Station",
+      "ownerName": "Demo Owner",
+      "address": null,
+      "district": "Colombo",
+      "contactNumber": "+94110000000",
+      "email": "owner@demo.cpc",
+      "status": "ACTIVE"
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"id\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"createdAt\":\"2026-05-19T12:51:24.250Z\",\"updatedAt\":\"2026-05-19T12:51:24.250Z\",\"updatedBy\":null,\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\",\"ownerName\":\"Demo Owner\",\"address\":null,\"district\":\"Colombo\",\"contactNumber\":\"+94110000000\",\"email\":\"owner@demo.cpc\",\"status\":\"ACTIVE\"}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.222Z"
+    "timestamp": "2026-05-19T14:04:38.021Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants/current/settings",
     "method": "GET",
     "path": "/api/tenants/current/settings",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "salary_deduction_enabled": "true",
+      "cash_shortfall_requires_approval": "true",
+      "night_shift_enabled": "false",
+      "night_stock_verification_required": "true",
+      "allow_shift_overlap": "false",
+      "currency": "LKR",
+      "timezone": "Asia/Colombo",
+      "cpc_report_format": "DEFAULT"
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"salary_deduction_enabled\":\"true\",\"cash_shortfall_requires_approval\":\"true\",\"night_shift_enabled\":\"false\",\"night_stock_verification_required\":\"true\",\"allow_shift_overlap\":\"false\",\"currency\":\"LKR\",\"timezone\":\"Asia/Colombo\",\"cpc_report_format\":\"DEFAULT\"}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.230Z"
+    "timestamp": "2026-05-19T14:04:38.031Z"
   },
   {
     "module": "tenants",
     "endpoint": "PATCH /api/tenants/current/settings",
     "method": "PATCH",
     "path": "/api/tenants/current/settings",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "settings must be an object"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"settings must be an object\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.239Z"
+    "timestamp": "2026-05-19T14:04:38.036Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Tenant not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Tenant not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.246Z"
+    "timestamp": "2026-05-19T14:04:38.045Z"
   },
   {
     "module": "tenants",
     "endpoint": "PATCH /api/tenants/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Tenant not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Tenant not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.252Z"
+    "timestamp": "2026-05-19T14:04:38.053Z"
   },
   {
     "module": "tenants",
     "endpoint": "PATCH /api/tenants/550e8400-e29b-41d4-a716-446655440000/settings",
     "method": "PATCH",
     "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000/settings",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "settings must be an object"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"settings must be an object\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.257Z"
+    "timestamp": "2026-05-19T14:04:38.060Z"
   },
   {
     "module": "portal-users",
     "endpoint": "GET /api/portal-users",
     "method": "GET",
     "path": "/api/portal-users",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "be77f3c8-8ee6-4c7b-9539-0d0ee934962f",
+          "createdAt": "2026-05-19T12:52:21.001Z",
+          "updatedAt": "2026-05-19T12:52:21.001Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "name": "Demo Owner",
+          "email": "owner@demo.cpc",
+          "phone": "+94110000000",
+          "passwordHash": "$2b$12$1YCVAIwXUxPqSijllO1sWOnYBV5noRh2hmL49xISEtH2QkGNEnaom",
+          "portalRole": "OWNER",
+          "status": "ACTIVE",
+          "lastLoginAt": null
+        },
+        {
+          "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
+          "createdAt": "2026-05-19T12:51:24.470Z",
+          "updatedAt": "2026-05-19T14:04:37.953Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "name": "Demo Admin",
+          "email": "admin@demo.cpc",
+          "phone": null,
+          "passwordHash": "$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla",
+          "portalRole": "ADMIN",
+          "status": "ACTIVE",
+          "lastLoginAt": "2026-05-19T14:04:37.947Z"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 2,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"be77f3c8-8ee6-4c7b-9539-0d0ee934962f\",\"createdAt\":\"2026-05-19T12:52:21.001Z\",\"updatedAt\":\"2026-05-19T12:52:21.001Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Owner\",\"email\":\"owner@demo.cpc\",\"phone\":\"+94110000000\",\"passwordHash\":\"$2b$12$1YCVAIwXUxPqSijllO1sWOnYBV5noRh2hmL49xISEtH2QkGNEnaom\",\"portalRole\":\"OWNER\",\"status\":\"ACTIVE\",\"lastLoginAt\":null},{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"createdAt\":\"2026-05-19T12:51:24.470Z\",\"updatedAt\":\"2026-05-19T14:04:37.953Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Admin\",\"email\":\"admin@demo.cpc\",\"phone\":null,\"passwordHash\":\"$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla\",\"portalRole\":\"ADMIN\",\"status\":\"ACTIVE\",\"lastLoginAt\":\"2026-05-19T14:04:37.947Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.262Z"
+    "timestamp": "2026-05-19T14:04:38.067Z"
   },
   {
     "module": "portal-users",
     "endpoint": "POST /api/portal-users",
     "method": "POST",
     "path": "/api/portal-users",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "name must be a string",
+        "email must be an email",
+        "password must be longer than or equal to 8 characters",
+        "password must be a string",
+        "portal_role must be one of the following values: ADMIN, OWNER"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"name must be a string\",\"email must be an email\",\"password must be longer than or equal to 8 characters\",\"password must be a string\",\"portal_role must be one of the following values: ADMIN, OWNER\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.267Z"
+    "timestamp": "2026-05-19T14:04:38.072Z"
   },
   {
     "module": "portal-users",
     "endpoint": "PATCH /api/portal-users/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/portal-users/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Portal user not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Portal user not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.276Z"
+    "timestamp": "2026-05-19T14:04:38.078Z"
   },
   {
     "module": "operational-roles",
     "endpoint": "GET /api/operational-roles",
     "method": "GET",
     "path": "/api/operational-roles",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "45b94a39-1875-4e62-9f98-0b73ba9414cc",
+          "createdAt": "2026-05-19T12:51:24.275Z",
+          "updatedAt": "2026-05-19T12:51:24.275Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "name": "Pumper",
+          "requiresAttendance": true,
+          "liableForCashShortfall": true,
+          "description": null,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "ffceae76-089f-46ed-811e-21f91283f303",
+          "createdAt": "2026-05-19T12:51:24.273Z",
+          "updatedAt": "2026-05-19T12:51:24.273Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "name": "Manager",
+          "requiresAttendance": true,
+          "liableForCashShortfall": false,
+          "description": null,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "28821b2b-67a6-4463-8ee9-7210ef4e763f",
+          "createdAt": "2026-05-19T12:51:24.277Z",
+          "updatedAt": "2026-05-19T12:51:24.277Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "name": "Accountant",
+          "requiresAttendance": false,
+          "liableForCashShortfall": false,
+          "description": null,
+          "status": "ACTIVE"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 3,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"45b94a39-1875-4e62-9f98-0b73ba9414cc\",\"createdAt\":\"2026-05-19T12:51:24.275Z\",\"updatedAt\":\"2026-05-19T12:51:24.275Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Pumper\",\"requiresAttendance\":true,\"liableForCashShortfall\":true,\"description\":null,\"status\":\"ACTIVE\"},{\"id\":\"ffceae76-089f-46ed-811e-21f91283f303\",\"createdAt\":\"2026-05-19T12:51:24.273Z\",\"updatedAt\":\"2026-05-19T12:51:24.273Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Manager\",\"requiresAttendance\":true,\"liableForCashShortfall\":false,\"description\":null,\"status\":\"ACTIVE\"},{\"id\":\"28821b2b-67a6-4463-8ee9-7210ef4e763f\",\"createdAt\":\"2026-05-19T12:51:24.277Z\",\"updatedAt\":\"2026-05-19T12:51:24.277Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Accountant\",\"requiresAttendance\":false,\"liableForCashShortfall\":false,\"description\":null,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":3,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.283Z"
+    "timestamp": "2026-05-19T14:04:38.088Z"
   },
   {
     "module": "operational-roles",
     "endpoint": "POST /api/operational-roles",
     "method": "POST",
     "path": "/api/operational-roles",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "name must be a string",
+        "requires_attendance must be a boolean value",
+        "liable_for_cash_shortfall must be a boolean value"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"name must be a string\",\"requires_attendance must be a boolean value\",\"liable_for_cash_shortfall must be a boolean value\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.289Z"
+    "timestamp": "2026-05-19T14:04:38.092Z"
   },
   {
     "module": "operational-roles",
     "endpoint": "PATCH /api/operational-roles/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/operational-roles/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Operational role not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Operational role not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.300Z"
+    "timestamp": "2026-05-19T14:04:38.102Z"
   },
   {
     "module": "staff",
     "endpoint": "GET /api/staff",
     "method": "GET",
     "path": "/api/staff",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.308Z"
+    "timestamp": "2026-05-19T14:04:38.110Z"
   },
   {
     "module": "staff",
     "endpoint": "POST /api/staff",
     "method": "POST",
     "path": "/api/staff",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "employee_no must be a string",
+        "name must be a string",
+        "operational_role_id must be a UUID"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"employee_no must be a string\",\"name must be a string\",\"operational_role_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.315Z"
+    "timestamp": "2026-05-19T14:04:38.115Z"
   },
   {
     "module": "staff",
     "endpoint": "GET /api/staff/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Staff profile not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.329Z"
+    "timestamp": "2026-05-19T14:04:38.124Z"
   },
   {
     "module": "staff",
     "endpoint": "PATCH /api/staff/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Staff profile not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.338Z"
+    "timestamp": "2026-05-19T14:04:38.132Z"
   },
   {
     "module": "staff",
     "endpoint": "DELETE /api/staff/550e8400-e29b-41d4-a716-446655440000",
     "method": "DELETE",
     "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Staff profile not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.344Z"
+    "timestamp": "2026-05-19T14:04:38.137Z"
   },
   {
     "module": "products",
     "endpoint": "POST /api/products",
     "method": "POST",
     "path": "/api/products",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "product_code must be a string",
+        "product_name must be a string",
+        "category must be one of the following values: FUEL, GAS, LUBRICANT",
+        "measurement_unit_id must be a UUID"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"product_code must be a string\",\"product_name must be a string\",\"category must be one of the following values: FUEL, GAS, LUBRICANT\",\"measurement_unit_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.351Z"
+    "timestamp": "2026-05-19T14:04:38.142Z"
   },
   {
     "module": "products",
     "endpoint": "GET /api/products",
     "method": "GET",
     "path": "/api/products",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "bec09990-1965-414b-82c2-0edd0e2f5ada",
+          "createdAt": "2026-05-19T12:52:14.571Z",
+          "updatedAt": "2026-05-19T12:52:14.571Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productCode": "PETROL",
+          "productName": "Petrol",
+          "category": "FUEL",
+          "measurementUnitId": "ff8993f8-cbb7-4641-8fa9-a56eaeae9813",
+          "isFuel": true,
+          "isLubricant": false,
+          "isGas": false,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "aa30671e-c8dd-46b5-87b1-b2d9a38f7eee",
+          "createdAt": "2026-05-19T12:52:14.618Z",
+          "updatedAt": "2026-05-19T12:52:14.618Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productCode": "OB-OIL",
+          "productName": "OB Oil",
+          "category": "LUBRICANT",
+          "measurementUnitId": "99a14f56-59e1-4efd-ad9a-0681b14f4c88",
+          "isFuel": false,
+          "isLubricant": true,
+          "isGas": false,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "113c1372-83a8-42d2-a739-316b347e1d50",
+          "createdAt": "2026-05-19T12:52:14.610Z",
+          "updatedAt": "2026-05-19T12:52:14.610Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productCode": "KEROSENE",
+          "productName": "Kerosene",
+          "category": "FUEL",
+          "measurementUnitId": "ff8993f8-cbb7-4641-8fa9-a56eaeae9813",
+          "isFuel": true,
+          "isLubricant": false,
+          "isGas": false,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "26142c37-eb02-49d7-804d-93b390625e22",
+          "createdAt": "2026-05-19T12:52:14.614Z",
+          "updatedAt": "2026-05-19T12:52:14.614Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productCode": "GAS-CYL",
+          "productName": "Gas Cylinder",
+          "category": "GAS",
+          "measurementUnitId": "99a14f56-59e1-4efd-ad9a-0681b14f4c88",
+          "isFuel": false,
+          "isLubricant": false,
+          "isGas": true,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "652378bd-d117-4ee4-af0e-de9bc411c1db",
+          "createdAt": "2026-05-19T12:52:14.606Z",
+          "updatedAt": "2026-05-19T12:52:14.606Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productCode": "DIESEL",
+          "productName": "Diesel",
+          "category": "FUEL",
+          "measurementUnitId": "ff8993f8-cbb7-4641-8fa9-a56eaeae9813",
+          "isFuel": true,
+          "isLubricant": false,
+          "isGas": false,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "187c8ddd-499b-4fbf-8882-30472cbb3e1c",
+          "createdAt": "2026-05-19T12:52:14.621Z",
+          "updatedAt": "2026-05-19T12:52:14.621Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productCode": "2T-OIL",
+          "productName": "2T Oil",
+          "category": "LUBRICANT",
+          "measurementUnitId": "99a14f56-59e1-4efd-ad9a-0681b14f4c88",
+          "isFuel": false,
+          "isLubricant": true,
+          "isGas": false,
+          "status": "ACTIVE"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 6,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"createdAt\":\"2026-05-19T12:52:14.571Z\",\"updatedAt\":\"2026-05-19T12:52:14.571Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"PETROL\",\"productName\":\"Petrol\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"createdAt\":\"2026-05-19T12:52:14.618Z\",\"updatedAt\":\"2026-05-19T12:52:14.618Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"OB-OIL\",\"productName\":\"OB Oil\",\"category\":\"LUBRICANT\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":true,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"createdAt\":\"2026-05-19T12:52:14.610Z\",\"updatedAt\":\"2026-05-19T12:52:14.610Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"KEROSENE\",\"productName\":\"Kerosene\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"createdAt\":\"2026-05-19T12:52:14.614Z\",\"updatedAt\":\"2026-05-19T12:52:14.614Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"GAS-CYL\",\"productName\":\"Gas Cylinder\",\"category\":\"GAS\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":false,\"isGas\":true,\"status\":\"ACTIVE\"},{\"id\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"createdAt\":\"2026-05-19T12:52:14.606Z\",\"updatedAt\":\"2026-05-19T12:52:14.606Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"DIESEL\",\"productName\":\"Diesel\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"createdAt\":\"2026-05-19T12:52:14.621Z\",\"updatedAt\":\"2026-05-19T12:52:14.621Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"2T-OIL\",\"productName\":\"2T Oil\",\"category\":\"LUBRICANT\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":true,\"isGas\":false,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.357Z"
+    "timestamp": "2026-05-19T14:04:38.152Z"
   },
   {
     "module": "products",
     "endpoint": "PATCH /api/products/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/products/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Product not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Product not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.365Z"
+    "timestamp": "2026-05-19T14:04:38.158Z"
   },
   {
     "module": "products",
     "endpoint": "POST /api/products/550e8400-e29b-41d4-a716-446655440000/prices",
     "method": "POST",
     "path": "/api/products/550e8400-e29b-41d4-a716-446655440000/prices",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "selling_price must not be less than 0.01",
+        "selling_price must be a number conforming to the specified constraints",
+        "effective_from must be a valid ISO 8601 date string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"selling_price must not be less than 0.01\",\"selling_price must be a number conforming to the specified constraints\",\"effective_from must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.369Z"
+    "timestamp": "2026-05-19T14:04:38.164Z"
   },
   {
     "module": "products",
     "endpoint": "GET /api/products/550e8400-e29b-41d4-a716-446655440000/prices",
     "method": "GET",
     "path": "/api/products/550e8400-e29b-41d4-a716-446655440000/prices",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.374Z"
+    "timestamp": "2026-05-19T14:04:38.174Z"
   },
   {
     "module": "pumps",
     "endpoint": "POST /api/pumps",
     "method": "POST",
     "path": "/api/pumps",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "pump_code must be a string",
+        "pump_name must be a string",
+        "nozzles must contain at least 1 elements",
+        "nozzles must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"pump_code must be a string\",\"pump_name must be a string\",\"nozzles must contain at least 1 elements\",\"nozzles must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.397Z"
+    "timestamp": "2026-05-19T14:04:38.181Z"
   },
   {
     "module": "pumps",
     "endpoint": "GET /api/pumps",
     "method": "GET",
     "path": "/api/pumps",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
+          "createdAt": "2026-05-19T12:52:14.631Z",
+          "updatedAt": "2026-05-19T12:52:14.631Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "pumpCode": "P1",
+          "pumpName": "Pump 1",
+          "status": "ACTIVE",
+          "nozzles": [
+            {
+              "id": "d28d18e0-f53b-448a-8ef9-e62834d5a559",
+              "createdAt": "2026-05-19T12:52:14.632Z",
+              "updatedAt": "2026-05-19T12:52:14.632Z",
+              "updatedBy": null,
+              "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+              "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
+              "productId": "bec09990-1965-414b-82c2-0edd0e2f5ada",
+              "nozzleName": "Pump 1 Petrol",
+              "nozzleCode": "P1-A",
+              "meterCapacity": "99999.999",
+              "status": "ACTIVE"
+            },
+            {
+              "id": "e704d710-01d0-4b38-9284-260458f96678",
+              "createdAt": "2026-05-19T12:52:14.632Z",
+              "updatedAt": "2026-05-19T12:52:14.632Z",
+              "updatedBy": null,
+              "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+              "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
+              "productId": "652378bd-d117-4ee4-af0e-de9bc411c1db",
+              "nozzleName": "Pump 1 Diesel",
+              "nozzleCode": "P1-B",
+              "meterCapacity": "99999.999",
+              "status": "ACTIVE"
+            }
+          ]
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 1,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"createdAt\":\"2026-05-19T12:52:14.631Z\",\"updatedAt\":\"2026-05-19T12:52:14.631Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpCode\":\"P1\",\"pumpName\":\"Pump 1\",\"status\":\"ACTIVE\",\"nozzles\":[{\"id\":\"d28d18e0-f53b-448a-8ef9-e62834d5a559\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"nozzleName\":\"Pump 1 Petrol\",\"nozzleCode\":\"P1-A\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"},{\"id\":\"e704d710-01d0-4b38-9284-260458f96678\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"nozzleName\":\"Pump 1 Diesel\",\"nozzleCode\":\"P1-B\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"}]}],\"meta\":{\"page\":1,\"limit\":25,\"total\":1,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.415Z"
+    "timestamp": "2026-05-19T14:04:38.196Z"
   },
   {
     "module": "pumps",
     "endpoint": "PATCH /api/pumps/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/pumps/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Pump not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Pump not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.423Z"
+    "timestamp": "2026-05-19T14:04:38.203Z"
   },
   {
     "module": "pumps",
     "endpoint": "POST /api/pump-nozzles",
     "method": "POST",
     "path": "/api/pump-nozzles",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "pump_id must be a UUID",
+        "nozzle_name must be a string",
+        "nozzle_code must be a string",
+        "product_id must be a UUID"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"pump_id must be a UUID\",\"nozzle_name must be a string\",\"nozzle_code must be a string\",\"product_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.430Z"
+    "timestamp": "2026-05-19T14:04:38.209Z"
   },
   {
     "module": "pumps",
     "endpoint": "GET /api/pump-nozzles",
     "method": "GET",
     "path": "/api/pump-nozzles",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "e704d710-01d0-4b38-9284-260458f96678",
+          "createdAt": "2026-05-19T12:52:14.632Z",
+          "updatedAt": "2026-05-19T12:52:14.632Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
+          "productId": "652378bd-d117-4ee4-af0e-de9bc411c1db",
+          "nozzleName": "Pump 1 Diesel",
+          "nozzleCode": "P1-B",
+          "meterCapacity": "99999.999",
+          "status": "ACTIVE"
+        },
+        {
+          "id": "d28d18e0-f53b-448a-8ef9-e62834d5a559",
+          "createdAt": "2026-05-19T12:52:14.632Z",
+          "updatedAt": "2026-05-19T12:52:14.632Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
+          "productId": "bec09990-1965-414b-82c2-0edd0e2f5ada",
+          "nozzleName": "Pump 1 Petrol",
+          "nozzleCode": "P1-A",
+          "meterCapacity": "99999.999",
+          "status": "ACTIVE"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 2,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"e704d710-01d0-4b38-9284-260458f96678\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"nozzleName\":\"Pump 1 Diesel\",\"nozzleCode\":\"P1-B\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"},{\"id\":\"d28d18e0-f53b-448a-8ef9-e62834d5a559\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"nozzleName\":\"Pump 1 Petrol\",\"nozzleCode\":\"P1-A\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.436Z"
+    "timestamp": "2026-05-19T14:04:38.215Z"
   },
   {
     "module": "pumps",
     "endpoint": "PATCH /api/pump-nozzles/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/pump-nozzles/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Nozzle not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Nozzle not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.445Z"
+    "timestamp": "2026-05-19T14:04:38.222Z"
   },
   {
     "module": "attendance",
     "endpoint": "POST /api/attendance/clock-in",
     "method": "POST",
     "path": "/api/attendance/clock-in",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "shift_session_id must be a UUID",
+        "staff_id must be a UUID"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"shift_session_id must be a UUID\",\"staff_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.451Z"
+    "timestamp": "2026-05-19T14:04:38.228Z"
   },
   {
     "module": "attendance",
     "endpoint": "POST /api/attendance/clock-out",
     "method": "POST",
     "path": "/api/attendance/clock-out",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "shift_session_id must be a UUID",
+        "staff_id must be a UUID"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"shift_session_id must be a UUID\",\"staff_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.457Z"
+    "timestamp": "2026-05-19T14:04:38.234Z"
   },
   {
     "module": "attendance",
     "endpoint": "GET /api/attendance",
     "method": "GET",
     "path": "/api/attendance",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.461Z"
+    "timestamp": "2026-05-19T14:04:38.243Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-templates",
     "method": "POST",
     "path": "/api/shift-templates",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "shift_name must be a string",
+        "start_time must match /^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$/ regular expression",
+        "end_time must match /^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$/ regular expression"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"shift_name must be a string\",\"start_time must match /^([01]\\\\d|2[0-3]):[0-5]\\\\d(:[0-5]\\\\d)?$/ regular expression\",\"end_time must match /^([01]\\\\d|2[0-3]):[0-5]\\\\d(:[0-5]\\\\d)?$/ regular expression\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.465Z"
+    "timestamp": "2026-05-19T14:04:38.251Z"
   },
   {
     "module": "shifts",
     "endpoint": "GET /api/shift-templates",
     "method": "GET",
     "path": "/api/shift-templates",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "4561f321-64d6-40b8-8692-a463c3f81444",
+          "createdAt": "2026-05-19T12:52:14.627Z",
+          "updatedAt": "2026-05-19T12:52:14.627Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "shiftName": "Shift 2",
+          "startTime": "13:30:00",
+          "endTime": "21:00:00",
+          "isNightShift": false,
+          "sequenceNo": 2,
+          "status": "ACTIVE"
+        },
+        {
+          "id": "faf072cf-7ede-43f2-9770-ee210d148610",
+          "createdAt": "2026-05-19T12:52:14.625Z",
+          "updatedAt": "2026-05-19T12:52:14.625Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "shiftName": "Shift 1",
+          "startTime": "08:00:00",
+          "endTime": "13:30:00",
+          "isNightShift": false,
+          "sequenceNo": 1,
+          "status": "ACTIVE"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 2,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"4561f321-64d6-40b8-8692-a463c3f81444\",\"createdAt\":\"2026-05-19T12:52:14.627Z\",\"updatedAt\":\"2026-05-19T12:52:14.627Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"shiftName\":\"Shift 2\",\"startTime\":\"13:30:00\",\"endTime\":\"21:00:00\",\"isNightShift\":false,\"sequenceNo\":2,\"status\":\"ACTIVE\"},{\"id\":\"faf072cf-7ede-43f2-9770-ee210d148610\",\"createdAt\":\"2026-05-19T12:52:14.625Z\",\"updatedAt\":\"2026-05-19T12:52:14.625Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"shiftName\":\"Shift 1\",\"startTime\":\"08:00:00\",\"endTime\":\"13:30:00\",\"isNightShift\":false,\"sequenceNo\":1,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.470Z"
+    "timestamp": "2026-05-19T14:04:38.264Z"
   },
   {
     "module": "shifts",
     "endpoint": "PATCH /api/shift-templates/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/shift-templates/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Shift template not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Shift template not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.473Z"
+    "timestamp": "2026-05-19T14:04:38.271Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions",
     "method": "POST",
     "path": "/api/shift-sessions",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "shift_template_id must be a string",
+        "business_date must be a valid ISO 8601 date string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"shift_template_id must be a string\",\"business_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.477Z"
+    "timestamp": "2026-05-19T14:04:38.276Z"
   },
   {
     "module": "shifts",
     "endpoint": "GET /api/shift-sessions",
     "method": "GET",
     "path": "/api/shift-sessions",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.481Z"
+    "timestamp": "2026-05-19T14:04:38.282Z"
   },
   {
     "module": "shifts",
     "endpoint": "GET /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Shift session not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Shift session not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.486Z"
+    "timestamp": "2026-05-19T14:04:38.289Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/open",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/open",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Shift session not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Shift session not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.490Z"
+    "timestamp": "2026-05-19T14:04:38.297Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/assignments",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/assignments",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "assignments must contain at least 1 elements",
+        "assignments must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"assignments must contain at least 1 elements\",\"assignments must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.494Z"
+    "timestamp": "2026-05-19T14:04:38.303Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/opening-readings",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/opening-readings",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "readings must contain at least 1 elements",
+        "readings must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"readings must contain at least 1 elements\",\"readings must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.498Z"
+    "timestamp": "2026-05-19T14:04:38.309Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/closing-readings",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/closing-readings",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "readings must contain at least 1 elements",
+        "readings must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"readings must contain at least 1 elements\",\"readings must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.503Z"
+    "timestamp": "2026-05-19T14:04:38.317Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/cash-submissions",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/cash-submissions",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "submissions must contain at least 1 elements",
+        "submissions must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"submissions must contain at least 1 elements\",\"submissions must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.508Z"
+    "timestamp": "2026-05-19T14:04:38.323Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/close",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/close",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "closing_readings must contain at least 1 elements",
+        "closing_readings must be an array",
+        "cash_submissions must contain at least 1 elements",
+        "cash_submissions must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"closing_readings must contain at least 1 elements\",\"closing_readings must be an array\",\"cash_submissions must contain at least 1 elements\",\"cash_submissions must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.513Z"
+    "timestamp": "2026-05-19T14:04:38.326Z"
   },
   {
     "module": "inventory",
     "endpoint": "GET /api/stock-balances",
     "method": "GET",
     "path": "/api/stock-balances",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "id": "89c555d5-9758-4854-a030-77bb5103ecea",
+          "createdAt": "2026-05-19T12:52:14.622Z",
+          "updatedAt": "2026-05-19T12:52:14.622Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productId": "187c8ddd-499b-4fbf-8882-30472cbb3e1c",
+          "quantityOnHand": "100.000"
+        },
+        {
+          "id": "05966d0d-199e-432a-bbef-9dd7c61848b5",
+          "createdAt": "2026-05-19T12:52:14.619Z",
+          "updatedAt": "2026-05-19T12:52:14.619Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productId": "aa30671e-c8dd-46b5-87b1-b2d9a38f7eee",
+          "quantityOnHand": "100.000"
+        },
+        {
+          "id": "a563f6ea-6c6b-4ed9-b352-abf0a416eccb",
+          "createdAt": "2026-05-19T12:52:14.615Z",
+          "updatedAt": "2026-05-19T12:52:14.615Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productId": "26142c37-eb02-49d7-804d-93b390625e22",
+          "quantityOnHand": "100.000"
+        },
+        {
+          "id": "ed86f524-fb12-4f76-b271-199f5557a890",
+          "createdAt": "2026-05-19T12:52:14.611Z",
+          "updatedAt": "2026-05-19T12:52:14.611Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productId": "113c1372-83a8-42d2-a739-316b347e1d50",
+          "quantityOnHand": "10000.000"
+        },
+        {
+          "id": "8fb3c4c3-2749-4d60-b9e7-e7c4b366fc82",
+          "createdAt": "2026-05-19T12:52:14.607Z",
+          "updatedAt": "2026-05-19T12:52:14.607Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productId": "652378bd-d117-4ee4-af0e-de9bc411c1db",
+          "quantityOnHand": "10000.000"
+        },
+        {
+          "id": "b47ad417-9c93-432e-addb-6d90a84c7b6a",
+          "createdAt": "2026-05-19T12:52:14.575Z",
+          "updatedAt": "2026-05-19T12:52:14.575Z",
+          "updatedBy": null,
+          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
+          "productId": "bec09990-1965-414b-82c2-0edd0e2f5ada",
+          "quantityOnHand": "10000.000"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 6,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"id\":\"89c555d5-9758-4854-a030-77bb5103ecea\",\"createdAt\":\"2026-05-19T12:52:14.622Z\",\"updatedAt\":\"2026-05-19T12:52:14.622Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"quantityOnHand\":\"100.000\"},{\"id\":\"05966d0d-199e-432a-bbef-9dd7c61848b5\",\"createdAt\":\"2026-05-19T12:52:14.619Z\",\"updatedAt\":\"2026-05-19T12:52:14.619Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"quantityOnHand\":\"100.000\"},{\"id\":\"a563f6ea-6c6b-4ed9-b352-abf0a416eccb\",\"createdAt\":\"2026-05-19T12:52:14.615Z\",\"updatedAt\":\"2026-05-19T12:52:14.615Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"quantityOnHand\":\"100.000\"},{\"id\":\"ed86f524-fb12-4f76-b271-199f5557a890\",\"createdAt\":\"2026-05-19T12:52:14.611Z\",\"updatedAt\":\"2026-05-19T12:52:14.611Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"quantityOnHand\":\"10000.000\"},{\"id\":\"8fb3c4c3-2749-4d60-b9e7-e7c4b366fc82\",\"createdAt\":\"2026-05-19T12:52:14.607Z\",\"updatedAt\":\"2026-05-19T12:52:14.607Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"quantityOnHand\":\"10000.000\"},{\"id\":\"b47ad417-9c93-432e-addb-6d90a84c7b6a\",\"createdAt\":\"2026-05-19T12:52:14.575Z\",\"updatedAt\":\"2026-05-19T12:52:14.575Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"quantityOnHand\":\"10000.000\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.517Z"
+    "timestamp": "2026-05-19T14:04:38.334Z"
   },
   {
     "module": "inventory",
     "endpoint": "GET /api/stock-movements",
     "method": "GET",
     "path": "/api/stock-movements",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.521Z"
+    "timestamp": "2026-05-19T14:04:38.344Z"
   },
   {
     "module": "inventory",
     "endpoint": "POST /api/tanks",
     "method": "POST",
     "path": "/api/tanks",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "tank_code must be a string",
+        "fuel_product_id must be a UUID",
+        "capacity_litres must not be less than 0.001",
+        "capacity_litres must be a number conforming to the specified constraints"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"tank_code must be a string\",\"fuel_product_id must be a UUID\",\"capacity_litres must not be less than 0.001\",\"capacity_litres must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.526Z"
+    "timestamp": "2026-05-19T14:04:38.354Z"
   },
   {
     "module": "inventory",
     "endpoint": "GET /api/tanks",
     "method": "GET",
     "path": "/api/tanks",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.535Z"
+    "timestamp": "2026-05-19T14:04:38.375Z"
   },
   {
     "module": "inventory",
     "endpoint": "POST /api/stock-adjustments",
     "method": "POST",
     "path": "/api/stock-adjustments",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "product_id must be a UUID",
+        "movement_type must be one of the following values: MANUAL_ADJUSTMENT, NIGHT_VERIFICATION, RETURN",
+        "quantity_in must be a number conforming to the specified constraints",
+        "quantity_out must be a number conforming to the specified constraints",
+        "reference_type must be a string",
+        "reference_id must be a UUID"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"product_id must be a UUID\",\"movement_type must be one of the following values: MANUAL_ADJUSTMENT, NIGHT_VERIFICATION, RETURN\",\"quantity_in must be a number conforming to the specified constraints\",\"quantity_out must be a number conforming to the specified constraints\",\"reference_type must be a string\",\"reference_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.542Z"
+    "timestamp": "2026-05-19T14:04:38.389Z"
   },
   {
     "module": "inventory",
     "endpoint": "POST /api/stock-verifications/night",
     "method": "POST",
     "path": "/api/stock-verifications/night",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "product_id must be a UUID",
+        "physical_stock must not be less than 0",
+        "physical_stock must be a number conforming to the specified constraints"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"product_id must be a UUID\",\"physical_stock must not be less than 0\",\"physical_stock must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.546Z"
+    "timestamp": "2026-05-19T14:04:38.402Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "POST /api/bowser-receipts",
     "method": "POST",
     "path": "/api/bowser-receipts",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "receipt_no must be a string",
+        "received_date must be a valid ISO 8601 date string",
+        "lines must contain at least 1 elements",
+        "lines must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"receipt_no must be a string\",\"received_date must be a valid ISO 8601 date string\",\"lines must contain at least 1 elements\",\"lines must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.550Z"
+    "timestamp": "2026-05-19T14:04:38.411Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "GET /api/bowser-receipts",
     "method": "GET",
     "path": "/api/bowser-receipts",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.554Z"
+    "timestamp": "2026-05-19T14:04:38.419Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "GET /api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Bowser receipt not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Bowser receipt not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.558Z"
+    "timestamp": "2026-05-19T14:04:38.426Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "POST /api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000/approve",
     "method": "POST",
     "path": "/api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000/approve",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Bowser receipt not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Bowser receipt not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.562Z"
+    "timestamp": "2026-05-19T14:04:38.432Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "POST /api/stock-orders",
     "method": "POST",
     "path": "/api/stock-orders",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "order_no must be a string",
+        "order_date must be a valid ISO 8601 date string",
+        "items must contain at least 1 elements",
+        "items must be an array"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"order_no must be a string\",\"order_date must be a valid ISO 8601 date string\",\"items must contain at least 1 elements\",\"items must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.568Z"
+    "timestamp": "2026-05-19T14:04:38.437Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "GET /api/stock-orders",
     "method": "GET",
     "path": "/api/stock-orders",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.573Z"
+    "timestamp": "2026-05-19T14:04:38.448Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "POST /api/stock-orders/550e8400-e29b-41d4-a716-446655440000/approve",
     "method": "POST",
     "path": "/api/stock-orders/550e8400-e29b-41d4-a716-446655440000/approve",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Stock order not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Stock order not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.577Z"
+    "timestamp": "2026-05-19T14:04:38.458Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "POST /api/stock-orders/550e8400-e29b-41d4-a716-446655440000/payments",
     "method": "POST",
     "path": "/api/stock-orders/550e8400-e29b-41d4-a716-446655440000/payments",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "payment_type must be a string",
+        "amount must not be less than 0.01",
+        "amount must be a number conforming to the specified constraints",
+        "payment_date must be a valid ISO 8601 date string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"payment_type must be a string\",\"amount must not be less than 0.01\",\"amount must be a number conforming to the specified constraints\",\"payment_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.582Z"
+    "timestamp": "2026-05-19T14:04:38.466Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "POST /api/credit-customers",
     "method": "POST",
     "path": "/api/credit-customers",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "customer_name must be a string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"customer_name must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.586Z"
+    "timestamp": "2026-05-19T14:04:38.472Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "GET /api/credit-customers",
     "method": "GET",
     "path": "/api/credit-customers",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.590Z"
+    "timestamp": "2026-05-19T14:04:38.479Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "POST /api/credit-sales",
     "method": "POST",
     "path": "/api/credit-sales",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "customer_id must be a UUID",
+        "product_id must be a UUID",
+        "quantity must not be less than 0.001",
+        "quantity must be a number conforming to the specified constraints",
+        "unit_price must not be less than 0.01",
+        "unit_price must be a number conforming to the specified constraints"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"customer_id must be a UUID\",\"product_id must be a UUID\",\"quantity must not be less than 0.001\",\"quantity must be a number conforming to the specified constraints\",\"unit_price must not be less than 0.01\",\"unit_price must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.595Z"
+    "timestamp": "2026-05-19T14:04:38.483Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "GET /api/credit-sales",
     "method": "GET",
     "path": "/api/credit-sales",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.600Z"
+    "timestamp": "2026-05-19T14:04:38.490Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "POST /api/due-collections",
     "method": "POST",
     "path": "/api/due-collections",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "customer_id must be a UUID",
+        "amount_collected must not be less than 0.01",
+        "amount_collected must be a number conforming to the specified constraints",
+        "collection_date must be a valid ISO 8601 date string",
+        "payment_method must be a string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"customer_id must be a UUID\",\"amount_collected must not be less than 0.01\",\"amount_collected must be a number conforming to the specified constraints\",\"collection_date must be a valid ISO 8601 date string\",\"payment_method must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.604Z"
+    "timestamp": "2026-05-19T14:04:38.493Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "GET /api/due-collections",
     "method": "GET",
     "path": "/api/due-collections",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.610Z"
+    "timestamp": "2026-05-19T14:04:38.500Z"
   },
   {
     "module": "cheques",
     "endpoint": "POST /api/cheques",
     "method": "POST",
     "path": "/api/cheques",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "cheque_no must be a string",
+        "amount must not be less than 0.01",
+        "amount must be a number conforming to the specified constraints",
+        "received_date must be a valid ISO 8601 date string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"cheque_no must be a string\",\"amount must not be less than 0.01\",\"amount must be a number conforming to the specified constraints\",\"received_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.614Z"
+    "timestamp": "2026-05-19T14:04:38.503Z"
   },
   {
     "module": "cheques",
     "endpoint": "GET /api/cheques",
     "method": "GET",
     "path": "/api/cheques",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.620Z"
+    "timestamp": "2026-05-19T14:04:38.510Z"
   },
   {
     "module": "cheques",
     "endpoint": "PATCH /api/cheques/550e8400-e29b-41d4-a716-446655440000/status",
     "method": "PATCH",
     "path": "/api/cheques/550e8400-e29b-41d4-a716-446655440000/status",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "status must be one of the following values: RECEIVED, DEPOSITED, CLEARED, RETURNED, CANCELLED"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"status must be one of the following values: RECEIVED, DEPOSITED, CLEARED, RETURNED, CANCELLED\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.625Z"
+    "timestamp": "2026-05-19T14:04:38.514Z"
   },
   {
     "module": "daily-balancing",
     "endpoint": "POST /api/daily-balancing",
     "method": "POST",
     "path": "/api/daily-balancing",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "business_date must be a valid ISO 8601 date string",
+        "expected_cash must not be less than 0",
+        "expected_cash must be a number conforming to the specified constraints",
+        "actual_cash must not be less than 0",
+        "actual_cash must be a number conforming to the specified constraints"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"business_date must be a valid ISO 8601 date string\",\"expected_cash must not be less than 0\",\"expected_cash must be a number conforming to the specified constraints\",\"actual_cash must not be less than 0\",\"actual_cash must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.629Z"
+    "timestamp": "2026-05-19T14:04:38.517Z"
   },
   {
     "module": "daily-balancing",
     "endpoint": "GET /api/daily-balancing",
     "method": "GET",
     "path": "/api/daily-balancing",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.633Z"
+    "timestamp": "2026-05-19T14:04:38.524Z"
   },
   {
     "module": "daily-balancing",
     "endpoint": "POST /api/daily-balancing/550e8400-e29b-41d4-a716-446655440000/close",
     "method": "POST",
     "path": "/api/daily-balancing/550e8400-e29b-41d4-a716-446655440000/close",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Daily balance not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Daily balance not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.637Z"
+    "timestamp": "2026-05-19T14:04:38.528Z"
   },
   {
     "module": "payroll",
     "endpoint": "POST /api/payroll-runs",
     "method": "POST",
     "path": "/api/payroll-runs",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "period_start must be a valid ISO 8601 date string",
+        "period_end must be a valid ISO 8601 date string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"period_start must be a valid ISO 8601 date string\",\"period_end must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.642Z"
+    "timestamp": "2026-05-19T14:04:38.532Z"
   },
   {
     "module": "payroll",
     "endpoint": "GET /api/payroll-runs",
     "method": "GET",
     "path": "/api/payroll-runs",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.647Z"
+    "timestamp": "2026-05-19T14:04:38.537Z"
   },
   {
     "module": "payroll",
     "endpoint": "POST /api/payroll-runs/550e8400-e29b-41d4-a716-446655440000/finalize",
     "method": "POST",
     "path": "/api/payroll-runs/550e8400-e29b-41d4-a716-446655440000/finalize",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Payroll run not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Payroll run not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.652Z"
+    "timestamp": "2026-05-19T14:04:38.543Z"
   },
   {
     "module": "payroll",
     "endpoint": "GET /api/salary-deductions",
     "method": "GET",
     "path": "/api/salary-deductions",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.659Z"
+    "timestamp": "2026-05-19T14:04:38.549Z"
   },
   {
     "module": "payroll",
     "endpoint": "POST /api/salary-deductions/550e8400-e29b-41d4-a716-446655440000/approve",
     "method": "POST",
     "path": "/api/salary-deductions/550e8400-e29b-41d4-a716-446655440000/approve",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 404,
+    "statusText": "Not Found",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": "Salary deduction not found",
+      "error": "Not Found",
+      "statusCode": 404
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":\"Salary deduction not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.664Z"
+    "timestamp": "2026-05-19T14:04:38.553Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/dashboard",
     "method": "GET",
     "path": "/api/reports/dashboard",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "today_sales": 0,
+      "active_shift_count": 0,
+      "fuel_stock_summary": [
+        {
+          "product_code": "DIESEL",
+          "product_name": "Diesel",
+          "category": "FUEL",
+          "quantity_on_hand": "10000.000"
+        },
+        {
+          "product_code": "KEROSENE",
+          "product_name": "Kerosene",
+          "category": "FUEL",
+          "quantity_on_hand": "10000.000"
+        },
+        {
+          "product_code": "PETROL",
+          "product_name": "Petrol",
+          "category": "FUEL",
+          "quantity_on_hand": "10000.000"
+        },
+        {
+          "product_code": "GAS-CYL",
+          "product_name": "Gas Cylinder",
+          "category": "GAS",
+          "quantity_on_hand": "100.000"
+        },
+        {
+          "product_code": "2T-OIL",
+          "product_name": "2T Oil",
+          "category": "LUBRICANT",
+          "quantity_on_hand": "100.000"
+        },
+        {
+          "product_code": "OB-OIL",
+          "product_name": "OB Oil",
+          "category": "LUBRICANT",
+          "quantity_on_hand": "100.000"
+        }
+      ],
+      "cash_shortfall_count": 0,
+      "pending_approvals": 0,
+      "credit_outstanding": 0,
+      "cheques_pending": 0
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"today_sales\":0,\"active_shift_count\":0,\"fuel_stock_summary\":[{\"product_code\":\"DIESEL\",\"product_name\":\"Diesel\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"KEROSENE\",\"product_name\":\"Kerosene\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"PETROL\",\"product_name\":\"Petrol\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"GAS-CYL\",\"product_name\":\"Gas Cylinder\",\"category\":\"GAS\",\"quantity_on_hand\":\"100.000\"},{\"product_code\":\"2T-OIL\",\"product_name\":\"2T Oil\",\"category\":\"LUBRICANT\",\"quantity_on_hand\":\"100.000\"},{\"product_code\":\"OB-OIL\",\"product_name\":\"OB Oil\",\"category\":\"LUBRICANT\",\"quantity_on_hand\":\"100.000\"}],\"cash_shortfall_count\":0,\"pending_approvals\":0,\"credit_outstanding\":0,\"cheques_pending\":0}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.669Z"
+    "timestamp": "2026-05-19T14:04:38.602Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/shift-summary",
     "method": "GET",
     "path": "/api/reports/shift-summary",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.675Z"
+    "timestamp": "2026-05-19T14:04:38.613Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/stock",
     "method": "GET",
     "path": "/api/reports/stock",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [
+        {
+          "product_id": "aa30671e-c8dd-46b5-87b1-b2d9a38f7eee",
+          "product_code": "OB-OIL",
+          "product_name": "OB Oil",
+          "category": "LUBRICANT",
+          "status": "ACTIVE",
+          "quantity_on_hand": "100.000",
+          "updated_at": "2026-05-19T12:52:14.619Z"
+        },
+        {
+          "product_id": "187c8ddd-499b-4fbf-8882-30472cbb3e1c",
+          "product_code": "2T-OIL",
+          "product_name": "2T Oil",
+          "category": "LUBRICANT",
+          "status": "ACTIVE",
+          "quantity_on_hand": "100.000",
+          "updated_at": "2026-05-19T12:52:14.622Z"
+        },
+        {
+          "product_id": "26142c37-eb02-49d7-804d-93b390625e22",
+          "product_code": "GAS-CYL",
+          "product_name": "Gas Cylinder",
+          "category": "GAS",
+          "status": "ACTIVE",
+          "quantity_on_hand": "100.000",
+          "updated_at": "2026-05-19T12:52:14.615Z"
+        },
+        {
+          "product_id": "bec09990-1965-414b-82c2-0edd0e2f5ada",
+          "product_code": "PETROL",
+          "product_name": "Petrol",
+          "category": "FUEL",
+          "status": "ACTIVE",
+          "quantity_on_hand": "10000.000",
+          "updated_at": "2026-05-19T12:52:14.575Z"
+        },
+        {
+          "product_id": "652378bd-d117-4ee4-af0e-de9bc411c1db",
+          "product_code": "DIESEL",
+          "product_name": "Diesel",
+          "category": "FUEL",
+          "status": "ACTIVE",
+          "quantity_on_hand": "10000.000",
+          "updated_at": "2026-05-19T12:52:14.607Z"
+        },
+        {
+          "product_id": "113c1372-83a8-42d2-a739-316b347e1d50",
+          "product_code": "KEROSENE",
+          "product_name": "Kerosene",
+          "category": "FUEL",
+          "status": "ACTIVE",
+          "quantity_on_hand": "10000.000",
+          "updated_at": "2026-05-19T12:52:14.611Z"
+        }
+      ],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 6,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[{\"product_id\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"product_code\":\"OB-OIL\",\"product_name\":\"OB Oil\",\"category\":\"LUBRICANT\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.619Z\"},{\"product_id\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"product_code\":\"2T-OIL\",\"product_name\":\"2T Oil\",\"category\":\"LUBRICANT\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.622Z\"},{\"product_id\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"product_code\":\"GAS-CYL\",\"product_name\":\"Gas Cylinder\",\"category\":\"GAS\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.615Z\"},{\"product_id\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"product_code\":\"PETROL\",\"product_name\":\"Petrol\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.575Z\"},{\"product_id\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"product_code\":\"DIESEL\",\"product_name\":\"Diesel\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.607Z\"},{\"product_id\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"product_code\":\"KEROSENE\",\"product_name\":\"Kerosene\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.611Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.678Z"
+    "timestamp": "2026-05-19T14:04:38.621Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/pump-meters",
     "method": "GET",
     "path": "/api/reports/pump-meters",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.682Z"
+    "timestamp": "2026-05-19T14:04:38.632Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/attendance",
     "method": "GET",
     "path": "/api/reports/attendance",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.686Z"
+    "timestamp": "2026-05-19T14:04:38.640Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/daily-sales",
     "method": "GET",
     "path": "/api/reports/daily-sales",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.691Z"
+    "timestamp": "2026-05-19T14:04:38.645Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/pumper-shortfalls",
     "method": "GET",
     "path": "/api/reports/pumper-shortfalls",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.695Z"
+    "timestamp": "2026-05-19T14:04:38.653Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/payroll-deductions",
     "method": "GET",
     "path": "/api/reports/payroll-deductions",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.699Z"
+    "timestamp": "2026-05-19T14:04:38.659Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/bowser-receipts",
     "method": "GET",
     "path": "/api/reports/bowser-receipts",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.706Z"
+    "timestamp": "2026-05-19T14:04:38.666Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/stock-orders",
     "method": "GET",
     "path": "/api/reports/stock-orders",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.711Z"
+    "timestamp": "2026-05-19T14:04:38.673Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/credit-dues",
     "method": "GET",
     "path": "/api/reports/credit-dues",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.715Z"
+    "timestamp": "2026-05-19T14:04:38.681Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/cheques",
     "method": "GET",
     "path": "/api/reports/cheques",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.720Z"
+    "timestamp": "2026-05-19T14:04:38.687Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/bank-deposits",
     "method": "GET",
     "path": "/api/reports/bank-deposits",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.724Z"
+    "timestamp": "2026-05-19T14:04:38.693Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/profit-loss",
     "method": "GET",
     "path": "/api/reports/profit-loss",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "period": {},
+      "revenue": 0,
+      "supplier_payments": 0,
+      "approved_deductions": 0,
+      "gross_profit_estimate": 0,
+      "net_profit_estimate": 0,
+      "credit_outstanding": 0
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"period\":{},\"revenue\":0,\"supplier_payments\":0,\"approved_deductions\":0,\"gross_profit_estimate\":0,\"net_profit_estimate\":0,\"credit_outstanding\":0}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.728Z"
+    "timestamp": "2026-05-19T14:04:38.699Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/cpc-stock",
     "method": "GET",
     "path": "/api/reports/cpc-stock",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 200,
+    "statusText": "OK",
     "contentType": "application/json; charset=utf-8",
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "data": [],
+      "meta": {
+        "page": 1,
+        "limit": 25,
+        "total": 0,
+        "total_pages": 1,
+        "has_next": false,
+        "has_previous": false
+      }
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.732Z"
+    "timestamp": "2026-05-19T14:04:38.707Z"
   },
   {
     "module": "reports",
     "endpoint": "POST /api/reports/cpc-stock/generate",
     "method": "POST",
     "path": "/api/reports/cpc-stock/generate",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 400,
+    "statusText": "Bad Request",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
     "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
+      "message": [
+        "report_date must be a valid ISO 8601 date string"
+      ],
+      "error": "Bad Request",
+      "statusCode": 400
     },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseText": "{\"message\":[\"report_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.739Z"
+    "timestamp": "2026-05-19T14:04:38.711Z"
   },
   {
     "module": "reports",
     "endpoint": "POST /api/reports/cpc-stock/550e8400-e29b-41d4-a716-446655440000/submit",
     "method": "POST",
     "path": "/api/reports/cpc-stock/550e8400-e29b-41d4-a716-446655440000/submit",
-    "status": 401,
-    "statusText": "Unauthorized",
+    "status": 201,
+    "statusText": "Created",
     "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Unauthorized",
-      "statusCode": 401
-    },
-    "responseText": "{\"message\":\"Unauthorized\",\"statusCode\":401}",
+    "responseBody": [],
+    "responseText": "[]",
     "passed": true,
-    "timestamp": "2026-04-30T23:26:41.744Z"
+    "timestamp": "2026-05-19T14:04:38.721Z"
+  },
+  {
+    "module": "auth",
+    "endpoint": "POST /api/auth/logout",
+    "method": "POST",
+    "path": "/api/auth/logout",
+    "status": 201,
+    "statusText": "Created",
+    "contentType": "application/json; charset=utf-8",
+    "responseBody": {
+      "ok": true
+    },
+    "responseText": "{\"ok\":true}",
+    "passed": true,
+    "timestamp": "2026-05-19T14:04:38.728Z"
   }
 ]

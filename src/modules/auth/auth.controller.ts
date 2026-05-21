@@ -39,9 +39,7 @@ export class AuthController {
   async refresh(@Req() request: Request, @Res({ passthrough: true }) response: Response, @Ip() ip: string) {
     const rawToken = request.cookies?.[REFRESH_COOKIE] as string | undefined;
     if (!rawToken) throw new UnauthorizedException('Refresh token missing');
-    // Decode token to get userId + tenantId without verifying (the RefreshTokenService verifies by hash)
-    const payload = this.decodeRefreshPayload(rawToken, request);
-    const result = await this.auth.refresh(rawToken, payload.userId, payload.tenantId, ip, request.headers['user-agent']);
+    const result = await this.auth.refresh(rawToken, ip, request.headers['user-agent']);
     const isProd = this.config.get<string>('app.nodeEnv') === 'production';
     const cookieDomain = this.config.get<string>('app.cookieDomain') === 'localhost' ? undefined : this.config.get<string>('app.cookieDomain');
     const baseOptions = { httpOnly: true, secure: isProd, sameSite: 'lax' as const, path: '/', domain: cookieDomain };
@@ -61,25 +59,5 @@ export class AuthController {
   @Get('me')
   me(@CurrentUser() user: RequestUser) {
     return { user };
-  }
-
-  private decodeRefreshPayload(rawToken: string, request: Request): { userId: string; tenantId: string } {
-    // Refresh tokens are opaque random hex — userId/tenantId are in the access_token cookie or header
-    // We read the (possibly expired) access token just to extract claims for DB lookup
-    const accessToken = request.cookies?.[ACCESS_COOKIE] as string | undefined;
-    if (accessToken) {
-      try {
-        const parts = accessToken.split('.');
-        if (parts.length === 3) {
-          const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8')) as { sub?: string; tenant_id?: string };
-          if (payload.sub && payload.tenant_id) {
-            return { userId: payload.sub, tenantId: payload.tenant_id };
-          }
-        }
-      } catch {
-        // fall through
-      }
-    }
-    throw new UnauthorizedException('Cannot identify user from refresh request — access token missing or malformed');
   }
 }

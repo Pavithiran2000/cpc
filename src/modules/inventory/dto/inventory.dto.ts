@@ -21,8 +21,8 @@ export class StockAdjustmentDto {
   @IsUUID()
   product_id: string;
 
-  @IsIn(['MANUAL_ADJUSTMENT', 'NIGHT_VERIFICATION_ADJUSTMENT', 'RETURN'])
-  movement_type: 'MANUAL_ADJUSTMENT' | 'NIGHT_VERIFICATION_ADJUSTMENT' | 'RETURN';
+  @IsIn(['MANUAL_ADJUSTMENT', 'NIGHT_VERIFICATION', 'RETURN'])
+  movement_type: 'MANUAL_ADJUSTMENT' | 'NIGHT_VERIFICATION' | 'RETURN';
 
   @IsNumber()
   quantity_in: number;

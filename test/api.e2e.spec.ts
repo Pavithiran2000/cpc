@@ -49,7 +49,8 @@ const RUN_STAMP = Date.now();
 const TENANT_UUID = '550e8400-e29b-41d4-a716-446655440000';
 const ZERO_UUID = '00000000-0000-0000-0000-000000000000';
 const TODAY = new Date().toISOString().slice(0, 10);
-const DEFAULT_ALLOWED_STATUSES = [200, 201, 204, 400, 401, 403, 404];
+const DEFAULT_ALLOWED_STATUSES = [200, 201, 204, 400, 403, 404];
+const AUTHENTICATED_READ_STATUSES = [200, 403];
 const INVALID_LOGIN_STATUSES = [400, 401, 403];
 const LOGIN_PROBE_STATUSES = [200, 201, 400, 401, 403];
 
@@ -275,7 +276,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/auth/me`,
     description: 'read current user',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: [200],
     useTenantHeader: false,
   },
   {
@@ -283,7 +284,7 @@ const endpointCases: EndpointCase[] = [
     method: 'POST',
     path: `${API_ROOT}/auth/logout`,
     description: 'logout current session',
-    expectedStatuses: [200, 201, 204, 401, 403],
+    expectedStatuses: [200, 201, 204, 403],
     useTenantHeader: false,
   },
 
@@ -300,7 +301,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/tenants`,
     description: 'list tenants',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'tenants',
@@ -353,7 +354,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/portal-users`,
     description: 'list portal users',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'portal-users',
@@ -377,7 +378,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/operational-roles`,
     description: 'list operational roles',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'operational-roles',
@@ -401,7 +402,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/staff`,
     description: 'list staff',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'staff',
@@ -431,7 +432,7 @@ const endpointCases: EndpointCase[] = [
     method: 'DELETE',
     path: `${API_ROOT}/staff/${TENANT_UUID}`,
     description: 'deactivate staff profile',
-    expectedStatuses: [200, 204, 400, 401, 403, 404],
+    expectedStatuses: [200, 204, 400, 403, 404],
   },
 
   {
@@ -447,7 +448,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/products`,
     description: 'list products',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'products',
@@ -486,7 +487,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/pumps`,
     description: 'list pumps',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'pumps',
@@ -509,7 +510,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/pump-nozzles`,
     description: 'list standalone nozzles',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'pumps',
@@ -541,7 +542,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/attendance`,
     description: 'list attendance',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
 
   {
@@ -557,7 +558,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/shift-templates`,
     description: 'list shift templates',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'shifts',
@@ -580,7 +581,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/shift-sessions`,
     description: 'list shift sessions',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'shifts',
@@ -642,14 +643,14 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/stock-balances`,
     description: 'list stock balances',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'inventory',
     method: 'GET',
     path: `${API_ROOT}/stock-movements`,
     description: 'list stock movements',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'inventory',
@@ -664,7 +665,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/tanks`,
     description: 'list tanks',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'inventory',
@@ -696,7 +697,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/bowser-receipts`,
     description: 'list bowser receipts',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'bowser-receipts',
@@ -727,7 +728,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/stock-orders`,
     description: 'list stock orders',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'stock-orders',
@@ -758,7 +759,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/credit-customers`,
     description: 'list credit customers',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'credit-dues',
@@ -773,7 +774,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/credit-sales`,
     description: 'list credit sales',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'credit-dues',
@@ -788,7 +789,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/due-collections`,
     description: 'list due collections',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
 
   {
@@ -804,7 +805,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/cheques`,
     description: 'list cheques',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'cheques',
@@ -828,7 +829,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/daily-balancing`,
     description: 'list daily balances',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'daily-balancing',
@@ -851,7 +852,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/payroll-runs`,
     description: 'list payroll runs',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'payroll',
@@ -866,7 +867,7 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/salary-deductions`,
     description: 'list salary deductions',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'payroll',
@@ -881,105 +882,105 @@ const endpointCases: EndpointCase[] = [
     method: 'GET',
     path: `${API_ROOT}/reports/dashboard`,
     description: 'dashboard report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/shift-summary`,
     description: 'shift summary report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/stock`,
     description: 'stock report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/pump-meters`,
     description: 'pump meter report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/attendance`,
     description: 'attendance report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/daily-sales`,
     description: 'daily sales report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/pumper-shortfalls`,
     description: 'pumper shortfalls report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/payroll-deductions`,
     description: 'payroll deductions report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/bowser-receipts`,
     description: 'bowser receipts report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/stock-orders`,
     description: 'stock orders report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/credit-dues`,
     description: 'credit dues report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/cheques`,
     description: 'cheques report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/bank-deposits`,
     description: 'bank deposits report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/profit-loss`,
     description: 'profit and loss report',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
     method: 'GET',
     path: `${API_ROOT}/reports/cpc-stock`,
     description: 'list CPC stock reports',
-    expectedStatuses: [200, 401, 403],
+    expectedStatuses: AUTHENTICATED_READ_STATUSES,
   },
   {
     module: 'reports',
@@ -998,6 +999,10 @@ const endpointCases: EndpointCase[] = [
     body: {},
   },
 ];
+
+function isLogoutCase(testCase: EndpointCase): boolean {
+  return testCase.method === 'POST' && testCase.path === `${API_ROOT}/auth/logout`;
+}
 
 describe('Backend E2E API Coverage', () => {
   beforeAll(async () => {
@@ -1054,7 +1059,14 @@ describe('Backend E2E API Coverage', () => {
     expect(passed).toBe(true);
   });
 
-  endpointCases.slice(1).forEach((testCase) => {
+  endpointCases.slice(1).filter((testCase) => !isLogoutCase(testCase)).forEach((testCase) => {
+    it(`${testCase.module.toUpperCase()} | ${testCase.method} ${testCase.path} - ${testCase.description}`, async () => {
+      const passed = await runEndpointCase(testCase);
+      expect(passed).toBe(true);
+    });
+  });
+
+  endpointCases.slice(1).filter(isLogoutCase).forEach((testCase) => {
     it(`${testCase.module.toUpperCase()} | ${testCase.method} ${testCase.path} - ${testCase.description}`, async () => {
       const passed = await runEndpointCase(testCase);
       expect(passed).toBe(true);

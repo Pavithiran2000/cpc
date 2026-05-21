@@ -222,6 +222,36 @@ export class ShiftsService {
     return saved;
   }
 
+  async recordClosingReadings(tenantId: string, shiftSessionId: string, dto: ReadingsDto, actorUserId: string) {
+    const session = await this.sessions.findOne({ where: { tenantId, id: shiftSessionId } });
+    if (!session) throw new NotFoundException('Shift session not found');
+    if (session.status === 'CLOSED') throw new BadRequestException('Closed shifts are locked');
+    if (session.status === 'CANCELLED') throw new BadRequestException('Cancelled shifts are locked');
+
+    const meterReadingRepo = this.dataSource.getRepository(PumpMeterReading);
+    const nozzleRepo = this.dataSource.getRepository(PumpNozzle);
+    const rows: PumpMeterReading[] = [];
+
+    for (const input of dto.readings) {
+      const reading = await meterReadingRepo.findOne({ where: { tenantId, shiftSessionId, nozzleId: input.nozzle_id } });
+      if (!reading) throw new BadRequestException('Cannot record closing reading before opening reading');
+      const nozzle = await nozzleRepo.findOne({ where: { tenantId, id: input.nozzle_id } });
+      if (!nozzle) throw new NotFoundException(`Nozzle ${input.nozzle_id} not found`);
+
+      const { dispensed, isRollover } = calculateDispensed(reading.openingReading, input.meter_reading, nozzle.meterCapacity);
+      reading.closingReading = quantity(input.meter_reading);
+      reading.isRollover = isRollover;
+      reading.dispensedLitres = quantity(dispensed);
+      reading.status = 'CLOSING';
+      reading.recordedBy = actorUserId;
+      rows.push(reading);
+    }
+
+    const saved = await meterReadingRepo.save(rows);
+    await this.audit.record({ tenantId, actorUserId, moduleName: 'meter_readings', action: 'CLOSING', newValue: saved });
+    return saved;
+  }
+
   async recordCash(tenantId: string, shiftSessionId: string, dto: CashSubmissionsDto, actorUserId: string) {
     const session = await this.sessions.findOne({ where: { tenantId, id: shiftSessionId } });
     if (!session) throw new NotFoundException('Shift session not found');

@@ -15,6 +15,8 @@ const TRACKED_ENTITIES: Record<string, string> = {
   'salary-deductions/:id/approve': 'salary_deduction',
 };
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
 @Injectable()
 export class EntityChangeLogInterceptor implements NestInterceptor {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
@@ -30,7 +32,10 @@ export class EntityChangeLogInterceptor implements NestInterceptor {
     if (!user) return next.handle();
 
     const path = request.route?.path as string | undefined;
-    const entityId = (request.params?.id as string | undefined) ?? 'unknown';
+    const entityId = request.params?.id as string | undefined;
+    if (!entityId || !UUID_PATTERN.test(entityId)) {
+      return next.handle();
+    }
 
     let entityType = 'unknown';
     if (path) {
@@ -40,6 +45,10 @@ export class EntityChangeLogInterceptor implements NestInterceptor {
           break;
         }
       }
+    }
+
+    if (entityType === 'unknown') {
+      return next.handle();
     }
 
     const action = method === 'POST' ? 'CREATE' : method === 'DELETE' ? 'DELETE' : 'UPDATE';
@@ -61,7 +70,7 @@ export class EntityChangeLogInterceptor implements NestInterceptor {
             ipAddress,
             userAgent,
           ],
-        );
+        ).catch(() => undefined);
       }),
     );
   }
