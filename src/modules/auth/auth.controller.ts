@@ -6,6 +6,9 @@ import { Public } from '../../common/decorators/public.decorator';
 import { RequestUser } from '../../common/types/request-user.type';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { RegisterResendDto } from './dto/register-resend.dto';
+import { RegisterStartDto } from './dto/register-start.dto';
+import { RegisterVerifyDto } from './dto/register-verify.dto';
 
 const REFRESH_COOKIE = 'refresh_token';
 const ACCESS_COOKIE = 'access_token';
@@ -32,6 +35,24 @@ export class AuthController {
     response.cookie(ACCESS_COOKIE, result.accessToken, { ...baseOptions, maxAge: 8 * 60 * 60 * 1000 });
     response.cookie(REFRESH_COOKIE, result.refreshToken, { ...baseOptions, maxAge: 30 * 24 * 60 * 60 * 1000 });
     return { user: result.user };
+  }
+
+  @Public()
+  @Post('register/start')
+  startRegistration(@Body() dto: RegisterStartDto) {
+    return this.auth.startRegistration(dto);
+  }
+
+  @Public()
+  @Post('register/verify')
+  verifyRegistration(@Body() dto: RegisterVerifyDto) {
+    return this.auth.verifyRegistration(dto);
+  }
+
+  @Public()
+  @Post('register/resend-code')
+  resendRegistrationCode(@Body() dto: RegisterResendDto) {
+    return this.auth.resendRegistrationCode(dto);
   }
 
   @Public()

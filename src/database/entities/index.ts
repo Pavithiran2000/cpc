@@ -7,6 +7,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -48,8 +49,35 @@ export class Tenant extends TimestampedEntity {
   @Column({ type: 'text', nullable: true })
   address?: string;
 
+  @Column({ name: 'address_line1', length: 150, nullable: true })
+  addressLine1?: string;
+
+  @Column({ name: 'address_line2', length: 150, nullable: true })
+  addressLine2?: string;
+
+  @Column({ length: 100, nullable: true })
+  city?: string;
+
   @Column({ length: 100, nullable: true })
   district?: string;
+
+  @Column({ length: 100, nullable: true })
+  province?: string;
+
+  @Column({ name: 'postal_code', length: 30, nullable: true })
+  postalCode?: string;
+
+  @Column({ length: 100, default: 'Sri Lanka' })
+  country: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  latitude?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  longitude?: string;
+
+  @Column({ name: 'geo_city_id', type: 'int', nullable: true })
+  geoCityId?: number;
 
   @Column({ name: 'contact_number', length: 30, nullable: true })
   contactNumber?: string;
@@ -980,6 +1008,210 @@ export class PortalUserRefreshToken extends UuidEntity {
   createdAt: Date;
 }
 
+@Entity('geo_provinces')
+export class GeoProvince {
+  @PrimaryColumn({ type: 'int' })
+  id: number;
+
+  @Column({ length: 100, unique: true })
+  name: string;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
+}
+
+@Entity('geo_districts')
+@Index(['provinceId', 'name'], { unique: true })
+export class GeoDistrict {
+  @PrimaryColumn({ type: 'int' })
+  id: number;
+
+  @Index()
+  @Column({ name: 'province_id', type: 'int' })
+  provinceId: number;
+
+  @ManyToOne(() => GeoProvince)
+  @JoinColumn({ name: 'province_id' })
+  province?: GeoProvince;
+
+  @Column({ length: 100 })
+  name: string;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
+}
+
+@Entity('geo_cities')
+@Index(['districtId', 'name'])
+export class GeoCity {
+  @PrimaryColumn({ type: 'int' })
+  id: number;
+
+  @Index()
+  @Column({ name: 'district_id', type: 'int' })
+  districtId: number;
+
+  @Index()
+  @Column({ name: 'province_id', type: 'int' })
+  provinceId: number;
+
+  @ManyToOne(() => GeoDistrict)
+  @JoinColumn({ name: 'district_id' })
+  district?: GeoDistrict;
+
+  @ManyToOne(() => GeoProvince)
+  @JoinColumn({ name: 'province_id' })
+  province?: GeoProvince;
+
+  @Column({ length: 100 })
+  name: string;
+
+  @Column({ name: 'sub_name', length: 100, nullable: true })
+  subName?: string;
+
+  @Column({ name: 'postal_code', length: 30, nullable: true })
+  postalCode?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  latitude?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  longitude?: string;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
+}
+
+@Entity('geo_custom_cities')
+@Index(['districtId', 'normalizedName'], { unique: true })
+export class GeoCustomCity extends UuidEntity {
+  @Index()
+  @Column({ name: 'district_id', type: 'int' })
+  districtId: number;
+
+  @Index()
+  @Column({ name: 'province_id', type: 'int' })
+  provinceId: number;
+
+  @ManyToOne(() => GeoDistrict)
+  @JoinColumn({ name: 'district_id' })
+  district?: GeoDistrict;
+
+  @ManyToOne(() => GeoProvince)
+  @JoinColumn({ name: 'province_id' })
+  province?: GeoProvince;
+
+  @Column({ length: 100 })
+  name: string;
+
+  @Column({ name: 'normalized_name', length: 100 })
+  normalizedName: string;
+
+  @Column({ name: 'postal_code', length: 30, nullable: true })
+  postalCode?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  latitude?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  longitude?: string;
+
+  @Column({ name: 'created_by_tenant_id', type: 'uuid', nullable: true })
+  createdByTenantId?: string;
+
+  @Column({ length: 30, default: 'PENDING_REVIEW' })
+  status: 'PENDING_REVIEW' | 'APPROVED' | 'REJECTED';
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
+}
+
+@Entity('tenant_registration_attempts')
+@Index(['stationCode'])
+@Index(['ownerEmail'])
+export class TenantRegistrationAttempt extends UuidEntity {
+  @Column({ name: 'station_code', length: 50 })
+  stationCode: string;
+
+  @Column({ name: 'station_name', length: 150 })
+  stationName: string;
+
+  @Column({ name: 'owner_name', length: 150 })
+  ownerName: string;
+
+  @Column({ length: 30 })
+  phone: string;
+
+  @Column({ length: 100, default: 'Sri Lanka' })
+  country: string;
+
+  @Column({ name: 'address_line1', length: 150 })
+  addressLine1: string;
+
+  @Column({ name: 'address_line2', length: 150, nullable: true })
+  addressLine2?: string;
+
+  @Column({ name: 'province_id', type: 'int' })
+  provinceId: number;
+
+  @Column({ name: 'district_id', type: 'int' })
+  districtId: number;
+
+  @Column({ name: 'geo_city_id', type: 'int', nullable: true })
+  geoCityId?: number;
+
+  @Column({ name: 'custom_city_name', length: 100, nullable: true })
+  customCityName?: string;
+
+  @Column({ name: 'postal_code', length: 30, nullable: true })
+  postalCode?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  latitude?: string;
+
+  @Column({ type: 'numeric', precision: 10, scale: 7, nullable: true })
+  longitude?: string;
+
+  @Column({ name: 'owner_email', length: 150 })
+  ownerEmail: string;
+
+  @Column({ name: 'owner_password_hash', type: 'text' })
+  ownerPasswordHash: string;
+
+  @Column({ name: 'verification_code_hash', type: 'text' })
+  verificationCodeHash: string;
+
+  @Column({ name: 'expires_at', type: 'timestamptz' })
+  expiresAt: Date;
+
+  @Column({ name: 'attempt_count', type: 'int', default: 0 })
+  attemptCount: number;
+
+  @Column({ name: 'last_sent_at', type: 'timestamptz' })
+  lastSentAt: Date;
+
+  @Column({ length: 30, default: 'PENDING' })
+  status: 'PENDING' | 'COMPLETED' | 'EXPIRED';
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
+}
+
 @Entity('entity_change_logs')
 @Index(['entityType', 'entityId'])
 @Index(['tenantId', 'createdAt'])
@@ -1085,4 +1317,9 @@ export const entities = [
   AuditLog,
   EntityChangeLog,
   ShiftCorrectionRequest,
+  GeoProvince,
+  GeoDistrict,
+  GeoCity,
+  GeoCustomCity,
+  TenantRegistrationAttempt,
 ];

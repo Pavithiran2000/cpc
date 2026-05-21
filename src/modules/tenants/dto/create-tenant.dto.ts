@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsInt, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateTenantDto {
   @IsString()
@@ -17,7 +17,43 @@ export class CreateTenantDto {
 
   @IsOptional()
   @IsString()
+  address_line1?: string;
+
+  @IsOptional()
+  @IsString()
+  address_line2?: string;
+
+  @IsOptional()
+  @IsString()
+  city?: string;
+
+  @IsOptional()
+  @IsString()
   district?: string;
+
+  @IsOptional()
+  @IsString()
+  province?: string;
+
+  @IsOptional()
+  @IsString()
+  postal_code?: string;
+
+  @IsOptional()
+  @IsString()
+  country?: string;
+
+  @IsOptional()
+  @IsString()
+  latitude?: string;
+
+  @IsOptional()
+  @IsString()
+  longitude?: string;
+
+  @IsOptional()
+  @IsInt()
+  geo_city_id?: number;
 
   @IsOptional()
   @IsString()

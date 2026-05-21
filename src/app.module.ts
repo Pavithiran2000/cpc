@@ -30,6 +30,7 @@ import { PayrollModule } from './modules/payroll/payroll.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { ShiftCorrectionsModule } from './modules/shift-corrections/shift-corrections.module';
+import { GeoModule } from './modules/geo/geo.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { ShiftCorrectionsModule } from './modules/shift-corrections/shift-correc
     TypeOrmModule.forRootAsync({ useFactory: databaseConfig }),
     JwtModule.register({}),
     AuditModule,
+    GeoModule,
     AuthModule,
     TenantsModule,
     PortalUsersModule,
