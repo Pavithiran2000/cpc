@@ -295,7 +295,7 @@ export class ReportsService {
       supplier_payments: supplierPayments,
       approved_deductions: approvedDeductions,
       gross_profit_estimate: sales - supplierPayments,
-      net_profit_estimate: sales - supplierPayments + approvedDeductions,
+      net_profit_estimate: sales - supplierPayments - approvedDeductions,
       credit_outstanding: creditOutstanding,
     };
   }

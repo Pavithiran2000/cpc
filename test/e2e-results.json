@@ -25,7 +25,7 @@
     },
     "responseText": "{\"user\":{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"email\":\"admin@demo.cpc\",\"name\":\"Demo Admin\",\"portalRole\":\"ADMIN\",\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\"}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.487Z"
+    "timestamp": "2026-05-19T14:04:37.988Z"
   },
   {
     "module": "auth",
@@ -47,7 +47,7 @@
     },
     "responseText": "{\"message\":\"Invalid station code or credentials\",\"error\":\"Unauthorized\",\"statusCode\":401}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.494Z"
+    "timestamp": "2026-05-19T14:04:37.996Z"
   },
   {
     "module": "auth",
@@ -67,7 +67,7 @@
     },
     "responseText": "{\"user\":{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"portalRole\":\"ADMIN\",\"email\":\"admin@demo.cpc\"}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.501Z"
+    "timestamp": "2026-05-19T14:04:38.003Z"
   },
   {
     "module": "tenants",
@@ -88,7 +88,7 @@
     },
     "responseText": "{\"message\":[\"station_code must be a string\",\"station_name must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.505Z"
+    "timestamp": "2026-05-19T14:04:38.008Z"
   },
   {
     "module": "tenants",
@@ -126,7 +126,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"createdAt\":\"2026-05-19T12:51:24.250Z\",\"updatedAt\":\"2026-05-19T12:51:24.250Z\",\"updatedBy\":null,\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\",\"ownerName\":\"Demo Owner\",\"address\":null,\"district\":\"Colombo\",\"contactNumber\":\"+94110000000\",\"email\":\"owner@demo.cpc\",\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":1,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.511Z"
+    "timestamp": "2026-05-19T14:04:38.015Z"
   },
   {
     "module": "tenants",
@@ -152,7 +152,7 @@
     },
     "responseText": "{\"id\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"createdAt\":\"2026-05-19T12:51:24.250Z\",\"updatedAt\":\"2026-05-19T12:51:24.250Z\",\"updatedBy\":null,\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\",\"ownerName\":\"Demo Owner\",\"address\":null,\"district\":\"Colombo\",\"contactNumber\":\"+94110000000\",\"email\":\"owner@demo.cpc\",\"status\":\"ACTIVE\"}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.515Z"
+    "timestamp": "2026-05-19T14:04:38.021Z"
   },
   {
     "module": "tenants",
@@ -174,7 +174,7 @@
     },
     "responseText": "{\"salary_deduction_enabled\":\"true\",\"cash_shortfall_requires_approval\":\"true\",\"night_shift_enabled\":\"false\",\"night_stock_verification_required\":\"true\",\"allow_shift_overlap\":\"false\",\"currency\":\"LKR\",\"timezone\":\"Asia/Colombo\",\"cpc_report_format\":\"DEFAULT\"}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.521Z"
+    "timestamp": "2026-05-19T14:04:38.031Z"
   },
   {
     "module": "tenants",
@@ -194,7 +194,7 @@
     },
     "responseText": "{\"message\":[\"settings must be an object\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.525Z"
+    "timestamp": "2026-05-19T14:04:38.036Z"
   },
   {
     "module": "tenants",
@@ -211,7 +211,7 @@
     },
     "responseText": "{\"message\":\"Tenant not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.530Z"
+    "timestamp": "2026-05-19T14:04:38.045Z"
   },
   {
     "module": "tenants",
@@ -229,7 +229,7 @@
     },
     "responseText": "{\"message\":\"Tenant not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.535Z"
+    "timestamp": "2026-05-19T14:04:38.053Z"
   },
   {
     "module": "tenants",
@@ -249,7 +249,7 @@
     },
     "responseText": "{\"message\":[\"settings must be an object\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.538Z"
+    "timestamp": "2026-05-19T14:04:38.060Z"
   },
   {
     "module": "portal-users",
@@ -278,7 +278,7 @@
         {
           "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
           "createdAt": "2026-05-19T12:51:24.470Z",
-          "updatedAt": "2026-05-19T13:42:38.463Z",
+          "updatedAt": "2026-05-19T14:04:37.953Z",
           "updatedBy": null,
           "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
           "name": "Demo Admin",
@@ -287,7 +287,7 @@
           "passwordHash": "$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla",
           "portalRole": "ADMIN",
           "status": "ACTIVE",
-          "lastLoginAt": "2026-05-19T13:42:38.458Z"
+          "lastLoginAt": "2026-05-19T14:04:37.947Z"
         }
       ],
       "meta": {
@@ -299,9 +299,9 @@
         "has_previous": false
       }
     },
-    "responseText": "{\"data\":[{\"id\":\"be77f3c8-8ee6-4c7b-9539-0d0ee934962f\",\"createdAt\":\"2026-05-19T12:52:21.001Z\",\"updatedAt\":\"2026-05-19T12:52:21.001Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Owner\",\"email\":\"owner@demo.cpc\",\"phone\":\"+94110000000\",\"passwordHash\":\"$2b$12$1YCVAIwXUxPqSijllO1sWOnYBV5noRh2hmL49xISEtH2QkGNEnaom\",\"portalRole\":\"OWNER\",\"status\":\"ACTIVE\",\"lastLoginAt\":null},{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"createdAt\":\"2026-05-19T12:51:24.470Z\",\"updatedAt\":\"2026-05-19T13:42:38.463Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Admin\",\"email\":\"admin@demo.cpc\",\"phone\":null,\"passwordHash\":\"$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla\",\"portalRole\":\"ADMIN\",\"status\":\"ACTIVE\",\"lastLoginAt\":\"2026-05-19T13:42:38.458Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
+    "responseText": "{\"data\":[{\"id\":\"be77f3c8-8ee6-4c7b-9539-0d0ee934962f\",\"createdAt\":\"2026-05-19T12:52:21.001Z\",\"updatedAt\":\"2026-05-19T12:52:21.001Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Owner\",\"email\":\"owner@demo.cpc\",\"phone\":\"+94110000000\",\"passwordHash\":\"$2b$12$1YCVAIwXUxPqSijllO1sWOnYBV5noRh2hmL49xISEtH2QkGNEnaom\",\"portalRole\":\"OWNER\",\"status\":\"ACTIVE\",\"lastLoginAt\":null},{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"createdAt\":\"2026-05-19T12:51:24.470Z\",\"updatedAt\":\"2026-05-19T14:04:37.953Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Admin\",\"email\":\"admin@demo.cpc\",\"phone\":null,\"passwordHash\":\"$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla\",\"portalRole\":\"ADMIN\",\"status\":\"ACTIVE\",\"lastLoginAt\":\"2026-05-19T14:04:37.947Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.542Z"
+    "timestamp": "2026-05-19T14:04:38.067Z"
   },
   {
     "module": "portal-users",
@@ -325,7 +325,7 @@
     },
     "responseText": "{\"message\":[\"name must be a string\",\"email must be an email\",\"password must be longer than or equal to 8 characters\",\"password must be a string\",\"portal_role must be one of the following values: ADMIN, OWNER\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.545Z"
+    "timestamp": "2026-05-19T14:04:38.072Z"
   },
   {
     "module": "portal-users",
@@ -343,7 +343,7 @@
     },
     "responseText": "{\"message\":\"Portal user not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.549Z"
+    "timestamp": "2026-05-19T14:04:38.078Z"
   },
   {
     "module": "operational-roles",
@@ -403,7 +403,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"45b94a39-1875-4e62-9f98-0b73ba9414cc\",\"createdAt\":\"2026-05-19T12:51:24.275Z\",\"updatedAt\":\"2026-05-19T12:51:24.275Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Pumper\",\"requiresAttendance\":true,\"liableForCashShortfall\":true,\"description\":null,\"status\":\"ACTIVE\"},{\"id\":\"ffceae76-089f-46ed-811e-21f91283f303\",\"createdAt\":\"2026-05-19T12:51:24.273Z\",\"updatedAt\":\"2026-05-19T12:51:24.273Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Manager\",\"requiresAttendance\":true,\"liableForCashShortfall\":false,\"description\":null,\"status\":\"ACTIVE\"},{\"id\":\"28821b2b-67a6-4463-8ee9-7210ef4e763f\",\"createdAt\":\"2026-05-19T12:51:24.277Z\",\"updatedAt\":\"2026-05-19T12:51:24.277Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Accountant\",\"requiresAttendance\":false,\"liableForCashShortfall\":false,\"description\":null,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":3,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.554Z"
+    "timestamp": "2026-05-19T14:04:38.088Z"
   },
   {
     "module": "operational-roles",
@@ -425,7 +425,7 @@
     },
     "responseText": "{\"message\":[\"name must be a string\",\"requires_attendance must be a boolean value\",\"liable_for_cash_shortfall must be a boolean value\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.557Z"
+    "timestamp": "2026-05-19T14:04:38.092Z"
   },
   {
     "module": "operational-roles",
@@ -443,7 +443,7 @@
     },
     "responseText": "{\"message\":\"Operational role not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.561Z"
+    "timestamp": "2026-05-19T14:04:38.102Z"
   },
   {
     "module": "staff",
@@ -466,7 +466,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.569Z"
+    "timestamp": "2026-05-19T14:04:38.110Z"
   },
   {
     "module": "staff",
@@ -488,7 +488,7 @@
     },
     "responseText": "{\"message\":[\"employee_no must be a string\",\"name must be a string\",\"operational_role_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.573Z"
+    "timestamp": "2026-05-19T14:04:38.115Z"
   },
   {
     "module": "staff",
@@ -505,7 +505,7 @@
     },
     "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.578Z"
+    "timestamp": "2026-05-19T14:04:38.124Z"
   },
   {
     "module": "staff",
@@ -523,7 +523,7 @@
     },
     "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.582Z"
+    "timestamp": "2026-05-19T14:04:38.132Z"
   },
   {
     "module": "staff",
@@ -540,7 +540,7 @@
     },
     "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.586Z"
+    "timestamp": "2026-05-19T14:04:38.137Z"
   },
   {
     "module": "products",
@@ -563,7 +563,7 @@
     },
     "responseText": "{\"message\":[\"product_code must be a string\",\"product_name must be a string\",\"category must be one of the following values: FUEL, GAS, LUBRICANT\",\"measurement_unit_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.589Z"
+    "timestamp": "2026-05-19T14:04:38.142Z"
   },
   {
     "module": "products",
@@ -677,7 +677,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"createdAt\":\"2026-05-19T12:52:14.571Z\",\"updatedAt\":\"2026-05-19T12:52:14.571Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"PETROL\",\"productName\":\"Petrol\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"createdAt\":\"2026-05-19T12:52:14.618Z\",\"updatedAt\":\"2026-05-19T12:52:14.618Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"OB-OIL\",\"productName\":\"OB Oil\",\"category\":\"LUBRICANT\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":true,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"createdAt\":\"2026-05-19T12:52:14.610Z\",\"updatedAt\":\"2026-05-19T12:52:14.610Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"KEROSENE\",\"productName\":\"Kerosene\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"createdAt\":\"2026-05-19T12:52:14.614Z\",\"updatedAt\":\"2026-05-19T12:52:14.614Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"GAS-CYL\",\"productName\":\"Gas Cylinder\",\"category\":\"GAS\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":false,\"isGas\":true,\"status\":\"ACTIVE\"},{\"id\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"createdAt\":\"2026-05-19T12:52:14.606Z\",\"updatedAt\":\"2026-05-19T12:52:14.606Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"DIESEL\",\"productName\":\"Diesel\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"createdAt\":\"2026-05-19T12:52:14.621Z\",\"updatedAt\":\"2026-05-19T12:52:14.621Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"2T-OIL\",\"productName\":\"2T Oil\",\"category\":\"LUBRICANT\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":true,\"isGas\":false,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.595Z"
+    "timestamp": "2026-05-19T14:04:38.152Z"
   },
   {
     "module": "products",
@@ -695,7 +695,7 @@
     },
     "responseText": "{\"message\":\"Product not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.599Z"
+    "timestamp": "2026-05-19T14:04:38.158Z"
   },
   {
     "module": "products",
@@ -717,7 +717,7 @@
     },
     "responseText": "{\"message\":[\"selling_price must not be less than 0.01\",\"selling_price must be a number conforming to the specified constraints\",\"effective_from must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.602Z"
+    "timestamp": "2026-05-19T14:04:38.164Z"
   },
   {
     "module": "products",
@@ -740,7 +740,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.608Z"
+    "timestamp": "2026-05-19T14:04:38.174Z"
   },
   {
     "module": "pumps",
@@ -763,7 +763,7 @@
     },
     "responseText": "{\"message\":[\"pump_code must be a string\",\"pump_name must be a string\",\"nozzles must contain at least 1 elements\",\"nozzles must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.612Z"
+    "timestamp": "2026-05-19T14:04:38.181Z"
   },
   {
     "module": "pumps",
@@ -825,7 +825,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"createdAt\":\"2026-05-19T12:52:14.631Z\",\"updatedAt\":\"2026-05-19T12:52:14.631Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpCode\":\"P1\",\"pumpName\":\"Pump 1\",\"status\":\"ACTIVE\",\"nozzles\":[{\"id\":\"d28d18e0-f53b-448a-8ef9-e62834d5a559\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"nozzleName\":\"Pump 1 Petrol\",\"nozzleCode\":\"P1-A\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"},{\"id\":\"e704d710-01d0-4b38-9284-260458f96678\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"nozzleName\":\"Pump 1 Diesel\",\"nozzleCode\":\"P1-B\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"}]}],\"meta\":{\"page\":1,\"limit\":25,\"total\":1,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.623Z"
+    "timestamp": "2026-05-19T14:04:38.196Z"
   },
   {
     "module": "pumps",
@@ -843,7 +843,7 @@
     },
     "responseText": "{\"message\":\"Pump not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.628Z"
+    "timestamp": "2026-05-19T14:04:38.203Z"
   },
   {
     "module": "pumps",
@@ -866,7 +866,7 @@
     },
     "responseText": "{\"message\":[\"pump_id must be a UUID\",\"nozzle_name must be a string\",\"nozzle_code must be a string\",\"product_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.633Z"
+    "timestamp": "2026-05-19T14:04:38.209Z"
   },
   {
     "module": "pumps",
@@ -916,7 +916,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"e704d710-01d0-4b38-9284-260458f96678\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"nozzleName\":\"Pump 1 Diesel\",\"nozzleCode\":\"P1-B\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"},{\"id\":\"d28d18e0-f53b-448a-8ef9-e62834d5a559\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"nozzleName\":\"Pump 1 Petrol\",\"nozzleCode\":\"P1-A\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.637Z"
+    "timestamp": "2026-05-19T14:04:38.215Z"
   },
   {
     "module": "pumps",
@@ -934,7 +934,7 @@
     },
     "responseText": "{\"message\":\"Nozzle not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.643Z"
+    "timestamp": "2026-05-19T14:04:38.222Z"
   },
   {
     "module": "attendance",
@@ -955,7 +955,7 @@
     },
     "responseText": "{\"message\":[\"shift_session_id must be a UUID\",\"staff_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.648Z"
+    "timestamp": "2026-05-19T14:04:38.228Z"
   },
   {
     "module": "attendance",
@@ -976,7 +976,7 @@
     },
     "responseText": "{\"message\":[\"shift_session_id must be a UUID\",\"staff_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.652Z"
+    "timestamp": "2026-05-19T14:04:38.234Z"
   },
   {
     "module": "attendance",
@@ -999,7 +999,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.658Z"
+    "timestamp": "2026-05-19T14:04:38.243Z"
   },
   {
     "module": "shifts",
@@ -1021,7 +1021,7 @@
     },
     "responseText": "{\"message\":[\"shift_name must be a string\",\"start_time must match /^([01]\\\\d|2[0-3]):[0-5]\\\\d(:[0-5]\\\\d)?$/ regular expression\",\"end_time must match /^([01]\\\\d|2[0-3]):[0-5]\\\\d(:[0-5]\\\\d)?$/ regular expression\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.662Z"
+    "timestamp": "2026-05-19T14:04:38.251Z"
   },
   {
     "module": "shifts",
@@ -1071,7 +1071,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"4561f321-64d6-40b8-8692-a463c3f81444\",\"createdAt\":\"2026-05-19T12:52:14.627Z\",\"updatedAt\":\"2026-05-19T12:52:14.627Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"shiftName\":\"Shift 2\",\"startTime\":\"13:30:00\",\"endTime\":\"21:00:00\",\"isNightShift\":false,\"sequenceNo\":2,\"status\":\"ACTIVE\"},{\"id\":\"faf072cf-7ede-43f2-9770-ee210d148610\",\"createdAt\":\"2026-05-19T12:52:14.625Z\",\"updatedAt\":\"2026-05-19T12:52:14.625Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"shiftName\":\"Shift 1\",\"startTime\":\"08:00:00\",\"endTime\":\"13:30:00\",\"isNightShift\":false,\"sequenceNo\":1,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.672Z"
+    "timestamp": "2026-05-19T14:04:38.264Z"
   },
   {
     "module": "shifts",
@@ -1089,7 +1089,7 @@
     },
     "responseText": "{\"message\":\"Shift template not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.685Z"
+    "timestamp": "2026-05-19T14:04:38.271Z"
   },
   {
     "module": "shifts",
@@ -1110,7 +1110,7 @@
     },
     "responseText": "{\"message\":[\"shift_template_id must be a string\",\"business_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.694Z"
+    "timestamp": "2026-05-19T14:04:38.276Z"
   },
   {
     "module": "shifts",
@@ -1133,7 +1133,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.710Z"
+    "timestamp": "2026-05-19T14:04:38.282Z"
   },
   {
     "module": "shifts",
@@ -1150,7 +1150,7 @@
     },
     "responseText": "{\"message\":\"Shift session not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.718Z"
+    "timestamp": "2026-05-19T14:04:38.289Z"
   },
   {
     "module": "shifts",
@@ -1167,7 +1167,7 @@
     },
     "responseText": "{\"message\":\"Shift session not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.723Z"
+    "timestamp": "2026-05-19T14:04:38.297Z"
   },
   {
     "module": "shifts",
@@ -1188,7 +1188,7 @@
     },
     "responseText": "{\"message\":[\"assignments must contain at least 1 elements\",\"assignments must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.729Z"
+    "timestamp": "2026-05-19T14:04:38.303Z"
   },
   {
     "module": "shifts",
@@ -1209,7 +1209,7 @@
     },
     "responseText": "{\"message\":[\"readings must contain at least 1 elements\",\"readings must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.734Z"
+    "timestamp": "2026-05-19T14:04:38.309Z"
   },
   {
     "module": "shifts",
@@ -1230,7 +1230,7 @@
     },
     "responseText": "{\"message\":[\"readings must contain at least 1 elements\",\"readings must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.737Z"
+    "timestamp": "2026-05-19T14:04:38.317Z"
   },
   {
     "module": "shifts",
@@ -1251,7 +1251,7 @@
     },
     "responseText": "{\"message\":[\"submissions must contain at least 1 elements\",\"submissions must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.740Z"
+    "timestamp": "2026-05-19T14:04:38.323Z"
   },
   {
     "module": "shifts",
@@ -1274,7 +1274,7 @@
     },
     "responseText": "{\"message\":[\"closing_readings must contain at least 1 elements\",\"closing_readings must be an array\",\"cash_submissions must contain at least 1 elements\",\"cash_submissions must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.744Z"
+    "timestamp": "2026-05-19T14:04:38.326Z"
   },
   {
     "module": "inventory",
@@ -1352,7 +1352,7 @@
     },
     "responseText": "{\"data\":[{\"id\":\"89c555d5-9758-4854-a030-77bb5103ecea\",\"createdAt\":\"2026-05-19T12:52:14.622Z\",\"updatedAt\":\"2026-05-19T12:52:14.622Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"quantityOnHand\":\"100.000\"},{\"id\":\"05966d0d-199e-432a-bbef-9dd7c61848b5\",\"createdAt\":\"2026-05-19T12:52:14.619Z\",\"updatedAt\":\"2026-05-19T12:52:14.619Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"quantityOnHand\":\"100.000\"},{\"id\":\"a563f6ea-6c6b-4ed9-b352-abf0a416eccb\",\"createdAt\":\"2026-05-19T12:52:14.615Z\",\"updatedAt\":\"2026-05-19T12:52:14.615Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"quantityOnHand\":\"100.000\"},{\"id\":\"ed86f524-fb12-4f76-b271-199f5557a890\",\"createdAt\":\"2026-05-19T12:52:14.611Z\",\"updatedAt\":\"2026-05-19T12:52:14.611Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"quantityOnHand\":\"10000.000\"},{\"id\":\"8fb3c4c3-2749-4d60-b9e7-e7c4b366fc82\",\"createdAt\":\"2026-05-19T12:52:14.607Z\",\"updatedAt\":\"2026-05-19T12:52:14.607Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"quantityOnHand\":\"10000.000\"},{\"id\":\"b47ad417-9c93-432e-addb-6d90a84c7b6a\",\"createdAt\":\"2026-05-19T12:52:14.575Z\",\"updatedAt\":\"2026-05-19T12:52:14.575Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"quantityOnHand\":\"10000.000\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.750Z"
+    "timestamp": "2026-05-19T14:04:38.334Z"
   },
   {
     "module": "inventory",
@@ -1375,7 +1375,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.755Z"
+    "timestamp": "2026-05-19T14:04:38.344Z"
   },
   {
     "module": "inventory",
@@ -1398,7 +1398,7 @@
     },
     "responseText": "{\"message\":[\"tank_code must be a string\",\"fuel_product_id must be a UUID\",\"capacity_litres must not be less than 0.001\",\"capacity_litres must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.757Z"
+    "timestamp": "2026-05-19T14:04:38.354Z"
   },
   {
     "module": "inventory",
@@ -1421,7 +1421,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.762Z"
+    "timestamp": "2026-05-19T14:04:38.375Z"
   },
   {
     "module": "inventory",
@@ -1446,7 +1446,7 @@
     },
     "responseText": "{\"message\":[\"product_id must be a UUID\",\"movement_type must be one of the following values: MANUAL_ADJUSTMENT, NIGHT_VERIFICATION, RETURN\",\"quantity_in must be a number conforming to the specified constraints\",\"quantity_out must be a number conforming to the specified constraints\",\"reference_type must be a string\",\"reference_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.764Z"
+    "timestamp": "2026-05-19T14:04:38.389Z"
   },
   {
     "module": "inventory",
@@ -1468,7 +1468,7 @@
     },
     "responseText": "{\"message\":[\"product_id must be a UUID\",\"physical_stock must not be less than 0\",\"physical_stock must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.767Z"
+    "timestamp": "2026-05-19T14:04:38.402Z"
   },
   {
     "module": "bowser-receipts",
@@ -1491,7 +1491,7 @@
     },
     "responseText": "{\"message\":[\"receipt_no must be a string\",\"received_date must be a valid ISO 8601 date string\",\"lines must contain at least 1 elements\",\"lines must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.769Z"
+    "timestamp": "2026-05-19T14:04:38.411Z"
   },
   {
     "module": "bowser-receipts",
@@ -1514,7 +1514,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.773Z"
+    "timestamp": "2026-05-19T14:04:38.419Z"
   },
   {
     "module": "bowser-receipts",
@@ -1531,7 +1531,7 @@
     },
     "responseText": "{\"message\":\"Bowser receipt not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.776Z"
+    "timestamp": "2026-05-19T14:04:38.426Z"
   },
   {
     "module": "bowser-receipts",
@@ -1549,7 +1549,7 @@
     },
     "responseText": "{\"message\":\"Bowser receipt not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.782Z"
+    "timestamp": "2026-05-19T14:04:38.432Z"
   },
   {
     "module": "stock-orders",
@@ -1572,7 +1572,7 @@
     },
     "responseText": "{\"message\":[\"order_no must be a string\",\"order_date must be a valid ISO 8601 date string\",\"items must contain at least 1 elements\",\"items must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.785Z"
+    "timestamp": "2026-05-19T14:04:38.437Z"
   },
   {
     "module": "stock-orders",
@@ -1595,7 +1595,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.789Z"
+    "timestamp": "2026-05-19T14:04:38.448Z"
   },
   {
     "module": "stock-orders",
@@ -1612,7 +1612,7 @@
     },
     "responseText": "{\"message\":\"Stock order not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.792Z"
+    "timestamp": "2026-05-19T14:04:38.458Z"
   },
   {
     "module": "stock-orders",
@@ -1635,7 +1635,7 @@
     },
     "responseText": "{\"message\":[\"payment_type must be a string\",\"amount must not be less than 0.01\",\"amount must be a number conforming to the specified constraints\",\"payment_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.795Z"
+    "timestamp": "2026-05-19T14:04:38.466Z"
   },
   {
     "module": "credit-dues",
@@ -1655,7 +1655,7 @@
     },
     "responseText": "{\"message\":[\"customer_name must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.797Z"
+    "timestamp": "2026-05-19T14:04:38.472Z"
   },
   {
     "module": "credit-dues",
@@ -1678,7 +1678,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.802Z"
+    "timestamp": "2026-05-19T14:04:38.479Z"
   },
   {
     "module": "credit-dues",
@@ -1703,7 +1703,7 @@
     },
     "responseText": "{\"message\":[\"customer_id must be a UUID\",\"product_id must be a UUID\",\"quantity must not be less than 0.001\",\"quantity must be a number conforming to the specified constraints\",\"unit_price must not be less than 0.01\",\"unit_price must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.805Z"
+    "timestamp": "2026-05-19T14:04:38.483Z"
   },
   {
     "module": "credit-dues",
@@ -1726,7 +1726,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.809Z"
+    "timestamp": "2026-05-19T14:04:38.490Z"
   },
   {
     "module": "credit-dues",
@@ -1750,7 +1750,7 @@
     },
     "responseText": "{\"message\":[\"customer_id must be a UUID\",\"amount_collected must not be less than 0.01\",\"amount_collected must be a number conforming to the specified constraints\",\"collection_date must be a valid ISO 8601 date string\",\"payment_method must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.812Z"
+    "timestamp": "2026-05-19T14:04:38.493Z"
   },
   {
     "module": "credit-dues",
@@ -1773,7 +1773,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.817Z"
+    "timestamp": "2026-05-19T14:04:38.500Z"
   },
   {
     "module": "cheques",
@@ -1796,7 +1796,7 @@
     },
     "responseText": "{\"message\":[\"cheque_no must be a string\",\"amount must not be less than 0.01\",\"amount must be a number conforming to the specified constraints\",\"received_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.820Z"
+    "timestamp": "2026-05-19T14:04:38.503Z"
   },
   {
     "module": "cheques",
@@ -1819,7 +1819,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.824Z"
+    "timestamp": "2026-05-19T14:04:38.510Z"
   },
   {
     "module": "cheques",
@@ -1839,7 +1839,7 @@
     },
     "responseText": "{\"message\":[\"status must be one of the following values: RECEIVED, DEPOSITED, CLEARED, RETURNED, CANCELLED\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.827Z"
+    "timestamp": "2026-05-19T14:04:38.514Z"
   },
   {
     "module": "daily-balancing",
@@ -1863,7 +1863,7 @@
     },
     "responseText": "{\"message\":[\"business_date must be a valid ISO 8601 date string\",\"expected_cash must not be less than 0\",\"expected_cash must be a number conforming to the specified constraints\",\"actual_cash must not be less than 0\",\"actual_cash must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.829Z"
+    "timestamp": "2026-05-19T14:04:38.517Z"
   },
   {
     "module": "daily-balancing",
@@ -1886,7 +1886,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.834Z"
+    "timestamp": "2026-05-19T14:04:38.524Z"
   },
   {
     "module": "daily-balancing",
@@ -1903,7 +1903,7 @@
     },
     "responseText": "{\"message\":\"Daily balance not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.838Z"
+    "timestamp": "2026-05-19T14:04:38.528Z"
   },
   {
     "module": "payroll",
@@ -1924,7 +1924,7 @@
     },
     "responseText": "{\"message\":[\"period_start must be a valid ISO 8601 date string\",\"period_end must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.841Z"
+    "timestamp": "2026-05-19T14:04:38.532Z"
   },
   {
     "module": "payroll",
@@ -1947,7 +1947,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.845Z"
+    "timestamp": "2026-05-19T14:04:38.537Z"
   },
   {
     "module": "payroll",
@@ -1965,7 +1965,7 @@
     },
     "responseText": "{\"message\":\"Payroll run not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.848Z"
+    "timestamp": "2026-05-19T14:04:38.543Z"
   },
   {
     "module": "payroll",
@@ -1988,7 +1988,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.854Z"
+    "timestamp": "2026-05-19T14:04:38.549Z"
   },
   {
     "module": "payroll",
@@ -2005,7 +2005,7 @@
     },
     "responseText": "{\"message\":\"Salary deduction not found\",\"error\":\"Not Found\",\"statusCode\":404}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.859Z"
+    "timestamp": "2026-05-19T14:04:38.553Z"
   },
   {
     "module": "reports",
@@ -2063,7 +2063,7 @@
     },
     "responseText": "{\"today_sales\":0,\"active_shift_count\":0,\"fuel_stock_summary\":[{\"product_code\":\"DIESEL\",\"product_name\":\"Diesel\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"KEROSENE\",\"product_name\":\"Kerosene\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"PETROL\",\"product_name\":\"Petrol\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"GAS-CYL\",\"product_name\":\"Gas Cylinder\",\"category\":\"GAS\",\"quantity_on_hand\":\"100.000\"},{\"product_code\":\"2T-OIL\",\"product_name\":\"2T Oil\",\"category\":\"LUBRICANT\",\"quantity_on_hand\":\"100.000\"},{\"product_code\":\"OB-OIL\",\"product_name\":\"OB Oil\",\"category\":\"LUBRICANT\",\"quantity_on_hand\":\"100.000\"}],\"cash_shortfall_count\":0,\"pending_approvals\":0,\"credit_outstanding\":0,\"cheques_pending\":0}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.913Z"
+    "timestamp": "2026-05-19T14:04:38.602Z"
   },
   {
     "module": "reports",
@@ -2086,7 +2086,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.921Z"
+    "timestamp": "2026-05-19T14:04:38.613Z"
   },
   {
     "module": "reports",
@@ -2164,7 +2164,7 @@
     },
     "responseText": "{\"data\":[{\"product_id\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"product_code\":\"OB-OIL\",\"product_name\":\"OB Oil\",\"category\":\"LUBRICANT\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.619Z\"},{\"product_id\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"product_code\":\"2T-OIL\",\"product_name\":\"2T Oil\",\"category\":\"LUBRICANT\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.622Z\"},{\"product_id\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"product_code\":\"GAS-CYL\",\"product_name\":\"Gas Cylinder\",\"category\":\"GAS\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.615Z\"},{\"product_id\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"product_code\":\"PETROL\",\"product_name\":\"Petrol\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.575Z\"},{\"product_id\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"product_code\":\"DIESEL\",\"product_name\":\"Diesel\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.607Z\"},{\"product_id\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"product_code\":\"KEROSENE\",\"product_name\":\"Kerosene\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.611Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.929Z"
+    "timestamp": "2026-05-19T14:04:38.621Z"
   },
   {
     "module": "reports",
@@ -2187,7 +2187,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.938Z"
+    "timestamp": "2026-05-19T14:04:38.632Z"
   },
   {
     "module": "reports",
@@ -2210,7 +2210,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.945Z"
+    "timestamp": "2026-05-19T14:04:38.640Z"
   },
   {
     "module": "reports",
@@ -2233,7 +2233,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.949Z"
+    "timestamp": "2026-05-19T14:04:38.645Z"
   },
   {
     "module": "reports",
@@ -2256,7 +2256,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.955Z"
+    "timestamp": "2026-05-19T14:04:38.653Z"
   },
   {
     "module": "reports",
@@ -2279,7 +2279,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.959Z"
+    "timestamp": "2026-05-19T14:04:38.659Z"
   },
   {
     "module": "reports",
@@ -2302,7 +2302,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.965Z"
+    "timestamp": "2026-05-19T14:04:38.666Z"
   },
   {
     "module": "reports",
@@ -2325,7 +2325,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.971Z"
+    "timestamp": "2026-05-19T14:04:38.673Z"
   },
   {
     "module": "reports",
@@ -2348,7 +2348,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.977Z"
+    "timestamp": "2026-05-19T14:04:38.681Z"
   },
   {
     "module": "reports",
@@ -2371,7 +2371,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.981Z"
+    "timestamp": "2026-05-19T14:04:38.687Z"
   },
   {
     "module": "reports",
@@ -2394,7 +2394,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.986Z"
+    "timestamp": "2026-05-19T14:04:38.693Z"
   },
   {
     "module": "reports",
@@ -2415,7 +2415,7 @@
     },
     "responseText": "{\"period\":{},\"revenue\":0,\"supplier_payments\":0,\"approved_deductions\":0,\"gross_profit_estimate\":0,\"net_profit_estimate\":0,\"credit_outstanding\":0}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.991Z"
+    "timestamp": "2026-05-19T14:04:38.699Z"
   },
   {
     "module": "reports",
@@ -2438,7 +2438,7 @@
     },
     "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:38.999Z"
+    "timestamp": "2026-05-19T14:04:38.707Z"
   },
   {
     "module": "reports",
@@ -2458,7 +2458,7 @@
     },
     "responseText": "{\"message\":[\"report_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:39.002Z"
+    "timestamp": "2026-05-19T14:04:38.711Z"
   },
   {
     "module": "reports",
@@ -2472,7 +2472,7 @@
     "responseBody": [],
     "responseText": "[]",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:39.012Z"
+    "timestamp": "2026-05-19T14:04:38.721Z"
   },
   {
     "module": "auth",
@@ -2487,6 +2487,6 @@
     },
     "responseText": "{\"ok\":true}",
     "passed": true,
-    "timestamp": "2026-05-19T13:42:39.017Z"
+    "timestamp": "2026-05-19T14:04:38.728Z"
   }
 ]

@@ -1,6 +1,6 @@
 # Backend E2E API Report
 
-Generated: 2026-05-19T13:42:39.028Z
+Generated: 2026-05-19T14:04:38.737Z
 Base URL: http://localhost:4000
 Authenticated session: yes
 Tenant context: 5fa3c25a-225c-4da1-b15f-16f09c5171c4
