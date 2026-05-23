@@ -4,2489 +4,921 @@
     "endpoint": "POST /api/auth/login",
     "method": "POST",
     "path": "/api/auth/login",
-    "status": 201,
-    "statusText": "Created",
-    "contentType": "application/json; charset=utf-8",
-    "requestBody": {
-      "station_code": "CPC001",
-      "email": "admin@demo.cpc",
-      "password": "Admin12345!"
-    },
-    "responseBody": {
-      "user": {
-        "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
-        "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-        "email": "admin@demo.cpc",
-        "name": "Demo Admin",
-        "portalRole": "ADMIN",
-        "stationCode": "CPC001",
-        "stationName": "CPC Colombo Demo Station"
-      }
-    },
-    "responseText": "{\"user\":{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"email\":\"admin@demo.cpc\",\"name\":\"Demo Admin\",\"portalRole\":\"ADMIN\",\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\"}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:37.988Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.934Z"
   },
   {
     "module": "auth",
     "endpoint": "POST /api/auth/login",
     "method": "POST",
     "path": "/api/auth/login",
-    "status": 401,
-    "statusText": "Unauthorized",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {
       "station_code": "CPC001",
       "email": "wrong@demo.cpc",
       "password": "WrongPassword"
     },
-    "responseBody": {
-      "message": "Invalid station code or credentials",
-      "error": "Unauthorized",
-      "statusCode": 401
-    },
-    "responseText": "{\"message\":\"Invalid station code or credentials\",\"error\":\"Unauthorized\",\"statusCode\":401}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:37.996Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.937Z"
   },
   {
     "module": "auth",
     "endpoint": "GET /api/auth/me",
     "method": "GET",
     "path": "/api/auth/me",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "user": {
-        "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
-        "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-        "portalRole": "ADMIN",
-        "email": "admin@demo.cpc"
-      }
-    },
-    "responseText": "{\"user\":{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"portalRole\":\"ADMIN\",\"email\":\"admin@demo.cpc\"}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.003Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.945Z"
   },
   {
     "module": "tenants",
     "endpoint": "POST /api/tenants",
     "method": "POST",
     "path": "/api/tenants",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "station_code must be a string",
-        "station_name must be a string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"station_code must be a string\",\"station_name must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.008Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.947Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants",
     "method": "GET",
     "path": "/api/tenants",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "createdAt": "2026-05-19T12:51:24.250Z",
-          "updatedAt": "2026-05-19T12:51:24.250Z",
-          "updatedBy": null,
-          "stationCode": "CPC001",
-          "stationName": "CPC Colombo Demo Station",
-          "ownerName": "Demo Owner",
-          "address": null,
-          "district": "Colombo",
-          "contactNumber": "+94110000000",
-          "email": "owner@demo.cpc",
-          "status": "ACTIVE"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 1,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"createdAt\":\"2026-05-19T12:51:24.250Z\",\"updatedAt\":\"2026-05-19T12:51:24.250Z\",\"updatedBy\":null,\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\",\"ownerName\":\"Demo Owner\",\"address\":null,\"district\":\"Colombo\",\"contactNumber\":\"+94110000000\",\"email\":\"owner@demo.cpc\",\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":1,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.015Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.948Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants/current",
     "method": "GET",
     "path": "/api/tenants/current",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "id": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-      "createdAt": "2026-05-19T12:51:24.250Z",
-      "updatedAt": "2026-05-19T12:51:24.250Z",
-      "updatedBy": null,
-      "stationCode": "CPC001",
-      "stationName": "CPC Colombo Demo Station",
-      "ownerName": "Demo Owner",
-      "address": null,
-      "district": "Colombo",
-      "contactNumber": "+94110000000",
-      "email": "owner@demo.cpc",
-      "status": "ACTIVE"
-    },
-    "responseText": "{\"id\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"createdAt\":\"2026-05-19T12:51:24.250Z\",\"updatedAt\":\"2026-05-19T12:51:24.250Z\",\"updatedBy\":null,\"stationCode\":\"CPC001\",\"stationName\":\"CPC Colombo Demo Station\",\"ownerName\":\"Demo Owner\",\"address\":null,\"district\":\"Colombo\",\"contactNumber\":\"+94110000000\",\"email\":\"owner@demo.cpc\",\"status\":\"ACTIVE\"}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.021Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.950Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants/current/settings",
     "method": "GET",
     "path": "/api/tenants/current/settings",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "salary_deduction_enabled": "true",
-      "cash_shortfall_requires_approval": "true",
-      "night_shift_enabled": "false",
-      "night_stock_verification_required": "true",
-      "allow_shift_overlap": "false",
-      "currency": "LKR",
-      "timezone": "Asia/Colombo",
-      "cpc_report_format": "DEFAULT"
-    },
-    "responseText": "{\"salary_deduction_enabled\":\"true\",\"cash_shortfall_requires_approval\":\"true\",\"night_shift_enabled\":\"false\",\"night_stock_verification_required\":\"true\",\"allow_shift_overlap\":\"false\",\"currency\":\"LKR\",\"timezone\":\"Asia/Colombo\",\"cpc_report_format\":\"DEFAULT\"}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.031Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.951Z"
   },
   {
     "module": "tenants",
     "endpoint": "PATCH /api/tenants/current/settings",
     "method": "PATCH",
     "path": "/api/tenants/current/settings",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "settings must be an object"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"settings must be an object\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.036Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.953Z"
   },
   {
     "module": "tenants",
     "endpoint": "GET /api/tenants/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Tenant not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Tenant not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.045Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.955Z"
   },
   {
     "module": "tenants",
     "endpoint": "PATCH /api/tenants/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Tenant not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Tenant not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.053Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.957Z"
   },
   {
     "module": "tenants",
     "endpoint": "PATCH /api/tenants/550e8400-e29b-41d4-a716-446655440000/settings",
     "method": "PATCH",
     "path": "/api/tenants/550e8400-e29b-41d4-a716-446655440000/settings",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "settings must be an object"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"settings must be an object\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.060Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.958Z"
   },
   {
     "module": "portal-users",
     "endpoint": "GET /api/portal-users",
     "method": "GET",
     "path": "/api/portal-users",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "be77f3c8-8ee6-4c7b-9539-0d0ee934962f",
-          "createdAt": "2026-05-19T12:52:21.001Z",
-          "updatedAt": "2026-05-19T12:52:21.001Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "name": "Demo Owner",
-          "email": "owner@demo.cpc",
-          "phone": "+94110000000",
-          "passwordHash": "$2b$12$1YCVAIwXUxPqSijllO1sWOnYBV5noRh2hmL49xISEtH2QkGNEnaom",
-          "portalRole": "OWNER",
-          "status": "ACTIVE",
-          "lastLoginAt": null
-        },
-        {
-          "id": "9f42c054-41ff-4eb7-8b52-39103258b187",
-          "createdAt": "2026-05-19T12:51:24.470Z",
-          "updatedAt": "2026-05-19T14:04:37.953Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "name": "Demo Admin",
-          "email": "admin@demo.cpc",
-          "phone": null,
-          "passwordHash": "$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla",
-          "portalRole": "ADMIN",
-          "status": "ACTIVE",
-          "lastLoginAt": "2026-05-19T14:04:37.947Z"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 2,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"be77f3c8-8ee6-4c7b-9539-0d0ee934962f\",\"createdAt\":\"2026-05-19T12:52:21.001Z\",\"updatedAt\":\"2026-05-19T12:52:21.001Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Owner\",\"email\":\"owner@demo.cpc\",\"phone\":\"+94110000000\",\"passwordHash\":\"$2b$12$1YCVAIwXUxPqSijllO1sWOnYBV5noRh2hmL49xISEtH2QkGNEnaom\",\"portalRole\":\"OWNER\",\"status\":\"ACTIVE\",\"lastLoginAt\":null},{\"id\":\"9f42c054-41ff-4eb7-8b52-39103258b187\",\"createdAt\":\"2026-05-19T12:51:24.470Z\",\"updatedAt\":\"2026-05-19T14:04:37.953Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Demo Admin\",\"email\":\"admin@demo.cpc\",\"phone\":null,\"passwordHash\":\"$2b$12$HvyhBa33sOyr2bl0oVrq8OfEmb1MNudYq2EBNJG74OMSEw5CRwPla\",\"portalRole\":\"ADMIN\",\"status\":\"ACTIVE\",\"lastLoginAt\":\"2026-05-19T14:04:37.947Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.067Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.959Z"
   },
   {
     "module": "portal-users",
     "endpoint": "POST /api/portal-users",
     "method": "POST",
     "path": "/api/portal-users",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "name must be a string",
-        "email must be an email",
-        "password must be longer than or equal to 8 characters",
-        "password must be a string",
-        "portal_role must be one of the following values: ADMIN, OWNER"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"name must be a string\",\"email must be an email\",\"password must be longer than or equal to 8 characters\",\"password must be a string\",\"portal_role must be one of the following values: ADMIN, OWNER\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.072Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.960Z"
   },
   {
     "module": "portal-users",
     "endpoint": "PATCH /api/portal-users/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/portal-users/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Portal user not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Portal user not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.078Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.962Z"
   },
   {
     "module": "operational-roles",
     "endpoint": "GET /api/operational-roles",
     "method": "GET",
     "path": "/api/operational-roles",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "45b94a39-1875-4e62-9f98-0b73ba9414cc",
-          "createdAt": "2026-05-19T12:51:24.275Z",
-          "updatedAt": "2026-05-19T12:51:24.275Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "name": "Pumper",
-          "requiresAttendance": true,
-          "liableForCashShortfall": true,
-          "description": null,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "ffceae76-089f-46ed-811e-21f91283f303",
-          "createdAt": "2026-05-19T12:51:24.273Z",
-          "updatedAt": "2026-05-19T12:51:24.273Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "name": "Manager",
-          "requiresAttendance": true,
-          "liableForCashShortfall": false,
-          "description": null,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "28821b2b-67a6-4463-8ee9-7210ef4e763f",
-          "createdAt": "2026-05-19T12:51:24.277Z",
-          "updatedAt": "2026-05-19T12:51:24.277Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "name": "Accountant",
-          "requiresAttendance": false,
-          "liableForCashShortfall": false,
-          "description": null,
-          "status": "ACTIVE"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 3,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"45b94a39-1875-4e62-9f98-0b73ba9414cc\",\"createdAt\":\"2026-05-19T12:51:24.275Z\",\"updatedAt\":\"2026-05-19T12:51:24.275Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Pumper\",\"requiresAttendance\":true,\"liableForCashShortfall\":true,\"description\":null,\"status\":\"ACTIVE\"},{\"id\":\"ffceae76-089f-46ed-811e-21f91283f303\",\"createdAt\":\"2026-05-19T12:51:24.273Z\",\"updatedAt\":\"2026-05-19T12:51:24.273Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Manager\",\"requiresAttendance\":true,\"liableForCashShortfall\":false,\"description\":null,\"status\":\"ACTIVE\"},{\"id\":\"28821b2b-67a6-4463-8ee9-7210ef4e763f\",\"createdAt\":\"2026-05-19T12:51:24.277Z\",\"updatedAt\":\"2026-05-19T12:51:24.277Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"name\":\"Accountant\",\"requiresAttendance\":false,\"liableForCashShortfall\":false,\"description\":null,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":3,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.088Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.963Z"
   },
   {
     "module": "operational-roles",
     "endpoint": "POST /api/operational-roles",
     "method": "POST",
     "path": "/api/operational-roles",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "name must be a string",
-        "requires_attendance must be a boolean value",
-        "liable_for_cash_shortfall must be a boolean value"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"name must be a string\",\"requires_attendance must be a boolean value\",\"liable_for_cash_shortfall must be a boolean value\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.092Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.964Z"
   },
   {
     "module": "operational-roles",
     "endpoint": "PATCH /api/operational-roles/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/operational-roles/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Operational role not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Operational role not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.102Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.965Z"
   },
   {
     "module": "staff",
     "endpoint": "GET /api/staff",
     "method": "GET",
     "path": "/api/staff",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.110Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.966Z"
   },
   {
     "module": "staff",
     "endpoint": "POST /api/staff",
     "method": "POST",
     "path": "/api/staff",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "employee_no must be a string",
-        "name must be a string",
-        "operational_role_id must be a UUID"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"employee_no must be a string\",\"name must be a string\",\"operational_role_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.115Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.967Z"
   },
   {
     "module": "staff",
     "endpoint": "GET /api/staff/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Staff profile not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.124Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.968Z"
   },
   {
     "module": "staff",
     "endpoint": "PATCH /api/staff/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Staff profile not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.132Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.969Z"
   },
   {
     "module": "staff",
     "endpoint": "DELETE /api/staff/550e8400-e29b-41d4-a716-446655440000",
     "method": "DELETE",
     "path": "/api/staff/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Staff profile not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Staff profile not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.137Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.973Z"
   },
   {
     "module": "products",
     "endpoint": "POST /api/products",
     "method": "POST",
     "path": "/api/products",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "product_code must be a string",
-        "product_name must be a string",
-        "category must be one of the following values: FUEL, GAS, LUBRICANT",
-        "measurement_unit_id must be a UUID"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"product_code must be a string\",\"product_name must be a string\",\"category must be one of the following values: FUEL, GAS, LUBRICANT\",\"measurement_unit_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.142Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.975Z"
   },
   {
     "module": "products",
     "endpoint": "GET /api/products",
     "method": "GET",
     "path": "/api/products",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "bec09990-1965-414b-82c2-0edd0e2f5ada",
-          "createdAt": "2026-05-19T12:52:14.571Z",
-          "updatedAt": "2026-05-19T12:52:14.571Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productCode": "PETROL",
-          "productName": "Petrol",
-          "category": "FUEL",
-          "measurementUnitId": "ff8993f8-cbb7-4641-8fa9-a56eaeae9813",
-          "isFuel": true,
-          "isLubricant": false,
-          "isGas": false,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "aa30671e-c8dd-46b5-87b1-b2d9a38f7eee",
-          "createdAt": "2026-05-19T12:52:14.618Z",
-          "updatedAt": "2026-05-19T12:52:14.618Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productCode": "OB-OIL",
-          "productName": "OB Oil",
-          "category": "LUBRICANT",
-          "measurementUnitId": "99a14f56-59e1-4efd-ad9a-0681b14f4c88",
-          "isFuel": false,
-          "isLubricant": true,
-          "isGas": false,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "113c1372-83a8-42d2-a739-316b347e1d50",
-          "createdAt": "2026-05-19T12:52:14.610Z",
-          "updatedAt": "2026-05-19T12:52:14.610Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productCode": "KEROSENE",
-          "productName": "Kerosene",
-          "category": "FUEL",
-          "measurementUnitId": "ff8993f8-cbb7-4641-8fa9-a56eaeae9813",
-          "isFuel": true,
-          "isLubricant": false,
-          "isGas": false,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "26142c37-eb02-49d7-804d-93b390625e22",
-          "createdAt": "2026-05-19T12:52:14.614Z",
-          "updatedAt": "2026-05-19T12:52:14.614Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productCode": "GAS-CYL",
-          "productName": "Gas Cylinder",
-          "category": "GAS",
-          "measurementUnitId": "99a14f56-59e1-4efd-ad9a-0681b14f4c88",
-          "isFuel": false,
-          "isLubricant": false,
-          "isGas": true,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "652378bd-d117-4ee4-af0e-de9bc411c1db",
-          "createdAt": "2026-05-19T12:52:14.606Z",
-          "updatedAt": "2026-05-19T12:52:14.606Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productCode": "DIESEL",
-          "productName": "Diesel",
-          "category": "FUEL",
-          "measurementUnitId": "ff8993f8-cbb7-4641-8fa9-a56eaeae9813",
-          "isFuel": true,
-          "isLubricant": false,
-          "isGas": false,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "187c8ddd-499b-4fbf-8882-30472cbb3e1c",
-          "createdAt": "2026-05-19T12:52:14.621Z",
-          "updatedAt": "2026-05-19T12:52:14.621Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productCode": "2T-OIL",
-          "productName": "2T Oil",
-          "category": "LUBRICANT",
-          "measurementUnitId": "99a14f56-59e1-4efd-ad9a-0681b14f4c88",
-          "isFuel": false,
-          "isLubricant": true,
-          "isGas": false,
-          "status": "ACTIVE"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 6,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"createdAt\":\"2026-05-19T12:52:14.571Z\",\"updatedAt\":\"2026-05-19T12:52:14.571Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"PETROL\",\"productName\":\"Petrol\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"createdAt\":\"2026-05-19T12:52:14.618Z\",\"updatedAt\":\"2026-05-19T12:52:14.618Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"OB-OIL\",\"productName\":\"OB Oil\",\"category\":\"LUBRICANT\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":true,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"createdAt\":\"2026-05-19T12:52:14.610Z\",\"updatedAt\":\"2026-05-19T12:52:14.610Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"KEROSENE\",\"productName\":\"Kerosene\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"createdAt\":\"2026-05-19T12:52:14.614Z\",\"updatedAt\":\"2026-05-19T12:52:14.614Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"GAS-CYL\",\"productName\":\"Gas Cylinder\",\"category\":\"GAS\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":false,\"isGas\":true,\"status\":\"ACTIVE\"},{\"id\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"createdAt\":\"2026-05-19T12:52:14.606Z\",\"updatedAt\":\"2026-05-19T12:52:14.606Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"DIESEL\",\"productName\":\"Diesel\",\"category\":\"FUEL\",\"measurementUnitId\":\"ff8993f8-cbb7-4641-8fa9-a56eaeae9813\",\"isFuel\":true,\"isLubricant\":false,\"isGas\":false,\"status\":\"ACTIVE\"},{\"id\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"createdAt\":\"2026-05-19T12:52:14.621Z\",\"updatedAt\":\"2026-05-19T12:52:14.621Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productCode\":\"2T-OIL\",\"productName\":\"2T Oil\",\"category\":\"LUBRICANT\",\"measurementUnitId\":\"99a14f56-59e1-4efd-ad9a-0681b14f4c88\",\"isFuel\":false,\"isLubricant\":true,\"isGas\":false,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.152Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.976Z"
   },
   {
     "module": "products",
     "endpoint": "PATCH /api/products/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/products/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Product not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Product not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.158Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.977Z"
   },
   {
     "module": "products",
     "endpoint": "POST /api/products/550e8400-e29b-41d4-a716-446655440000/prices",
     "method": "POST",
     "path": "/api/products/550e8400-e29b-41d4-a716-446655440000/prices",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "selling_price must not be less than 0.01",
-        "selling_price must be a number conforming to the specified constraints",
-        "effective_from must be a valid ISO 8601 date string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"selling_price must not be less than 0.01\",\"selling_price must be a number conforming to the specified constraints\",\"effective_from must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.164Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.978Z"
   },
   {
     "module": "products",
     "endpoint": "GET /api/products/550e8400-e29b-41d4-a716-446655440000/prices",
     "method": "GET",
     "path": "/api/products/550e8400-e29b-41d4-a716-446655440000/prices",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.174Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.979Z"
   },
   {
     "module": "pumps",
     "endpoint": "POST /api/pumps",
     "method": "POST",
     "path": "/api/pumps",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "pump_code must be a string",
-        "pump_name must be a string",
-        "nozzles must contain at least 1 elements",
-        "nozzles must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"pump_code must be a string\",\"pump_name must be a string\",\"nozzles must contain at least 1 elements\",\"nozzles must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.181Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.981Z"
   },
   {
     "module": "pumps",
     "endpoint": "GET /api/pumps",
     "method": "GET",
     "path": "/api/pumps",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
-          "createdAt": "2026-05-19T12:52:14.631Z",
-          "updatedAt": "2026-05-19T12:52:14.631Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "pumpCode": "P1",
-          "pumpName": "Pump 1",
-          "status": "ACTIVE",
-          "nozzles": [
-            {
-              "id": "d28d18e0-f53b-448a-8ef9-e62834d5a559",
-              "createdAt": "2026-05-19T12:52:14.632Z",
-              "updatedAt": "2026-05-19T12:52:14.632Z",
-              "updatedBy": null,
-              "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-              "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
-              "productId": "bec09990-1965-414b-82c2-0edd0e2f5ada",
-              "nozzleName": "Pump 1 Petrol",
-              "nozzleCode": "P1-A",
-              "meterCapacity": "99999.999",
-              "status": "ACTIVE"
-            },
-            {
-              "id": "e704d710-01d0-4b38-9284-260458f96678",
-              "createdAt": "2026-05-19T12:52:14.632Z",
-              "updatedAt": "2026-05-19T12:52:14.632Z",
-              "updatedBy": null,
-              "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-              "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
-              "productId": "652378bd-d117-4ee4-af0e-de9bc411c1db",
-              "nozzleName": "Pump 1 Diesel",
-              "nozzleCode": "P1-B",
-              "meterCapacity": "99999.999",
-              "status": "ACTIVE"
-            }
-          ]
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 1,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"createdAt\":\"2026-05-19T12:52:14.631Z\",\"updatedAt\":\"2026-05-19T12:52:14.631Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpCode\":\"P1\",\"pumpName\":\"Pump 1\",\"status\":\"ACTIVE\",\"nozzles\":[{\"id\":\"d28d18e0-f53b-448a-8ef9-e62834d5a559\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"nozzleName\":\"Pump 1 Petrol\",\"nozzleCode\":\"P1-A\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"},{\"id\":\"e704d710-01d0-4b38-9284-260458f96678\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"nozzleName\":\"Pump 1 Diesel\",\"nozzleCode\":\"P1-B\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"}]}],\"meta\":{\"page\":1,\"limit\":25,\"total\":1,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.196Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.982Z"
   },
   {
     "module": "pumps",
     "endpoint": "PATCH /api/pumps/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/pumps/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Pump not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Pump not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.203Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.983Z"
   },
   {
     "module": "pumps",
     "endpoint": "POST /api/pump-nozzles",
     "method": "POST",
     "path": "/api/pump-nozzles",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "pump_id must be a UUID",
-        "nozzle_name must be a string",
-        "nozzle_code must be a string",
-        "product_id must be a UUID"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"pump_id must be a UUID\",\"nozzle_name must be a string\",\"nozzle_code must be a string\",\"product_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.209Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.984Z"
   },
   {
     "module": "pumps",
     "endpoint": "GET /api/pump-nozzles",
     "method": "GET",
     "path": "/api/pump-nozzles",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "e704d710-01d0-4b38-9284-260458f96678",
-          "createdAt": "2026-05-19T12:52:14.632Z",
-          "updatedAt": "2026-05-19T12:52:14.632Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
-          "productId": "652378bd-d117-4ee4-af0e-de9bc411c1db",
-          "nozzleName": "Pump 1 Diesel",
-          "nozzleCode": "P1-B",
-          "meterCapacity": "99999.999",
-          "status": "ACTIVE"
-        },
-        {
-          "id": "d28d18e0-f53b-448a-8ef9-e62834d5a559",
-          "createdAt": "2026-05-19T12:52:14.632Z",
-          "updatedAt": "2026-05-19T12:52:14.632Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "pumpId": "f30f4a9e-4d8b-44d2-91fe-da16bca4a400",
-          "productId": "bec09990-1965-414b-82c2-0edd0e2f5ada",
-          "nozzleName": "Pump 1 Petrol",
-          "nozzleCode": "P1-A",
-          "meterCapacity": "99999.999",
-          "status": "ACTIVE"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 2,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"e704d710-01d0-4b38-9284-260458f96678\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"nozzleName\":\"Pump 1 Diesel\",\"nozzleCode\":\"P1-B\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"},{\"id\":\"d28d18e0-f53b-448a-8ef9-e62834d5a559\",\"createdAt\":\"2026-05-19T12:52:14.632Z\",\"updatedAt\":\"2026-05-19T12:52:14.632Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"pumpId\":\"f30f4a9e-4d8b-44d2-91fe-da16bca4a400\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"nozzleName\":\"Pump 1 Petrol\",\"nozzleCode\":\"P1-A\",\"meterCapacity\":\"99999.999\",\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.215Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.985Z"
   },
   {
     "module": "pumps",
     "endpoint": "PATCH /api/pump-nozzles/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/pump-nozzles/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Nozzle not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Nozzle not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.222Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.986Z"
   },
   {
     "module": "attendance",
     "endpoint": "POST /api/attendance/clock-in",
     "method": "POST",
     "path": "/api/attendance/clock-in",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "shift_session_id must be a UUID",
-        "staff_id must be a UUID"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"shift_session_id must be a UUID\",\"staff_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.228Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.987Z"
   },
   {
     "module": "attendance",
     "endpoint": "POST /api/attendance/clock-out",
     "method": "POST",
     "path": "/api/attendance/clock-out",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "shift_session_id must be a UUID",
-        "staff_id must be a UUID"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"shift_session_id must be a UUID\",\"staff_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.234Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.989Z"
   },
   {
     "module": "attendance",
     "endpoint": "GET /api/attendance",
     "method": "GET",
     "path": "/api/attendance",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.243Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.990Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-templates",
     "method": "POST",
     "path": "/api/shift-templates",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "shift_name must be a string",
-        "start_time must match /^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$/ regular expression",
-        "end_time must match /^([01]\\d|2[0-3]):[0-5]\\d(:[0-5]\\d)?$/ regular expression"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"shift_name must be a string\",\"start_time must match /^([01]\\\\d|2[0-3]):[0-5]\\\\d(:[0-5]\\\\d)?$/ regular expression\",\"end_time must match /^([01]\\\\d|2[0-3]):[0-5]\\\\d(:[0-5]\\\\d)?$/ regular expression\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.251Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.991Z"
   },
   {
     "module": "shifts",
     "endpoint": "GET /api/shift-templates",
     "method": "GET",
     "path": "/api/shift-templates",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "4561f321-64d6-40b8-8692-a463c3f81444",
-          "createdAt": "2026-05-19T12:52:14.627Z",
-          "updatedAt": "2026-05-19T12:52:14.627Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "shiftName": "Shift 2",
-          "startTime": "13:30:00",
-          "endTime": "21:00:00",
-          "isNightShift": false,
-          "sequenceNo": 2,
-          "status": "ACTIVE"
-        },
-        {
-          "id": "faf072cf-7ede-43f2-9770-ee210d148610",
-          "createdAt": "2026-05-19T12:52:14.625Z",
-          "updatedAt": "2026-05-19T12:52:14.625Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "shiftName": "Shift 1",
-          "startTime": "08:00:00",
-          "endTime": "13:30:00",
-          "isNightShift": false,
-          "sequenceNo": 1,
-          "status": "ACTIVE"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 2,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"4561f321-64d6-40b8-8692-a463c3f81444\",\"createdAt\":\"2026-05-19T12:52:14.627Z\",\"updatedAt\":\"2026-05-19T12:52:14.627Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"shiftName\":\"Shift 2\",\"startTime\":\"13:30:00\",\"endTime\":\"21:00:00\",\"isNightShift\":false,\"sequenceNo\":2,\"status\":\"ACTIVE\"},{\"id\":\"faf072cf-7ede-43f2-9770-ee210d148610\",\"createdAt\":\"2026-05-19T12:52:14.625Z\",\"updatedAt\":\"2026-05-19T12:52:14.625Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"shiftName\":\"Shift 1\",\"startTime\":\"08:00:00\",\"endTime\":\"13:30:00\",\"isNightShift\":false,\"sequenceNo\":1,\"status\":\"ACTIVE\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":2,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.264Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.992Z"
   },
   {
     "module": "shifts",
     "endpoint": "PATCH /api/shift-templates/550e8400-e29b-41d4-a716-446655440000",
     "method": "PATCH",
     "path": "/api/shift-templates/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Shift template not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Shift template not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.271Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.994Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions",
     "method": "POST",
     "path": "/api/shift-sessions",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "shift_template_id must be a string",
-        "business_date must be a valid ISO 8601 date string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"shift_template_id must be a string\",\"business_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.276Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.995Z"
   },
   {
     "module": "shifts",
     "endpoint": "GET /api/shift-sessions",
     "method": "GET",
     "path": "/api/shift-sessions",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.282Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.996Z"
   },
   {
     "module": "shifts",
     "endpoint": "GET /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Shift session not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Shift session not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.289Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.997Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/open",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/open",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Shift session not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Shift session not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.297Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.998Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/assignments",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/assignments",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "assignments must contain at least 1 elements",
-        "assignments must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"assignments must contain at least 1 elements\",\"assignments must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.303Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:35.999Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/opening-readings",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/opening-readings",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "readings must contain at least 1 elements",
-        "readings must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"readings must contain at least 1 elements\",\"readings must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.309Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.000Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/closing-readings",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/closing-readings",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "readings must contain at least 1 elements",
-        "readings must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"readings must contain at least 1 elements\",\"readings must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.317Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.002Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/cash-submissions",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/cash-submissions",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "submissions must contain at least 1 elements",
-        "submissions must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"submissions must contain at least 1 elements\",\"submissions must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.323Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.003Z"
   },
   {
     "module": "shifts",
     "endpoint": "POST /api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/close",
     "method": "POST",
     "path": "/api/shift-sessions/550e8400-e29b-41d4-a716-446655440000/close",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "closing_readings must contain at least 1 elements",
-        "closing_readings must be an array",
-        "cash_submissions must contain at least 1 elements",
-        "cash_submissions must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"closing_readings must contain at least 1 elements\",\"closing_readings must be an array\",\"cash_submissions must contain at least 1 elements\",\"cash_submissions must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.326Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.004Z"
   },
   {
     "module": "inventory",
     "endpoint": "GET /api/stock-balances",
     "method": "GET",
     "path": "/api/stock-balances",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "id": "89c555d5-9758-4854-a030-77bb5103ecea",
-          "createdAt": "2026-05-19T12:52:14.622Z",
-          "updatedAt": "2026-05-19T12:52:14.622Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productId": "187c8ddd-499b-4fbf-8882-30472cbb3e1c",
-          "quantityOnHand": "100.000"
-        },
-        {
-          "id": "05966d0d-199e-432a-bbef-9dd7c61848b5",
-          "createdAt": "2026-05-19T12:52:14.619Z",
-          "updatedAt": "2026-05-19T12:52:14.619Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productId": "aa30671e-c8dd-46b5-87b1-b2d9a38f7eee",
-          "quantityOnHand": "100.000"
-        },
-        {
-          "id": "a563f6ea-6c6b-4ed9-b352-abf0a416eccb",
-          "createdAt": "2026-05-19T12:52:14.615Z",
-          "updatedAt": "2026-05-19T12:52:14.615Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productId": "26142c37-eb02-49d7-804d-93b390625e22",
-          "quantityOnHand": "100.000"
-        },
-        {
-          "id": "ed86f524-fb12-4f76-b271-199f5557a890",
-          "createdAt": "2026-05-19T12:52:14.611Z",
-          "updatedAt": "2026-05-19T12:52:14.611Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productId": "113c1372-83a8-42d2-a739-316b347e1d50",
-          "quantityOnHand": "10000.000"
-        },
-        {
-          "id": "8fb3c4c3-2749-4d60-b9e7-e7c4b366fc82",
-          "createdAt": "2026-05-19T12:52:14.607Z",
-          "updatedAt": "2026-05-19T12:52:14.607Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productId": "652378bd-d117-4ee4-af0e-de9bc411c1db",
-          "quantityOnHand": "10000.000"
-        },
-        {
-          "id": "b47ad417-9c93-432e-addb-6d90a84c7b6a",
-          "createdAt": "2026-05-19T12:52:14.575Z",
-          "updatedAt": "2026-05-19T12:52:14.575Z",
-          "updatedBy": null,
-          "tenantId": "5fa3c25a-225c-4da1-b15f-16f09c5171c4",
-          "productId": "bec09990-1965-414b-82c2-0edd0e2f5ada",
-          "quantityOnHand": "10000.000"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 6,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"id\":\"89c555d5-9758-4854-a030-77bb5103ecea\",\"createdAt\":\"2026-05-19T12:52:14.622Z\",\"updatedAt\":\"2026-05-19T12:52:14.622Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"quantityOnHand\":\"100.000\"},{\"id\":\"05966d0d-199e-432a-bbef-9dd7c61848b5\",\"createdAt\":\"2026-05-19T12:52:14.619Z\",\"updatedAt\":\"2026-05-19T12:52:14.619Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"quantityOnHand\":\"100.000\"},{\"id\":\"a563f6ea-6c6b-4ed9-b352-abf0a416eccb\",\"createdAt\":\"2026-05-19T12:52:14.615Z\",\"updatedAt\":\"2026-05-19T12:52:14.615Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"quantityOnHand\":\"100.000\"},{\"id\":\"ed86f524-fb12-4f76-b271-199f5557a890\",\"createdAt\":\"2026-05-19T12:52:14.611Z\",\"updatedAt\":\"2026-05-19T12:52:14.611Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"quantityOnHand\":\"10000.000\"},{\"id\":\"8fb3c4c3-2749-4d60-b9e7-e7c4b366fc82\",\"createdAt\":\"2026-05-19T12:52:14.607Z\",\"updatedAt\":\"2026-05-19T12:52:14.607Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"quantityOnHand\":\"10000.000\"},{\"id\":\"b47ad417-9c93-432e-addb-6d90a84c7b6a\",\"createdAt\":\"2026-05-19T12:52:14.575Z\",\"updatedAt\":\"2026-05-19T12:52:14.575Z\",\"updatedBy\":null,\"tenantId\":\"5fa3c25a-225c-4da1-b15f-16f09c5171c4\",\"productId\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"quantityOnHand\":\"10000.000\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.334Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.006Z"
   },
   {
     "module": "inventory",
     "endpoint": "GET /api/stock-movements",
     "method": "GET",
     "path": "/api/stock-movements",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.344Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.007Z"
   },
   {
     "module": "inventory",
     "endpoint": "POST /api/tanks",
     "method": "POST",
     "path": "/api/tanks",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "tank_code must be a string",
-        "fuel_product_id must be a UUID",
-        "capacity_litres must not be less than 0.001",
-        "capacity_litres must be a number conforming to the specified constraints"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"tank_code must be a string\",\"fuel_product_id must be a UUID\",\"capacity_litres must not be less than 0.001\",\"capacity_litres must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.354Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.008Z"
   },
   {
     "module": "inventory",
     "endpoint": "GET /api/tanks",
     "method": "GET",
     "path": "/api/tanks",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.375Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.009Z"
   },
   {
     "module": "inventory",
     "endpoint": "POST /api/stock-adjustments",
     "method": "POST",
     "path": "/api/stock-adjustments",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "product_id must be a UUID",
-        "movement_type must be one of the following values: MANUAL_ADJUSTMENT, NIGHT_VERIFICATION, RETURN",
-        "quantity_in must be a number conforming to the specified constraints",
-        "quantity_out must be a number conforming to the specified constraints",
-        "reference_type must be a string",
-        "reference_id must be a UUID"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"product_id must be a UUID\",\"movement_type must be one of the following values: MANUAL_ADJUSTMENT, NIGHT_VERIFICATION, RETURN\",\"quantity_in must be a number conforming to the specified constraints\",\"quantity_out must be a number conforming to the specified constraints\",\"reference_type must be a string\",\"reference_id must be a UUID\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.389Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.010Z"
   },
   {
     "module": "inventory",
     "endpoint": "POST /api/stock-verifications/night",
     "method": "POST",
     "path": "/api/stock-verifications/night",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "product_id must be a UUID",
-        "physical_stock must not be less than 0",
-        "physical_stock must be a number conforming to the specified constraints"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"product_id must be a UUID\",\"physical_stock must not be less than 0\",\"physical_stock must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.402Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.011Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "POST /api/bowser-receipts",
     "method": "POST",
     "path": "/api/bowser-receipts",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "receipt_no must be a string",
-        "received_date must be a valid ISO 8601 date string",
-        "lines must contain at least 1 elements",
-        "lines must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"receipt_no must be a string\",\"received_date must be a valid ISO 8601 date string\",\"lines must contain at least 1 elements\",\"lines must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.411Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.013Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "GET /api/bowser-receipts",
     "method": "GET",
     "path": "/api/bowser-receipts",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.419Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.014Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "GET /api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000",
     "method": "GET",
     "path": "/api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Bowser receipt not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Bowser receipt not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.426Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.015Z"
   },
   {
     "module": "bowser-receipts",
     "endpoint": "POST /api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000/approve",
     "method": "POST",
     "path": "/api/bowser-receipts/550e8400-e29b-41d4-a716-446655440000/approve",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Bowser receipt not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Bowser receipt not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.432Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.016Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "POST /api/stock-orders",
     "method": "POST",
     "path": "/api/stock-orders",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "order_no must be a string",
-        "order_date must be a valid ISO 8601 date string",
-        "items must contain at least 1 elements",
-        "items must be an array"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"order_no must be a string\",\"order_date must be a valid ISO 8601 date string\",\"items must contain at least 1 elements\",\"items must be an array\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.437Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.017Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "GET /api/stock-orders",
     "method": "GET",
     "path": "/api/stock-orders",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.448Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.018Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "POST /api/stock-orders/550e8400-e29b-41d4-a716-446655440000/approve",
     "method": "POST",
     "path": "/api/stock-orders/550e8400-e29b-41d4-a716-446655440000/approve",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Stock order not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Stock order not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.458Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.021Z"
   },
   {
     "module": "stock-orders",
     "endpoint": "POST /api/stock-orders/550e8400-e29b-41d4-a716-446655440000/payments",
     "method": "POST",
     "path": "/api/stock-orders/550e8400-e29b-41d4-a716-446655440000/payments",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "payment_type must be a string",
-        "amount must not be less than 0.01",
-        "amount must be a number conforming to the specified constraints",
-        "payment_date must be a valid ISO 8601 date string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"payment_type must be a string\",\"amount must not be less than 0.01\",\"amount must be a number conforming to the specified constraints\",\"payment_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.466Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.023Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "POST /api/credit-customers",
     "method": "POST",
     "path": "/api/credit-customers",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "customer_name must be a string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"customer_name must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.472Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.024Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "GET /api/credit-customers",
     "method": "GET",
     "path": "/api/credit-customers",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.479Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.025Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "POST /api/credit-sales",
     "method": "POST",
     "path": "/api/credit-sales",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "customer_id must be a UUID",
-        "product_id must be a UUID",
-        "quantity must not be less than 0.001",
-        "quantity must be a number conforming to the specified constraints",
-        "unit_price must not be less than 0.01",
-        "unit_price must be a number conforming to the specified constraints"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"customer_id must be a UUID\",\"product_id must be a UUID\",\"quantity must not be less than 0.001\",\"quantity must be a number conforming to the specified constraints\",\"unit_price must not be less than 0.01\",\"unit_price must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.483Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.026Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "GET /api/credit-sales",
     "method": "GET",
     "path": "/api/credit-sales",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.490Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.027Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "POST /api/due-collections",
     "method": "POST",
     "path": "/api/due-collections",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "customer_id must be a UUID",
-        "amount_collected must not be less than 0.01",
-        "amount_collected must be a number conforming to the specified constraints",
-        "collection_date must be a valid ISO 8601 date string",
-        "payment_method must be a string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"customer_id must be a UUID\",\"amount_collected must not be less than 0.01\",\"amount_collected must be a number conforming to the specified constraints\",\"collection_date must be a valid ISO 8601 date string\",\"payment_method must be a string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.493Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.028Z"
   },
   {
     "module": "credit-dues",
     "endpoint": "GET /api/due-collections",
     "method": "GET",
     "path": "/api/due-collections",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.500Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.030Z"
   },
   {
     "module": "cheques",
     "endpoint": "POST /api/cheques",
     "method": "POST",
     "path": "/api/cheques",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "cheque_no must be a string",
-        "amount must not be less than 0.01",
-        "amount must be a number conforming to the specified constraints",
-        "received_date must be a valid ISO 8601 date string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"cheque_no must be a string\",\"amount must not be less than 0.01\",\"amount must be a number conforming to the specified constraints\",\"received_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.503Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.031Z"
   },
   {
     "module": "cheques",
     "endpoint": "GET /api/cheques",
     "method": "GET",
     "path": "/api/cheques",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.510Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.032Z"
   },
   {
     "module": "cheques",
     "endpoint": "PATCH /api/cheques/550e8400-e29b-41d4-a716-446655440000/status",
     "method": "PATCH",
     "path": "/api/cheques/550e8400-e29b-41d4-a716-446655440000/status",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "status must be one of the following values: RECEIVED, DEPOSITED, CLEARED, RETURNED, CANCELLED"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"status must be one of the following values: RECEIVED, DEPOSITED, CLEARED, RETURNED, CANCELLED\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.514Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.033Z"
   },
   {
     "module": "daily-balancing",
     "endpoint": "POST /api/daily-balancing",
     "method": "POST",
     "path": "/api/daily-balancing",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "business_date must be a valid ISO 8601 date string",
-        "expected_cash must not be less than 0",
-        "expected_cash must be a number conforming to the specified constraints",
-        "actual_cash must not be less than 0",
-        "actual_cash must be a number conforming to the specified constraints"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"business_date must be a valid ISO 8601 date string\",\"expected_cash must not be less than 0\",\"expected_cash must be a number conforming to the specified constraints\",\"actual_cash must not be less than 0\",\"actual_cash must be a number conforming to the specified constraints\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.517Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.034Z"
   },
   {
     "module": "daily-balancing",
     "endpoint": "GET /api/daily-balancing",
     "method": "GET",
     "path": "/api/daily-balancing",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.524Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.035Z"
   },
   {
     "module": "daily-balancing",
     "endpoint": "POST /api/daily-balancing/550e8400-e29b-41d4-a716-446655440000/close",
     "method": "POST",
     "path": "/api/daily-balancing/550e8400-e29b-41d4-a716-446655440000/close",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Daily balance not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Daily balance not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.528Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.036Z"
   },
   {
     "module": "payroll",
     "endpoint": "POST /api/payroll-runs",
     "method": "POST",
     "path": "/api/payroll-runs",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "period_start must be a valid ISO 8601 date string",
-        "period_end must be a valid ISO 8601 date string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"period_start must be a valid ISO 8601 date string\",\"period_end must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.532Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.037Z"
   },
   {
     "module": "payroll",
     "endpoint": "GET /api/payroll-runs",
     "method": "GET",
     "path": "/api/payroll-runs",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.537Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.038Z"
   },
   {
     "module": "payroll",
     "endpoint": "POST /api/payroll-runs/550e8400-e29b-41d4-a716-446655440000/finalize",
     "method": "POST",
     "path": "/api/payroll-runs/550e8400-e29b-41d4-a716-446655440000/finalize",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": "Payroll run not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Payroll run not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.543Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.039Z"
   },
   {
     "module": "payroll",
     "endpoint": "GET /api/salary-deductions",
     "method": "GET",
     "path": "/api/salary-deductions",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.549Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.041Z"
   },
   {
     "module": "payroll",
     "endpoint": "POST /api/salary-deductions/550e8400-e29b-41d4-a716-446655440000/approve",
     "method": "POST",
     "path": "/api/salary-deductions/550e8400-e29b-41d4-a716-446655440000/approve",
-    "status": 404,
-    "statusText": "Not Found",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "message": "Salary deduction not found",
-      "error": "Not Found",
-      "statusCode": 404
-    },
-    "responseText": "{\"message\":\"Salary deduction not found\",\"error\":\"Not Found\",\"statusCode\":404}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.553Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.042Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/dashboard",
     "method": "GET",
     "path": "/api/reports/dashboard",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "today_sales": 0,
-      "active_shift_count": 0,
-      "fuel_stock_summary": [
-        {
-          "product_code": "DIESEL",
-          "product_name": "Diesel",
-          "category": "FUEL",
-          "quantity_on_hand": "10000.000"
-        },
-        {
-          "product_code": "KEROSENE",
-          "product_name": "Kerosene",
-          "category": "FUEL",
-          "quantity_on_hand": "10000.000"
-        },
-        {
-          "product_code": "PETROL",
-          "product_name": "Petrol",
-          "category": "FUEL",
-          "quantity_on_hand": "10000.000"
-        },
-        {
-          "product_code": "GAS-CYL",
-          "product_name": "Gas Cylinder",
-          "category": "GAS",
-          "quantity_on_hand": "100.000"
-        },
-        {
-          "product_code": "2T-OIL",
-          "product_name": "2T Oil",
-          "category": "LUBRICANT",
-          "quantity_on_hand": "100.000"
-        },
-        {
-          "product_code": "OB-OIL",
-          "product_name": "OB Oil",
-          "category": "LUBRICANT",
-          "quantity_on_hand": "100.000"
-        }
-      ],
-      "cash_shortfall_count": 0,
-      "pending_approvals": 0,
-      "credit_outstanding": 0,
-      "cheques_pending": 0
-    },
-    "responseText": "{\"today_sales\":0,\"active_shift_count\":0,\"fuel_stock_summary\":[{\"product_code\":\"DIESEL\",\"product_name\":\"Diesel\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"KEROSENE\",\"product_name\":\"Kerosene\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"PETROL\",\"product_name\":\"Petrol\",\"category\":\"FUEL\",\"quantity_on_hand\":\"10000.000\"},{\"product_code\":\"GAS-CYL\",\"product_name\":\"Gas Cylinder\",\"category\":\"GAS\",\"quantity_on_hand\":\"100.000\"},{\"product_code\":\"2T-OIL\",\"product_name\":\"2T Oil\",\"category\":\"LUBRICANT\",\"quantity_on_hand\":\"100.000\"},{\"product_code\":\"OB-OIL\",\"product_name\":\"OB Oil\",\"category\":\"LUBRICANT\",\"quantity_on_hand\":\"100.000\"}],\"cash_shortfall_count\":0,\"pending_approvals\":0,\"credit_outstanding\":0,\"cheques_pending\":0}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.602Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.043Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/shift-summary",
     "method": "GET",
     "path": "/api/reports/shift-summary",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.613Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.044Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/stock",
     "method": "GET",
     "path": "/api/reports/stock",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [
-        {
-          "product_id": "aa30671e-c8dd-46b5-87b1-b2d9a38f7eee",
-          "product_code": "OB-OIL",
-          "product_name": "OB Oil",
-          "category": "LUBRICANT",
-          "status": "ACTIVE",
-          "quantity_on_hand": "100.000",
-          "updated_at": "2026-05-19T12:52:14.619Z"
-        },
-        {
-          "product_id": "187c8ddd-499b-4fbf-8882-30472cbb3e1c",
-          "product_code": "2T-OIL",
-          "product_name": "2T Oil",
-          "category": "LUBRICANT",
-          "status": "ACTIVE",
-          "quantity_on_hand": "100.000",
-          "updated_at": "2026-05-19T12:52:14.622Z"
-        },
-        {
-          "product_id": "26142c37-eb02-49d7-804d-93b390625e22",
-          "product_code": "GAS-CYL",
-          "product_name": "Gas Cylinder",
-          "category": "GAS",
-          "status": "ACTIVE",
-          "quantity_on_hand": "100.000",
-          "updated_at": "2026-05-19T12:52:14.615Z"
-        },
-        {
-          "product_id": "bec09990-1965-414b-82c2-0edd0e2f5ada",
-          "product_code": "PETROL",
-          "product_name": "Petrol",
-          "category": "FUEL",
-          "status": "ACTIVE",
-          "quantity_on_hand": "10000.000",
-          "updated_at": "2026-05-19T12:52:14.575Z"
-        },
-        {
-          "product_id": "652378bd-d117-4ee4-af0e-de9bc411c1db",
-          "product_code": "DIESEL",
-          "product_name": "Diesel",
-          "category": "FUEL",
-          "status": "ACTIVE",
-          "quantity_on_hand": "10000.000",
-          "updated_at": "2026-05-19T12:52:14.607Z"
-        },
-        {
-          "product_id": "113c1372-83a8-42d2-a739-316b347e1d50",
-          "product_code": "KEROSENE",
-          "product_name": "Kerosene",
-          "category": "FUEL",
-          "status": "ACTIVE",
-          "quantity_on_hand": "10000.000",
-          "updated_at": "2026-05-19T12:52:14.611Z"
-        }
-      ],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 6,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[{\"product_id\":\"aa30671e-c8dd-46b5-87b1-b2d9a38f7eee\",\"product_code\":\"OB-OIL\",\"product_name\":\"OB Oil\",\"category\":\"LUBRICANT\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.619Z\"},{\"product_id\":\"187c8ddd-499b-4fbf-8882-30472cbb3e1c\",\"product_code\":\"2T-OIL\",\"product_name\":\"2T Oil\",\"category\":\"LUBRICANT\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.622Z\"},{\"product_id\":\"26142c37-eb02-49d7-804d-93b390625e22\",\"product_code\":\"GAS-CYL\",\"product_name\":\"Gas Cylinder\",\"category\":\"GAS\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"100.000\",\"updated_at\":\"2026-05-19T12:52:14.615Z\"},{\"product_id\":\"bec09990-1965-414b-82c2-0edd0e2f5ada\",\"product_code\":\"PETROL\",\"product_name\":\"Petrol\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.575Z\"},{\"product_id\":\"652378bd-d117-4ee4-af0e-de9bc411c1db\",\"product_code\":\"DIESEL\",\"product_name\":\"Diesel\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.607Z\"},{\"product_id\":\"113c1372-83a8-42d2-a739-316b347e1d50\",\"product_code\":\"KEROSENE\",\"product_name\":\"Kerosene\",\"category\":\"FUEL\",\"status\":\"ACTIVE\",\"quantity_on_hand\":\"10000.000\",\"updated_at\":\"2026-05-19T12:52:14.611Z\"}],\"meta\":{\"page\":1,\"limit\":25,\"total\":6,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.621Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.045Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/pump-meters",
     "method": "GET",
     "path": "/api/reports/pump-meters",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.632Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.046Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/attendance",
     "method": "GET",
     "path": "/api/reports/attendance",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.640Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.047Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/daily-sales",
     "method": "GET",
     "path": "/api/reports/daily-sales",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.645Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.048Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/pumper-shortfalls",
     "method": "GET",
     "path": "/api/reports/pumper-shortfalls",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.653Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.049Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/payroll-deductions",
     "method": "GET",
     "path": "/api/reports/payroll-deductions",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.659Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.050Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/bowser-receipts",
     "method": "GET",
     "path": "/api/reports/bowser-receipts",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.666Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.051Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/stock-orders",
     "method": "GET",
     "path": "/api/reports/stock-orders",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.673Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.052Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/credit-dues",
     "method": "GET",
     "path": "/api/reports/credit-dues",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.681Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.053Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/cheques",
     "method": "GET",
     "path": "/api/reports/cheques",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.687Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.054Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/bank-deposits",
     "method": "GET",
     "path": "/api/reports/bank-deposits",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.693Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.055Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/profit-loss",
     "method": "GET",
     "path": "/api/reports/profit-loss",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "period": {},
-      "revenue": 0,
-      "supplier_payments": 0,
-      "approved_deductions": 0,
-      "gross_profit_estimate": 0,
-      "net_profit_estimate": 0,
-      "credit_outstanding": 0
-    },
-    "responseText": "{\"period\":{},\"revenue\":0,\"supplier_payments\":0,\"approved_deductions\":0,\"gross_profit_estimate\":0,\"net_profit_estimate\":0,\"credit_outstanding\":0}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.699Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.057Z"
   },
   {
     "module": "reports",
     "endpoint": "GET /api/reports/cpc-stock",
     "method": "GET",
     "path": "/api/reports/cpc-stock",
-    "status": 200,
-    "statusText": "OK",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "data": [],
-      "meta": {
-        "page": 1,
-        "limit": 25,
-        "total": 0,
-        "total_pages": 1,
-        "has_next": false,
-        "has_previous": false
-      }
-    },
-    "responseText": "{\"data\":[],\"meta\":{\"page\":1,\"limit\":25,\"total\":0,\"total_pages\":1,\"has_next\":false,\"has_previous\":false}}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.707Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.058Z"
   },
   {
     "module": "reports",
     "endpoint": "POST /api/reports/cpc-stock/generate",
     "method": "POST",
     "path": "/api/reports/cpc-stock/generate",
-    "status": 400,
-    "statusText": "Bad Request",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": {
-      "message": [
-        "report_date must be a valid ISO 8601 date string"
-      ],
-      "error": "Bad Request",
-      "statusCode": 400
-    },
-    "responseText": "{\"message\":[\"report_date must be a valid ISO 8601 date string\"],\"error\":\"Bad Request\",\"statusCode\":400}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.711Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.059Z"
   },
   {
     "module": "reports",
     "endpoint": "POST /api/reports/cpc-stock/550e8400-e29b-41d4-a716-446655440000/submit",
     "method": "POST",
     "path": "/api/reports/cpc-stock/550e8400-e29b-41d4-a716-446655440000/submit",
-    "status": 201,
-    "statusText": "Created",
-    "contentType": "application/json; charset=utf-8",
     "requestBody": {},
-    "responseBody": [],
-    "responseText": "[]",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.721Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.060Z"
   },
   {
     "module": "auth",
     "endpoint": "POST /api/auth/logout",
     "method": "POST",
     "path": "/api/auth/logout",
-    "status": 201,
-    "statusText": "Created",
-    "contentType": "application/json; charset=utf-8",
-    "responseBody": {
-      "ok": true
-    },
-    "responseText": "{\"ok\":true}",
-    "passed": true,
-    "timestamp": "2026-05-19T14:04:38.728Z"
+    "error": "AggregateError",
+    "passed": false,
+    "timestamp": "2026-05-21T19:27:36.061Z"
   }
 ]

@@ -9,6 +9,7 @@ import {
   OperationalRole,
   PortalUser,
   Product,
+  GeoCustomCity,
   StockBalance,
   Tenant,
   TenantSetting,
@@ -17,6 +18,14 @@ import { PortalRole } from '../../common/enums/portal-role.enum';
 import { AuditService } from '../audit/audit.service';
 import { CreateTenantDto } from './dto/create-tenant.dto';
 import { UpdateTenantDto } from './dto/update-tenant.dto';
+
+type CreateTenantInput = CreateTenantDto & {
+  owner_password_hash?: string;
+  custom_city_name?: string;
+  normalized_custom_city_name?: string;
+  province_id?: number;
+  district_id?: number;
+};
 
 const defaultSettings: Record<string, string> = {
   salary_deduction_enabled: 'true',
@@ -57,15 +66,27 @@ export class TenantsService {
     private readonly audit: AuditService,
   ) {}
 
-  async create(dto: CreateTenantDto, actorUserId?: string) {
+  async create(dto: CreateTenantInput, actorUserId?: string) {
     return this.dataSource.transaction(async (manager) => {
+      const address = dto.address ?? [dto.address_line1, dto.address_line2, dto.city, dto.district, dto.province, dto.country]
+        .filter(Boolean)
+        .join(', ');
       const tenant = await manager.save(
         manager.create(Tenant, {
-          stationCode: dto.station_code,
+          stationCode: dto.station_code.toUpperCase(),
           stationName: dto.station_name,
           ownerName: dto.owner_name,
-          address: dto.address,
+          address: address || undefined,
+          addressLine1: dto.address_line1,
+          addressLine2: dto.address_line2,
+          city: dto.city,
           district: dto.district,
+          province: dto.province,
+          postalCode: dto.postal_code,
+          country: dto.country ?? 'Sri Lanka',
+          latitude: dto.latitude,
+          longitude: dto.longitude,
+          geoCityId: dto.geo_city_id,
           contactNumber: dto.contact_number,
           email: dto.email?.toLowerCase(),
         }),
@@ -107,13 +128,34 @@ export class TenantsService {
       const savedProducts = await manager.save(products);
       await manager.save(savedProducts.map((product) => manager.create(StockBalance, { tenantId: tenant.id, productId: product.id })));
 
-      if (dto.owner_email && dto.owner_password) {
+      if (dto.custom_city_name && dto.normalized_custom_city_name && dto.district_id && dto.province_id) {
+        const existingCustomCity = await manager.findOne(GeoCustomCity, {
+          where: { districtId: dto.district_id, normalizedName: dto.normalized_custom_city_name },
+        });
+        if (!existingCustomCity) {
+          await manager.save(
+            manager.create(GeoCustomCity, {
+              name: dto.custom_city_name,
+              normalizedName: dto.normalized_custom_city_name,
+              districtId: dto.district_id,
+              provinceId: dto.province_id,
+              postalCode: dto.postal_code,
+              latitude: dto.latitude,
+              longitude: dto.longitude,
+              createdByTenantId: tenant.id,
+              status: 'PENDING_REVIEW',
+            }),
+          );
+        }
+      }
+
+      if (dto.owner_email && (dto.owner_password || dto.owner_password_hash)) {
         await manager.save(
           manager.create(PortalUser, {
             tenantId: tenant.id,
             name: dto.owner_name ?? dto.station_name,
             email: dto.owner_email.toLowerCase(),
-            passwordHash: await bcrypt.hash(dto.owner_password, 12),
+            passwordHash: dto.owner_password_hash ?? await bcrypt.hash(dto.owner_password!, 12),
             portalRole: PortalRole.Owner,
           }),
         );

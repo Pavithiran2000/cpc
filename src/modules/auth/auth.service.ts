@@ -1,23 +1,38 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
-import { PortalUser, Tenant } from '../../database/entities';
+import { GeoCity, GeoDistrict, GeoProvince, PortalUser, Tenant, TenantRegistrationAttempt } from '../../database/entities';
 import { AuditService } from '../audit/audit.service';
+import { EmailService } from '../email/email.service';
+import { TenantsService } from '../tenants/tenants.service';
 import { RefreshTokenService } from './refresh-token.service';
 import { LoginDto } from './dto/login.dto';
+import { RegisterStartDto } from './dto/register-start.dto';
+import { RegisterVerifyDto } from './dto/register-verify.dto';
+import { RegisterResendDto } from './dto/register-resend.dto';
+
+const VERIFICATION_TTL_MS = 10 * 60 * 1000;
+const RESEND_COOLDOWN_MS = 60 * 1000;
+const MAX_VERIFY_ATTEMPTS = 5;
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(Tenant) private readonly tenants: Repository<Tenant>,
     @InjectRepository(PortalUser) private readonly users: Repository<PortalUser>,
+    @InjectRepository(TenantRegistrationAttempt) private readonly registrations: Repository<TenantRegistrationAttempt>,
+    @InjectRepository(GeoProvince) private readonly provinces: Repository<GeoProvince>,
+    @InjectRepository(GeoDistrict) private readonly districts: Repository<GeoDistrict>,
+    @InjectRepository(GeoCity) private readonly cities: Repository<GeoCity>,
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
     private readonly audit: AuditService,
     private readonly refreshTokens: RefreshTokenService,
+    private readonly tenantsService: TenantsService,
+    private readonly email: EmailService,
   ) {}
 
   async login(dto: LoginDto, ipAddress?: string, userAgent?: string) {
@@ -91,6 +106,229 @@ export class AuthService {
     await this.refreshTokens.revokeAllForUser(userId);
   }
 
+  async startRegistration(dto: RegisterStartDto) {
+    const normalized = await this.normalizeAndValidateRegistration(dto);
+    await this.ensureStationCodeAvailable(normalized.stationCode);
+
+    const now = new Date();
+    const existing = await this.registrations.findOne({
+      where: { stationCode: normalized.stationCode, status: 'PENDING' },
+      order: { createdAt: 'DESC' },
+    });
+
+    if (existing && existing.expiresAt > now) {
+      throw new ConflictException({
+        message: 'A registration for this station code is already pending. Continue verification or resend the code.',
+        registration_id: existing.id,
+        email: maskEmail(existing.ownerEmail),
+      });
+    }
+
+    if (existing) {
+      existing.status = 'EXPIRED';
+      await this.registrations.save(existing);
+    }
+
+    const code = generateVerificationCode();
+    const registration = await this.registrations.save(
+      this.registrations.create({
+        stationCode: normalized.stationCode,
+        stationName: normalized.stationName,
+        ownerName: normalized.ownerName,
+        phone: normalized.phone,
+        country: normalized.country,
+        addressLine1: normalized.addressLine1,
+        addressLine2: normalized.addressLine2,
+        provinceId: normalized.province.id,
+        districtId: normalized.district.id,
+        geoCityId: normalized.city?.id,
+        customCityName: normalized.customCityName,
+        postalCode: normalized.postalCode,
+        latitude: normalized.city?.latitude,
+        longitude: normalized.city?.longitude,
+        ownerEmail: normalized.ownerEmail,
+        ownerPasswordHash: await bcrypt.hash(dto.password, 12),
+        verificationCodeHash: await bcrypt.hash(code, 12),
+        expiresAt: new Date(now.getTime() + VERIFICATION_TTL_MS),
+        lastSentAt: now,
+      }),
+    );
+
+    await this.email.sendVerificationCode({
+      to: normalized.ownerEmail,
+      code,
+      stationName: normalized.stationName,
+    });
+
+    return {
+      registration_id: registration.id,
+      email: maskEmail(normalized.ownerEmail),
+      expires_at: registration.expiresAt,
+      resend_after_seconds: Math.ceil(RESEND_COOLDOWN_MS / 1000),
+    };
+  }
+
+  async verifyRegistration(dto: RegisterVerifyDto) {
+    const registration = await this.registrations.findOne({ where: { id: dto.registration_id } });
+    if (!registration) throw new NotFoundException('Registration not found');
+    if (registration.status !== 'PENDING') throw new BadRequestException('Registration is not pending');
+    if (registration.expiresAt <= new Date()) {
+      registration.status = 'EXPIRED';
+      await this.registrations.save(registration);
+      throw new BadRequestException('Verification code has expired');
+    }
+    if (registration.attemptCount >= MAX_VERIFY_ATTEMPTS) {
+      throw new TooManyRequestsHttpException('Too many verification attempts');
+    }
+
+    const valid = await bcrypt.compare(dto.code, registration.verificationCodeHash);
+    if (!valid) {
+      registration.attemptCount += 1;
+      await this.registrations.save(registration);
+      throw new UnauthorizedException('Invalid verification code');
+    }
+
+    await this.ensureStationCodeAvailable(registration.stationCode);
+
+    const province = await this.provinces.findOneByOrFail({ id: registration.provinceId });
+    const district = await this.districts.findOneByOrFail({ id: registration.districtId });
+    const city = registration.geoCityId ? await this.cities.findOneByOrFail({ id: registration.geoCityId }) : undefined;
+    const cityName = city?.name ?? registration.customCityName!;
+    const address = [
+      registration.addressLine1,
+      registration.addressLine2,
+      cityName,
+      district.name,
+      province.name,
+      registration.country,
+    ].filter(Boolean).join(', ');
+
+    const tenant = await this.tenantsService.create({
+      station_code: registration.stationCode,
+      station_name: registration.stationName,
+      owner_name: registration.ownerName,
+      contact_number: registration.phone,
+      address,
+      address_line1: registration.addressLine1,
+      address_line2: registration.addressLine2,
+      city: cityName,
+      district: district.name,
+      province: province.name,
+      postal_code: registration.postalCode,
+      country: registration.country,
+      latitude: registration.latitude,
+      longitude: registration.longitude,
+      geo_city_id: registration.geoCityId,
+      owner_email: registration.ownerEmail,
+      owner_password_hash: registration.ownerPasswordHash,
+      custom_city_name: registration.customCityName,
+      normalized_custom_city_name: registration.customCityName ? normalizeLookup(registration.customCityName) : undefined,
+      province_id: registration.provinceId,
+      district_id: registration.districtId,
+    });
+
+    registration.status = 'COMPLETED';
+    await this.registrations.save(registration);
+
+    return {
+      station_code: tenant.stationCode,
+      station_name: tenant.stationName,
+      owner_email: registration.ownerEmail,
+    };
+  }
+
+  async resendRegistrationCode(dto: RegisterResendDto) {
+    const registration = await this.registrations.findOne({ where: { id: dto.registration_id } });
+    if (!registration) throw new NotFoundException('Registration not found');
+    if (registration.status !== 'PENDING') throw new BadRequestException('Registration is not pending');
+    if (registration.expiresAt <= new Date()) {
+      registration.status = 'EXPIRED';
+      await this.registrations.save(registration);
+      throw new BadRequestException('Registration has expired');
+    }
+
+    const elapsed = Date.now() - registration.lastSentAt.getTime();
+    if (elapsed < RESEND_COOLDOWN_MS) {
+      throw new TooManyRequestsHttpException(`Please wait ${Math.ceil((RESEND_COOLDOWN_MS - elapsed) / 1000)} seconds before resending`);
+    }
+
+    await this.ensureStationCodeAvailable(registration.stationCode);
+
+    const code = generateVerificationCode();
+    registration.verificationCodeHash = await bcrypt.hash(code, 12);
+    registration.expiresAt = new Date(Date.now() + VERIFICATION_TTL_MS);
+    registration.lastSentAt = new Date();
+    registration.attemptCount = 0;
+    await this.registrations.save(registration);
+
+    await this.email.sendVerificationCode({
+      to: registration.ownerEmail,
+      code,
+      stationName: registration.stationName,
+    });
+
+    return {
+      registration_id: registration.id,
+      email: maskEmail(registration.ownerEmail),
+      expires_at: registration.expiresAt,
+      resend_after_seconds: Math.ceil(RESEND_COOLDOWN_MS / 1000),
+    };
+  }
+
+  private async normalizeAndValidateRegistration(dto: RegisterStartDto) {
+    const stationCode = dto.station_code.trim().toUpperCase();
+    const stationName = normalizeSpaces(dto.station_name);
+    const ownerName = normalizeSpaces(dto.owner_name);
+    const country = normalizeSpaces(dto.country || 'Sri Lanka');
+    if (country.toLowerCase() !== 'sri lanka') {
+      throw new BadRequestException('Only Sri Lanka addresses are supported for registration');
+    }
+
+    const phone = normalizePhone(dto.phone);
+    if (!/^\+?[0-9]{7,15}$/.test(phone)) {
+      throw new BadRequestException('Phone number must contain 7 to 15 digits');
+    }
+
+    const province = await this.provinces.findOne({ where: { id: dto.province_id } });
+    if (!province) throw new BadRequestException('Province not found');
+    const district = await this.districts.findOne({ where: { id: dto.district_id, provinceId: province.id } });
+    if (!district) throw new BadRequestException('District does not belong to the selected province');
+
+    let city: GeoCity | undefined;
+    let customCityName: string | undefined;
+    if (dto.geo_city_id) {
+      city = await this.cities.findOne({ where: { id: dto.geo_city_id, districtId: district.id, provinceId: province.id } }) ?? undefined;
+      if (!city) throw new BadRequestException('City does not belong to the selected district');
+    } else if (dto.custom_city_name) {
+      customCityName = normalizeSpaces(dto.custom_city_name);
+    } else {
+      throw new BadRequestException('City is required');
+    }
+
+    return {
+      stationCode,
+      stationName,
+      ownerName,
+      phone,
+      country: 'Sri Lanka',
+      addressLine1: normalizeSpaces(dto.address_line1),
+      addressLine2: dto.address_line2 ? normalizeSpaces(dto.address_line2) : undefined,
+      province,
+      district,
+      city,
+      customCityName,
+      postalCode: dto.postal_code ? normalizeSpaces(dto.postal_code) : city?.postalCode,
+      ownerEmail: dto.owner_email.trim().toLowerCase(),
+    };
+  }
+
+  private async ensureStationCodeAvailable(stationCode: string) {
+    const existing = await this.tenants.findOne({ where: { stationCode } });
+    if (existing) {
+      throw new ConflictException('This station code is already registered. Try another code or sign in.');
+    }
+  }
+
   private async signAccessToken(user: PortalUser, tenantId: string): Promise<string> {
     const signOptions: JwtSignOptions = {
       algorithm: 'RS256',
@@ -103,5 +341,34 @@ export class AuthService {
       { sub: user.id, tenant_id: tenantId, portal_role: user.portalRole, email: user.email },
       signOptions,
     );
+  }
+}
+
+function normalizeSpaces(value: string) {
+  return value.trim().replace(/\s+/g, ' ');
+}
+
+function normalizeLookup(value: string) {
+  return normalizeSpaces(value).toLowerCase();
+}
+
+function normalizePhone(value: string) {
+  return value.trim().replace(/[\s\-()]/g, '');
+}
+
+function generateVerificationCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+function maskEmail(email: string) {
+  const [name, domain] = email.split('@');
+  if (!domain) return email;
+  const visible = name.slice(0, 2);
+  return `${visible}${'*'.repeat(Math.max(name.length - 2, 2))}@${domain}`;
+}
+
+class TooManyRequestsHttpException extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.TOO_MANY_REQUESTS);
   }
 }
