@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { ListQueryDto } from '../../common/dto';
 import { executeListQuery } from '../../common/utils/list-query';
 import { OperationalRole } from '../../database/entities';
@@ -32,17 +32,24 @@ export class OperationalRolesService {
   }
 
   async create(tenantId: string, dto: CreateOperationalRoleDto, actorUserId: string) {
-    const role = await this.roles.save(
-      this.roles.create({
-        tenantId,
-        name: dto.name,
-        requiresAttendance: dto.requires_attendance,
-        liableForCashShortfall: dto.liable_for_cash_shortfall,
-        description: dto.description,
-      }),
-    );
-    await this.audit.record({ tenantId, actorUserId, moduleName: 'operational_roles', action: 'CREATE', newValue: role });
-    return role;
+    try {
+      const role = await this.roles.save(
+        this.roles.create({
+          tenantId,
+          name: dto.name.trim(),
+          requiresAttendance: dto.requires_attendance,
+          liableForCashShortfall: dto.liable_for_cash_shortfall,
+          description: dto.description,
+        }),
+      );
+      await this.audit.record({ tenantId, actorUserId, moduleName: 'operational_roles', action: 'CREATE', newValue: role });
+      return role;
+    } catch (error) {
+      if (isUniqueViolation(error)) {
+        throw new ConflictException('Operational role with this name already exists for this tenant');
+      }
+      throw error;
+    }
   }
 
   async update(tenantId: string, id: string, dto: UpdateOperationalRoleDto, actorUserId: string) {
@@ -59,4 +66,8 @@ export class OperationalRolesService {
     await this.audit.record({ tenantId, actorUserId, moduleName: 'operational_roles', action: 'UPDATE', newValue: saved });
     return saved;
   }
+}
+
+function isUniqueViolation(error: unknown) {
+  return error instanceof QueryFailedError && (error.driverError as { code?: string }).code === '23505';
 }

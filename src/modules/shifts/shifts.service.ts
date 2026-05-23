@@ -256,22 +256,28 @@ export class ShiftsService {
     const session = await this.sessions.findOne({ where: { tenantId, id: shiftSessionId } });
     if (!session) throw new NotFoundException('Shift session not found');
     if (session.status === 'CLOSED') throw new BadRequestException('Closed shifts are locked');
-    const saved = await this.dataSource.getRepository(PumperCashSubmission).save(
-      dto.submissions.map((submission) =>
-        this.dataSource.getRepository(PumperCashSubmission).create({
-          tenantId,
-          shiftSessionId,
-          pumperId: submission.pumper_id,
-          actualCash: money(submission.actual_cash),
-        }),
-      ),
-    );
+    const repo = this.dataSource.getRepository(PumperCashSubmission);
+    const saved: PumperCashSubmission[] = [];
+    for (const submission of dto.submissions) {
+      const existing = await repo.findOne({ where: { tenantId, shiftSessionId, pumperId: submission.pumper_id } });
+      saved.push(
+        await repo.save(
+          repo.create({
+            ...existing,
+            tenantId,
+            shiftSessionId,
+            pumperId: submission.pumper_id,
+            actualCash: money(submission.actual_cash),
+          }),
+        ),
+      );
+    }
     await this.audit.record({ tenantId, actorUserId, moduleName: 'shift_cash', action: 'SUBMIT', newValue: saved });
     return saved;
   }
 
   async close(tenantId: string, shiftSessionId: string, dto: CloseShiftDto, actorUserId: string) {
-    return this.dataSource.transaction(async (manager) => {
+    await this.dataSource.transaction(async (manager) => {
       const session = await manager.findOne(ShiftSession, { where: { tenantId, id: shiftSessionId } });
       if (!session) throw new NotFoundException('Shift session not found');
       if (session.status === 'CLOSED') throw new BadRequestException('Closed shifts are locked');
@@ -346,8 +352,12 @@ export class ShiftsService {
       for (const submission of dto.cash_submissions) {
         const expectedCash = expectedByPumper.get(submission.pumper_id) ?? 0;
         const variance = calculateCashVariance(expectedCash, submission.actual_cash);
+        const existingCash = await manager.findOne(PumperCashSubmission, {
+          where: { tenantId, shiftSessionId, pumperId: submission.pumper_id },
+        });
         const cash = await manager.save(
           manager.create(PumperCashSubmission, {
+            ...existingCash,
             tenantId,
             shiftSessionId,
             pumperId: submission.pumper_id,
@@ -359,8 +369,12 @@ export class ShiftsService {
           }),
         );
         if (deductionEnabled && variance.shortfall > 0) {
+          const existingDeduction = await manager.findOne(SalaryDeduction, {
+            where: { tenantId, sourceType: 'CASH_SHORTFALL', sourceId: cash.id },
+          });
           await manager.save(
             manager.create(SalaryDeduction, {
+              ...existingDeduction,
               tenantId,
               staffId: submission.pumper_id,
               shiftSessionId,
@@ -381,8 +395,8 @@ export class ShiftsService {
       session.closedAt = new Date();
       await manager.save(session);
       await this.audit.record({ tenantId, actorUserId, moduleName: 'shift_sessions', action: 'CLOSE', newValue: { id: shiftSessionId } }, manager);
-      return this.findSession(tenantId, shiftSessionId);
     });
+    return this.findSession(tenantId, shiftSessionId);
   }
 
   private async assertNoOverlap(tenantId: string, start: string, end: string, excludeId?: string) {
