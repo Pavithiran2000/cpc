@@ -122,6 +122,15 @@ export class PortalUser extends TenantEntity {
 
   @Column({ name: 'last_login_at', type: 'timestamptz', nullable: true })
   lastLoginAt?: Date;
+
+  @Column({ name: 'two_factor_enabled', default: false })
+  twoFactorEnabled: boolean;
+
+  @Column({ name: 'two_factor_secret', type: 'text', nullable: true })
+  twoFactorSecret?: string;
+
+  @Column({ name: 'two_factor_pending_secret', type: 'text', nullable: true })
+  twoFactorPendingSecret?: string;
 }
 
 @Entity('operational_roles')
