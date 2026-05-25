@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, EntityManager, Repository } from 'typeorm';
+import { DataSource, EntityManager, In, Repository } from 'typeorm';
 import { ListQueryDto } from '../../common/dto';
 import { executeListQuery } from '../../common/utils/list-query';
 import { calculateCashVariance, calculateDispensed, calculateExpectedCash, money, quantity, rangesOverlap, toDecimal } from '../../common/utils/calculations';
@@ -256,22 +256,23 @@ export class ShiftsService {
     const session = await this.sessions.findOne({ where: { tenantId, id: shiftSessionId } });
     if (!session) throw new NotFoundException('Shift session not found');
     if (session.status === 'CLOSED') throw new BadRequestException('Closed shifts are locked');
+
     const repo = this.dataSource.getRepository(PumperCashSubmission);
-    const saved: PumperCashSubmission[] = [];
-    for (const submission of dto.submissions) {
-      const existing = await repo.findOne({ where: { tenantId, shiftSessionId, pumperId: submission.pumper_id } });
-      saved.push(
-        await repo.save(
-          repo.create({
-            ...existing,
-            tenantId,
-            shiftSessionId,
-            pumperId: submission.pumper_id,
-            actualCash: money(submission.actual_cash),
-          }),
-        ),
-      );
-    }
+    const pumperIds = dto.submissions.map((s) => s.pumper_id);
+    const existing = await repo.find({ where: { tenantId, shiftSessionId, pumperId: In(pumperIds) } });
+    const existingMap = new Map(existing.map((r) => [r.pumperId, r]));
+
+    const entities = dto.submissions.map((submission) =>
+      repo.create({
+        ...(existingMap.get(submission.pumper_id) ?? {}),
+        tenantId,
+        shiftSessionId,
+        pumperId: submission.pumper_id,
+        actualCash: money(submission.actual_cash),
+      }),
+    );
+
+    const saved = await repo.save(entities);
     await this.audit.record({ tenantId, actorUserId, moduleName: 'shift_cash', action: 'SUBMIT', newValue: saved });
     return saved;
   }
@@ -357,7 +358,7 @@ export class ShiftsService {
         });
         const cash = await manager.save(
           manager.create(PumperCashSubmission, {
-            ...existingCash,
+            ...(existingCash ?? {}),
             tenantId,
             shiftSessionId,
             pumperId: submission.pumper_id,
@@ -374,7 +375,7 @@ export class ShiftsService {
           });
           await manager.save(
             manager.create(SalaryDeduction, {
-              ...existingDeduction,
+              ...(existingDeduction ?? {}),
               tenantId,
               staffId: submission.pumper_id,
               shiftSessionId,

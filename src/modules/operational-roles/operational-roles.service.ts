@@ -56,7 +56,7 @@ export class OperationalRolesService {
     const role = await this.roles.findOne({ where: { tenantId, id } });
     if (!role) throw new NotFoundException('Operational role not found');
     Object.assign(role, {
-      name: dto.name ?? role.name,
+      name: dto.name !== undefined ? dto.name.trim() : role.name,
       requiresAttendance: dto.requires_attendance ?? role.requiresAttendance,
       liableForCashShortfall: dto.liable_for_cash_shortfall ?? role.liableForCashShortfall,
       description: dto.description ?? role.description,
