@@ -152,6 +152,7 @@ export class AuthService {
     if (!valid) throw new UnauthorizedException('Current password is incorrect');
     user.passwordHash = await bcrypt.hash(dto.new_password, 12);
     await this.users.save(user);
+    await this.refreshTokens.revokeAllForUser(user.id);
     return { ok: true };
   }
 
@@ -400,7 +401,7 @@ export class AuthService {
     user.twoFactorPendingSecret = this.encryptSecret(secret);
     await this.users.save(user);
 
-    const otpauth = otplib.generateURI({ secret, label: user.email, issuer: 'CPC Portal' });
+    const otpauth = otplib.generateURI({ issuer: 'CPC Portal', label: user.email, secret });
     const qrCodeDataUrl = await QRCode.toDataURL(otpauth);
 
     return { qr_code_url: qrCodeDataUrl, manual_entry_key: secret };
@@ -413,8 +414,8 @@ export class AuthService {
     if (!user.twoFactorPendingSecret) throw new BadRequestException('No pending 2FA setup found. Call setup first.');
 
     const pendingSecret = this.decryptSecret(user.twoFactorPendingSecret);
-    const result = await otplib.verify({ token: dto.code, secret: pendingSecret });
-    if (!result.valid) throw new UnauthorizedException('Invalid verification code');
+    const { valid: isValid } = otplib.verifySync({ token: dto.code, secret: pendingSecret });
+    if (!isValid) throw new UnauthorizedException('Invalid verification code');
 
     user.twoFactorSecret = user.twoFactorPendingSecret;
     user.twoFactorPendingSecret = undefined;
@@ -433,8 +434,8 @@ export class AuthService {
     if (!passwordValid) throw new UnauthorizedException('Current password is incorrect');
 
     const secret = this.decryptSecret(user.twoFactorSecret!);
-    const codeResult = await otplib.verify({ token: dto.code, secret });
-    if (!codeResult.valid) throw new UnauthorizedException('Invalid authenticator code');
+    const { valid: codeValid } = otplib.verifySync({ token: dto.code, secret });
+    if (!codeValid) throw new UnauthorizedException('Invalid authenticator code');
 
     user.twoFactorEnabled = false;
     user.twoFactorSecret = undefined;
@@ -465,8 +466,8 @@ export class AuthService {
     }
 
     const secret = this.decryptSecret(user.twoFactorSecret);
-    const challengeResult = await otplib.verify({ token: dto.code, secret });
-    if (!challengeResult.valid) throw new UnauthorizedException('Invalid authenticator code');
+    const { valid: challengeValid } = otplib.verifySync({ token: dto.code, secret });
+    if (!challengeValid) throw new UnauthorizedException('Invalid authenticator code');
 
     const tenant = await this.tenants.findOne({ where: { id: payload.tenant_id, status: 'ACTIVE' } });
     if (!tenant) throw new UnauthorizedException('Tenant not found');
@@ -518,7 +519,7 @@ export class AuthService {
     const encrypted = buf.subarray(28);
     const decipher = createDecipheriv('aes-256-gcm', key, iv);
     decipher.setAuthTag(tag);
-    return decipher.update(encrypted) + decipher.final('utf8');
+    return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString('utf8');
   }
 
   private async signAccessToken(user: PortalUser, tenantId: string): Promise<string> {
@@ -572,8 +573,8 @@ export class AuthService {
 
     await this.users.update(user.id, {
       passwordHash: await bcrypt.hash(dto.new_password, 12),
-      resetPasswordToken: null as unknown as string,
-      resetPasswordExpiresAt: null as unknown as Date,
+      resetPasswordToken: null,
+      resetPasswordExpiresAt: null,
     });
 
     await this.refreshTokens.revokeAllForUser(user.id);

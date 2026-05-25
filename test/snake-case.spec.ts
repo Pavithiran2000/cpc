@@ -47,7 +47,8 @@ describe('transform', () => {
   });
 
   it('skips __proto__ key to prevent prototype pollution', () => {
-    const result = transform({ __proto__: { evil: true }, safe: 1 }) as Record<string, unknown>;
+    const input = JSON.parse('{"__proto__":{"evil":true},"safe":1}') as Record<string, unknown>;
+    const result = transform(input) as Record<string, unknown>;
     expect(result['__proto__']).toBeUndefined();
     expect(result['safe']).toBe(1);
   });
