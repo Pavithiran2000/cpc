@@ -14,7 +14,8 @@
     "migration:revert": "npm run typeorm -- migration:revert",
     "migration:show": "npm run typeorm -- migration:show",
     "seed": "ts-node -r tsconfig-paths/register src/database/seeders/seed-default-measurement-units.ts",
-    "seed:owner": "ts-node -r tsconfig-paths/register src/database/seeders/seed-owner-user.ts"
+    "seed:owner": "ts-node -r tsconfig-paths/register src/database/seeders/seed-owner-user.ts",
+    "seed:platform": "ts-node -r tsconfig-paths/register src/database/seeders/seed-platform-admin.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.19",

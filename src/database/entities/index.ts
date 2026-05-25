@@ -11,6 +11,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PlatformAdmin, PlatformAdminRefreshToken, PlatformActivityLog } from './platform-admin.entity';
+export { PlatformAdmin, PlatformAdminRefreshToken, PlatformActivityLog, PlatformRole, PlatformAdminStatus, MfaMethod } from './platform-admin.entity';
 import { PortalRole } from '../../common/enums/portal-role.enum';
 
 export abstract class UuidEntity {
@@ -1337,4 +1339,8 @@ export const entities = [
   GeoCity,
   GeoCustomCity,
   TenantRegistrationAttempt,
+  // Platform Admin (separate auth domain — no tenant_id)
+  PlatformAdmin,
+  PlatformAdminRefreshToken,
+  PlatformActivityLog,
 ];

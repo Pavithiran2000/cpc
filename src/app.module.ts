@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { appConfig } from './config/app.config';
 import { databaseConfig } from './config/database.config';
 import { jwtConfig } from './config/jwt.config';
+import { platformAdminConfig } from './config/platform-admin.config';
+import { PlatformAdminModule } from './modules/platform-admin/platform-admin.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { TenantGuard } from './common/guards/tenant.guard';
@@ -39,6 +41,7 @@ import { GeoModule } from './modules/geo/geo.module';
       load: [
         () => ({ app: appConfig() }),
         () => ({ jwt: jwtConfig() }),
+        () => ({ platformAdmin: platformAdminConfig() }),
       ],
     }),
     ThrottlerModule.forRoot([{ ttl: 60, limit: 100 }]),
@@ -64,6 +67,7 @@ import { GeoModule } from './modules/geo/geo.module';
     PayrollModule,
     ReportsModule,
     ShiftCorrectionsModule,
+    PlatformAdminModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: JwtAuthGuard },

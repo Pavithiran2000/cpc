@@ -16,5 +16,6 @@ export const appConfig = () => {
     frontendOrigin: process.env.FRONTEND_ORIGIN ?? 'http://localhost:3000',
     cookieDomain: process.env.COOKIE_DOMAIN,
     twoFactorEncryptionKey: twoFactorEncryptionKey ?? 'a'.repeat(64),
+    frontendPlatformUrl: process.env.FRONTEND_PLATFORM_URL ?? 'http://localhost:3000/platform',
   };
 };

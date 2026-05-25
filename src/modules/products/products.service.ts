@@ -34,6 +34,7 @@ export class ProductsService {
         created_at: 'product.createdAt',
       },
       defaultSort: 'product.productName',
+      defaultSortOrder: 'ASC',
     });
   }
 

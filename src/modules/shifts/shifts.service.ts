@@ -47,6 +47,7 @@ export class ShiftsService {
         created_at: 'template.createdAt',
       },
       defaultSort: 'template.sequenceNo',
+      defaultSortOrder: 'ASC',
     });
   }
 

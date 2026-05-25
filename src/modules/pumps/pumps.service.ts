@@ -34,6 +34,7 @@ export class PumpsService {
         created_at: 'pump.createdAt',
       },
       defaultSort: 'pump.pumpCode',
+      defaultSortOrder: 'ASC',
     });
   }
 
@@ -84,6 +85,7 @@ export class PumpsService {
         created_at: 'nozzle.createdAt',
       },
       defaultSort: 'nozzle.nozzleCode',
+      defaultSortOrder: 'ASC',
     });
   }
 
