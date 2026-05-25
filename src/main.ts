@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { SnakeCaseInterceptor } from './common/interceptors/snake-case.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,7 @@ async function bootstrap() {
     origin: config.get<string>('app.frontendOrigin') ?? true,
     credentials: true,
   });
+  app.useGlobalInterceptors(new SnakeCaseInterceptor());
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

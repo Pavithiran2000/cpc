@@ -1,6 +1,7 @@
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { CreditDuesService } from '../src/modules/credit-dues/credit-dues.service';
+import { OperationalRolesService } from '../src/modules/operational-roles/operational-roles.service';
 import { PayrollService } from '../src/modules/payroll/payroll.service';
 import { RefreshTokenService } from '../src/modules/auth/refresh-token.service';
 import { ShiftsService } from '../src/modules/shifts/shifts.service';
@@ -228,7 +229,124 @@ describe('business rule coverage', () => {
     expect(rows[1].revokedAt).toBeInstanceOf(Date);
     expect(rows[1].tokenHash).toBe(crypto.createHash('sha256').update(second).digest('hex'));
   });
+
+  it('operational role update trims whitespace from name', async () => {
+    const role = { id: 'role-1', tenantId, name: 'Old Name', status: 'ACTIVE', requiresAttendance: false, liableForCashShortfall: false };
+    const rolesRepo = {
+      findOne: jest.fn().mockResolvedValue(role),
+      save: jest.fn(async (v: typeof role) => v),
+      create: jest.fn((v: typeof role) => v),
+    };
+    const service = new OperationalRolesService(rolesRepo as never, { record: jest.fn() } as never);
+
+    const result = await service.update(tenantId, 'role-1', { name: '  Trimmed Name  ' }, actorUserId);
+    expect(result.name).toBe('Trimmed Name');
+  });
+
+  it('operational role update leaves name unchanged when dto.name is undefined', async () => {
+    const role = { id: 'role-1', tenantId, name: 'Existing Name', status: 'ACTIVE', requiresAttendance: false, liableForCashShortfall: false };
+    const rolesRepo = {
+      findOne: jest.fn().mockResolvedValue(role),
+      save: jest.fn(async (v: typeof role) => v),
+      create: jest.fn((v: typeof role) => v),
+    };
+    const service = new OperationalRolesService(rolesRepo as never, { record: jest.fn() } as never);
+
+    const result = await service.update(tenantId, 'role-1', {}, actorUserId);
+    expect(result.name).toBe('Existing Name');
+  });
+
+  it('recordCash creates new submission when no existing record is found (null-safe)', async () => {
+    const cashRepo = {
+      find: jest.fn().mockResolvedValue([]),
+      save: jest.fn(async (entities: unknown[]) => entities),
+      create: jest.fn((v: unknown) => v),
+    };
+    const dataSource = { getRepository: jest.fn().mockReturnValue(cashRepo) };
+    const service = new ShiftsService(
+      dataSource as never,
+      repoStub() as never,
+      repoStub({ id: 'shift-1', tenantId, status: 'ACTIVE' }) as never,
+      repoStub() as never,
+      repoStub() as never,
+      { record: jest.fn() } as never,
+    );
+
+    const result = await service.recordCash(
+      tenantId,
+      'shift-1',
+      { submissions: [{ pumper_id: 'pumper-1', actual_cash: 5000 }] },
+      actorUserId,
+    );
+    expect(result).toHaveLength(1);
+    expect(cashRepo.find).toHaveBeenCalledTimes(1);
+    expect(cashRepo.save).toHaveBeenCalledTimes(1);
+  });
+
+  it('close shift handles null existingCash and null existingDeduction without crashing', async () => {
+    const saved: Array<{ __entity?: string; status?: string }> = [];
+    const manager = shiftCloseManagerWithNullCash(saved, 'false');
+    const dataSource = {
+      transaction: jest.fn((callback: (m: typeof manager) => Promise<unknown>) => callback(manager)),
+      getRepository: jest.fn(() => ({ find: jest.fn().mockResolvedValue([]) })),
+    };
+    const service = new ShiftsService(
+      dataSource as never,
+      repoStub() as never,
+      repoStub({ id: 'shift-1', tenantId, status: 'CLOSED' }) as never,
+      repoStub() as never,
+      repoStub() as never,
+      { record: jest.fn() } as never,
+    );
+
+    await service.close(
+      tenantId,
+      'shift-1',
+      { closing_readings: [{ nozzle_id: 'nozzle-1', meter_reading: 20 }], cash_submissions: [{ pumper_id: 'pumper-1', actual_cash: 3000 }] },
+      actorUserId,
+    );
+
+    expect(saved).toContainEqual(expect.objectContaining({ __entity: SalaryDeduction.name }));
+  });
 });
+
+function shiftCloseManagerWithNullCash(saved: Array<{ __entity?: string; status?: string }>, approvalSetting: 'true' | 'false') {
+  return {
+    find: jest.fn(async (entity: EntityTarget) => {
+      if (entity === PumpNozzleAssignment) return [{ nozzleId: 'nozzle-1', pumperId: 'pumper-1' }];
+      return [];
+    }),
+    findOne: jest.fn(async (entity: EntityTarget) => {
+      if (entity === ShiftSession) return { id: 'shift-1', tenantId: 'tenant-1', status: 'ACTIVE' };
+      if (entity === PumpMeterReading) return { openingReading: '99990.000', nozzleId: 'nozzle-1' };
+      if (entity === PumpNozzle) return { id: 'nozzle-1', pumpId: 'pump-1', productId: 'fuel-1', meterCapacity: '99999.999' };
+      if (entity === StockBalance) return { tenantId: 'tenant-1', productId: 'fuel-1', quantityOnHand: '1000.000' };
+      // Explicitly return null for PumperCashSubmission and SalaryDeduction
+      return null;
+    }),
+    getRepository: jest.fn((entity: EntityTarget) => {
+      if (entity === ProductPrice) {
+        return { createQueryBuilder: jest.fn(() => productPriceQueryBuilder()) };
+      }
+      if (entity === TenantSetting) {
+        return {
+          findOne: jest.fn(async ({ where }: { where: { settingKey: string } }) => {
+            if (where.settingKey === 'cash_shortfall_requires_approval') return { settingValue: approvalSetting };
+            if (where.settingKey === 'salary_deduction_enabled') return { settingValue: 'true' };
+            return null;
+          }),
+        };
+      }
+      return {};
+    }),
+    create: jest.fn(managerCreate),
+    save: jest.fn(async (value: { __entity?: string; id?: string }) => {
+      const withId = { id: value.id ?? `${value.__entity ?? 'row'}-${saved.length + 1}`, ...value };
+      saved.push(withId);
+      return withId;
+    }),
+  };
+}
 
 function shiftCloseManager(saved: Array<{ __entity?: string; status?: string; isRollover?: boolean }>, approvalSetting: 'true' | 'false') {
   return {

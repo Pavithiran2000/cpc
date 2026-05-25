@@ -7,6 +7,12 @@ interface VerificationCodeEmail {
   stationName: string;
 }
 
+interface PasswordResetEmail {
+  to: string;
+  resetUrl: string;
+  stationName: string;
+}
+
 @Injectable()
 export class EmailService {
   constructor(private readonly brevo: BrevoEmailProvider) {}
@@ -21,6 +27,19 @@ export class EmailService {
         <p>This code expires in 10 minutes.</p>
       `,
       textContent: `Your verification code for ${message.stationName} is ${message.code}. This code expires in 10 minutes.`,
+    });
+  }
+
+  sendPasswordResetEmail(message: PasswordResetEmail) {
+    return this.brevo.sendTransactionalEmail({
+      to: message.to,
+      subject: 'Reset your CPC Station Manager password',
+      htmlContent: `
+        <p>You requested a password reset for <strong>${escapeHtml(message.stationName)}</strong>.</p>
+        <p><a href="${escapeHtml(message.resetUrl)}" style="color:#E85D04;">Reset your password</a></p>
+        <p>This link expires in 1 hour. If you did not request this, you can safely ignore this email.</p>
+      `,
+      textContent: `You requested a password reset for ${message.stationName}.\n\nReset your password: ${message.resetUrl}\n\nThis link expires in 1 hour. If you did not request this, ignore this email.`,
     });
   }
 }
