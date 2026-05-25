@@ -131,6 +131,12 @@ export class PortalUser extends TenantEntity {
 
   @Column({ name: 'two_factor_pending_secret', type: 'text', nullable: true })
   twoFactorPendingSecret?: string;
+
+  @Column({ name: 'reset_password_token', type: 'text', nullable: true })
+  resetPasswordToken?: string;
+
+  @Column({ name: 'reset_password_expires_at', type: 'timestamptz', nullable: true })
+  resetPasswordExpiresAt?: Date;
 }
 
 @Entity('operational_roles')

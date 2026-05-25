@@ -1,5 +1,5 @@
 import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
+import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'crypto';
 import * as otplib from 'otplib';
 import * as QRCode from 'qrcode';
 import { Activate2faDto } from './dto/activate-2fa.dto';
@@ -17,10 +17,12 @@ import { AuditService } from '../audit/audit.service';
 import { EmailService } from '../email/email.service';
 import { TenantsService } from '../tenants/tenants.service';
 import { RefreshTokenService } from './refresh-token.service';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
+import { RegisterResendDto } from './dto/register-resend.dto';
 import { RegisterStartDto } from './dto/register-start.dto';
 import { RegisterVerifyDto } from './dto/register-verify.dto';
-import { RegisterResendDto } from './dto/register-resend.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 const VERIFICATION_TTL_MS = 10 * 60 * 1000;
 const RESEND_COOLDOWN_MS = 60 * 1000;
@@ -531,6 +533,52 @@ export class AuthService {
       { sub: user.id, tenant_id: tenantId, portal_role: user.portalRole, email: user.email },
       signOptions,
     );
+  }
+
+  async forgotPassword(dto: ForgotPasswordDto): Promise<{ ok: boolean }> {
+    const tenant = await this.tenants.findOne({
+      where: { stationCode: dto.station_code.toUpperCase(), status: 'ACTIVE' },
+    });
+    if (!tenant) return { ok: true };
+
+    const user = await this.users.findOne({
+      where: { tenantId: tenant.id, email: dto.email.toLowerCase(), status: 'ACTIVE' },
+    });
+    if (!user) return { ok: true };
+
+    const rawToken = randomBytes(32).toString('hex');
+    const tokenHash = createHash('sha256').update(rawToken).digest('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+
+    user.resetPasswordToken = tokenHash;
+    user.resetPasswordExpiresAt = expiresAt;
+    await this.users.save(user);
+
+    const frontendOrigin = this.config.get<string>('app.frontendOrigin') ?? 'http://localhost:3000';
+    const resetUrl = `${frontendOrigin}/reset-password?token=${rawToken}`;
+
+    await this.email.sendPasswordResetEmail({ to: user.email, resetUrl, stationName: tenant.stationName });
+
+    return { ok: true };
+  }
+
+  async resetPassword(dto: ResetPasswordDto): Promise<{ ok: boolean }> {
+    const tokenHash = createHash('sha256').update(dto.token).digest('hex');
+    const user = await this.users.findOne({ where: { resetPasswordToken: tokenHash } });
+
+    if (!user || !user.resetPasswordExpiresAt || user.resetPasswordExpiresAt < new Date()) {
+      throw new BadRequestException('Invalid or expired reset link');
+    }
+
+    await this.users.update(user.id, {
+      passwordHash: await bcrypt.hash(dto.new_password, 12),
+      resetPasswordToken: null as unknown as string,
+      resetPasswordExpiresAt: null as unknown as Date,
+    });
+
+    await this.refreshTokens.revokeAllForUser(user.id);
+
+    return { ok: true };
   }
 }
 

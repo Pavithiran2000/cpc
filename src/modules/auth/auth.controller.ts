@@ -9,10 +9,12 @@ import { Activate2faDto } from './dto/activate-2fa.dto';
 import { Challenge2faDto } from './dto/challenge-2fa.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { Disable2faDto } from './dto/disable-2fa.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { LoginDto } from './dto/login.dto';
 import { RegisterResendDto } from './dto/register-resend.dto';
 import { RegisterStartDto } from './dto/register-start.dto';
 import { RegisterVerifyDto } from './dto/register-verify.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
 const REFRESH_COOKIE = 'refresh_token';
@@ -115,6 +117,18 @@ export class AuthController {
   @Post('2fa/disable')
   disable2fa(@CurrentUser() user: RequestUser, @Body() dto: Disable2faDto) {
     return this.auth.disable2fa(user.id, user.tenantId, dto);
+  }
+
+  @Public()
+  @Post('forgot-password')
+  forgotPassword(@Body() dto: ForgotPasswordDto) {
+    return this.auth.forgotPassword(dto);
+  }
+
+  @Public()
+  @Post('reset-password')
+  resetPassword(@Body() dto: ResetPasswordDto) {
+    return this.auth.resetPassword(dto);
   }
 
   @Public()
