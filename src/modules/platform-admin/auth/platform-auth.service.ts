@@ -9,7 +9,9 @@ import * as QRCode from 'qrcode';
 import { Repository } from 'typeorm';
 import { PlatformActivityLog, PlatformAdmin, PlatformAdminStatus, MfaMethod } from '../../../database/entities';
 import { EmailService } from '../../email/email.service';
+import { PlatformChangePasswordDto } from './dto/platform-change-password.dto';
 import { PlatformLoginDto } from './dto/platform-login.dto';
+import { PlatformUpdateProfileDto } from './dto/platform-update-profile.dto';
 import { PlatformRefreshTokenService } from './platform-refresh-token.service';
 
 const MAX_ATTEMPTS = 5;
@@ -92,6 +94,34 @@ export class PlatformAuthService {
     return this.toShape(admin);
   }
 
+  async updateProfile(adminId: string, dto: PlatformUpdateProfileDto) {
+    const admin = await this.admins.findOneBy({ id: adminId });
+    if (!admin) throw new NotFoundException('Admin not found');
+    admin.name = dto.name.trim();
+    await this.admins.save(admin);
+    await this.logActivity(admin, 'PROFILE_UPDATED');
+    return this.toShape(admin);
+  }
+
+  async changePassword(adminId: string, dto: PlatformChangePasswordDto) {
+    if (dto.new_password !== dto.confirm_password) {
+      throw new BadRequestException('Passwords do not match');
+    }
+    const admin = await this.admins.findOneBy({ id: adminId });
+    if (!admin) throw new NotFoundException('Admin not found');
+
+    const currentValid = await bcrypt.compare(dto.current_password, admin.passwordHash);
+    if (!currentValid) throw new UnauthorizedException('Current password is incorrect');
+
+    admin.passwordHash = await bcrypt.hash(dto.new_password, 12);
+    await this.admins.save(admin);
+
+    await this.refreshTokens.revokeAllForAdmin(adminId);
+    await this.logActivity(admin, 'PASSWORD_CHANGED');
+
+    return { success: true };
+  }
+
   async forgotPassword(email: string): Promise<{ success: true }> {
     const admin = await this.admins.findOne({ where: { email: email.toLowerCase() } });
     if (!admin || admin.status !== PlatformAdminStatus.Active) return { success: true };
@@ -123,10 +153,10 @@ export class PlatformAuthService {
     }
 
     admin.passwordHash = await bcrypt.hash(newPassword, 12);
-    admin.resetPasswordToken = undefined as unknown as string;
-    admin.resetPasswordExpiresAt = undefined as unknown as Date;
+    admin.resetPasswordToken = undefined;
+    admin.resetPasswordExpiresAt = undefined;
     admin.failedLoginAttempts = 0;
-    admin.lockedUntil = undefined as unknown as Date;
+    admin.lockedUntil = undefined;
     await this.admins.save(admin);
 
     await this.refreshTokens.revokeAllForAdmin(admin.id);
@@ -155,7 +185,7 @@ export class PlatformAuthService {
     if (!admin.twoFactorPendingSecret) throw new BadRequestException('No pending TOTP setup. Call generate first.');
 
     const pendingSecret = this.decryptSecret(admin.twoFactorPendingSecret);
-    const valid = (await otplib.verify({ token: totpCode, secret: pendingSecret })).valid;
+    const { valid } = otplib.verifySync({ token: totpCode, secret: pendingSecret });
     if (!valid) throw new UnauthorizedException('Invalid code');
 
     const plainCodes = Array.from({ length: BACKUP_CODE_COUNT }, () =>
@@ -188,7 +218,7 @@ export class PlatformAuthService {
     if (admin.twoFactorSecret) {
       try {
         const secret = this.decryptSecret(admin.twoFactorSecret);
-        verified = (await otplib.verify({ token: code, secret })).valid;
+        verified = otplib.verifySync({ token: code, secret }).valid;
       } catch {
         verified = false;
       }
@@ -276,7 +306,7 @@ export class PlatformAuthService {
     if (method === 'totp') {
       if (!admin.twoFactorSecret) throw new UnauthorizedException('TOTP not configured');
       const secret = this.decryptSecret(admin.twoFactorSecret);
-      const valid = (await otplib.verify({ token: code, secret })).valid;
+      const { valid } = otplib.verifySync({ token: code, secret });
       if (!valid) throw new UnauthorizedException('Invalid code');
     } else if (method === 'email') {
       await this.verifyEmailOtp(admin.id, code);

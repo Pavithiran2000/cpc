@@ -18,6 +18,13 @@ interface PlatformAdminPasswordResetEmail {
   resetUrl: string;
 }
 
+interface PlatformAdminInviteEmail {
+  to: string;
+  name: string;
+  tempPassword: string;
+  loginUrl: string;
+}
+
 @Injectable()
 export class EmailService {
   constructor(private readonly brevo: BrevoEmailProvider) {}
@@ -47,6 +54,34 @@ export class EmailService {
       textContent: `You requested a password reset for ${message.stationName}.\n\nReset your password: ${message.resetUrl}\n\nThis link expires in 1 hour. If you did not request this, ignore this email.`,
     });
   }
+  sendPlatformAdminInviteEmail(message: PlatformAdminInviteEmail) {
+    const url = escapeHtml(message.loginUrl);
+    return this.brevo.sendTransactionalEmail({
+      to: message.to,
+      subject: "You've been invited to CPC Platform Administration",
+      htmlContent: `
+        <div style="background:#0A0A0B;padding:32px;font-family:sans-serif;color:#f1f1f1;">
+          <div style="max-width:560px;margin:0 auto;">
+            <h1 style="color:#E85D04;font-size:28px;margin-bottom:8px;">CPC Platform</h1>
+            <h2 style="color:#f1f1f1;font-size:20px;margin-bottom:24px;">Admin Invitation</h2>
+            <p style="color:#a1a1aa;">Hi ${escapeHtml(message.name)},</p>
+            <p style="color:#a1a1aa;">You have been invited to the CPC Platform Administration panel.</p>
+            <div style="background:#18181C;border-radius:8px;padding:20px;margin:24px 0;">
+              <p style="color:#a1a1aa;margin:0 0 8px;">Your login credentials:</p>
+              <p style="color:#f1f1f1;margin:0;"><strong>Email:</strong> ${escapeHtml(message.to)}</p>
+              <p style="color:#f1f1f1;margin:8px 0 0;"><strong>Temporary password:</strong> <code style="background:#27272a;padding:2px 6px;border-radius:4px;">${escapeHtml(message.tempPassword)}</code></p>
+            </div>
+            <a href="${url}" style="display:inline-block;margin:8px 0 24px;padding:12px 28px;background:#E85D04;color:#fff;text-decoration:none;border-radius:6px;font-weight:600;">Access CPC Platform</a>
+            <p style="color:#ef4444;font-size:13px;">Please change your password immediately after your first login.</p>
+            <hr style="border-color:#27272a;margin:24px 0;" />
+            <p style="color:#52525b;font-size:12px;">CPC Platform Administration</p>
+          </div>
+        </div>
+      `,
+      textContent: `Hi ${message.name},\n\nYou've been invited to CPC Platform Administration.\n\nEmail: ${message.to}\nTemporary password: ${message.tempPassword}\n\nLogin at: ${message.loginUrl}\n\nPlease change your password immediately after your first login.\n\nCPC Platform Administration`,
+    });
+  }
+
   sendPlatformMfaOtpEmail(to: string, code: string) {
     return this.brevo.sendTransactionalEmail({
       to,

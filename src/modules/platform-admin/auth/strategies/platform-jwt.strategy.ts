@@ -18,7 +18,7 @@ export class PlatformJwtStrategy extends PassportStrategy(Strategy, 'platform-jw
     if (!secret) throw new Error('PLATFORM_ADMIN_JWT_SECRET is required');
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (req: Request) => req?.cookies?.platform_admin_token ?? null,
+        (req: Request) => req?.cookies?.platform_access_token ?? null,
       ]),
       secretOrKey: secret,
       algorithms: ['HS256'],

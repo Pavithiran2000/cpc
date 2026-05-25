@@ -1,9 +1,10 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Ip, Post, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Ip, Patch, Post, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Throttle } from '@nestjs/throttler';
 import { Request, Response } from 'express';
 import { Public } from '../../../common/decorators/public.decorator';
 import { CurrentPlatformAdmin, PlatformAdminUser } from './decorators/current-platform-admin.decorator';
+import { PlatformChangePasswordDto } from './dto/platform-change-password.dto';
 import { PlatformForgotPasswordDto } from './dto/platform-forgot-password.dto';
 import { PlatformLoginDto } from './dto/platform-login.dto';
 import { PlatformMfaDisableDto } from './dto/platform-mfa-disable.dto';
@@ -11,14 +12,15 @@ import { PlatformMfaEnableDto } from './dto/platform-mfa-enable.dto';
 import { PlatformMfaVerifyEmailOtpDto } from './dto/platform-mfa-verify-email-otp.dto';
 import { PlatformMfaVerifyLoginDto } from './dto/platform-mfa-verify-login.dto';
 import { PlatformResetPasswordDto } from './dto/platform-reset-password.dto';
+import { PlatformUpdateProfileDto } from './dto/platform-update-profile.dto';
 import { PlatformJwtGuard } from './guards/platform-jwt.guard';
 import { PlatformAuthService } from './platform-auth.service';
 
-const ACCESS_COOKIE = 'platform_admin_token';
-const REFRESH_COOKIE = 'platform_admin_refresh_token';
+const ACCESS_COOKIE = 'platform_access_token';
+const REFRESH_COOKIE = 'platform_refresh_token';
 
 @Public()
-@Controller('platform/auth')
+@Controller('')
 export class PlatformAuthController {
   constructor(
     private readonly auth: PlatformAuthService,
@@ -106,37 +108,53 @@ export class PlatformAuthController {
   }
 
   @UseGuards(PlatformJwtGuard)
-  @Post('mfa/generate')
+  @Patch('me')
   @HttpCode(HttpStatus.OK)
-  mfaGenerate(@CurrentPlatformAdmin() admin: PlatformAdminUser) {
+  async updateProfile(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformUpdateProfileDto) {
+    const data = await this.auth.updateProfile(admin.id, dto);
+    return { admin: data };
+  }
+
+  @UseGuards(PlatformJwtGuard)
+  @Post('change-password')
+  @HttpCode(HttpStatus.OK)
+  async changePassword(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformChangePasswordDto) {
+    await this.auth.changePassword(admin.id, dto);
+    return { message: 'Password changed successfully' };
+  }
+
+  @UseGuards(PlatformJwtGuard)
+  @Post('mfa/totp/setup')
+  @HttpCode(HttpStatus.OK)
+  mfaTotpSetup(@CurrentPlatformAdmin() admin: PlatformAdminUser) {
     return this.auth.generateTotpSetup(admin.id);
   }
 
   @UseGuards(PlatformJwtGuard)
-  @Post('mfa/enable')
+  @Post('mfa/totp/activate')
   @HttpCode(HttpStatus.OK)
-  mfaEnable(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformMfaEnableDto) {
+  mfaTotpActivate(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformMfaEnableDto) {
     return this.auth.enableTotp(admin.id, dto.totp_code);
   }
 
   @UseGuards(PlatformJwtGuard)
-  @Post('mfa/disable')
+  @Post('mfa/totp/disable')
   @HttpCode(HttpStatus.OK)
-  mfaDisable(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformMfaDisableDto) {
+  mfaTotpDisable(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformMfaDisableDto) {
     return this.auth.disableMfa(admin.id, dto.code, dto.password);
   }
 
   @UseGuards(PlatformJwtGuard)
-  @Post('mfa/send-email-otp')
+  @Post('mfa/email/send')
   @HttpCode(HttpStatus.OK)
-  mfaSendEmailOtp(@CurrentPlatformAdmin() admin: PlatformAdminUser) {
+  mfaEmailSend(@CurrentPlatformAdmin() admin: PlatformAdminUser) {
     return this.auth.sendEmailOtp(admin.id);
   }
 
   @UseGuards(PlatformJwtGuard)
-  @Post('mfa/verify-email-otp')
+  @Post('mfa/email/verify')
   @HttpCode(HttpStatus.OK)
-  mfaVerifyEmailOtp(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformMfaVerifyEmailOtpDto) {
+  mfaEmailVerify(@CurrentPlatformAdmin() admin: PlatformAdminUser, @Body() dto: PlatformMfaVerifyEmailOtpDto) {
     return this.auth.verifyEmailOtp(admin.id, dto.code);
   }
 
