@@ -413,7 +413,12 @@ export class AuthService {
     if (user.twoFactorEnabled) throw new BadRequestException('Two-factor authentication is already enabled');
     if (!user.twoFactorPendingSecret) throw new BadRequestException('No pending 2FA setup found. Call setup first.');
 
-    const pendingSecret = this.decryptSecret(user.twoFactorPendingSecret);
+    let pendingSecret: string;
+    try {
+      pendingSecret = this.decryptSecret(user.twoFactorPendingSecret);
+    } catch {
+      throw new BadRequestException('2FA setup has expired or is invalid. Please start setup again.');
+    }
     const { valid: isValid } = otplib.verifySync({ token: dto.code, secret: pendingSecret });
     if (!isValid) throw new UnauthorizedException('Invalid verification code');
 
@@ -433,7 +438,12 @@ export class AuthService {
     const passwordValid = await bcrypt.compare(dto.password, user.passwordHash);
     if (!passwordValid) throw new UnauthorizedException('Current password is incorrect');
 
-    const secret = this.decryptSecret(user.twoFactorSecret!);
+    let secret: string;
+    try {
+      secret = this.decryptSecret(user.twoFactorSecret!);
+    } catch {
+      throw new BadRequestException('2FA configuration error. Please contact support.');
+    }
     const { valid: codeValid } = otplib.verifySync({ token: dto.code, secret });
     if (!codeValid) throw new UnauthorizedException('Invalid authenticator code');
 
@@ -465,7 +475,12 @@ export class AuthService {
       throw new UnauthorizedException('User not found or 2FA not configured');
     }
 
-    const secret = this.decryptSecret(user.twoFactorSecret);
+    let secret: string;
+    try {
+      secret = this.decryptSecret(user.twoFactorSecret);
+    } catch {
+      throw new UnauthorizedException('2FA configuration error. Please re-enable two-factor authentication.');
+    }
     const { valid: challengeValid } = otplib.verifySync({ token: dto.code, secret });
     if (!challengeValid) throw new UnauthorizedException('Invalid authenticator code');
 

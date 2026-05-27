@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Ip, Patch, Post, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Ip, Param, Patch, Post, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Throttle } from '@nestjs/throttler';
 import { Request, Response } from 'express';
@@ -15,6 +15,7 @@ import { PlatformResetPasswordDto } from './dto/platform-reset-password.dto';
 import { PlatformUpdateProfileDto } from './dto/platform-update-profile.dto';
 import { PlatformJwtGuard } from './guards/platform-jwt.guard';
 import { PlatformAuthService } from './platform-auth.service';
+import { PlatformRefreshTokenService } from './platform-refresh-token.service';
 
 const ACCESS_COOKIE = 'platform_access_token';
 const REFRESH_COOKIE = 'platform_refresh_token';
@@ -25,6 +26,7 @@ export class PlatformAuthController {
   constructor(
     private readonly auth: PlatformAuthService,
     private readonly config: ConfigService,
+    private readonly refreshTokens: PlatformRefreshTokenService,
   ) {}
 
   private get cookieOptions() {
@@ -169,5 +171,39 @@ export class PlatformAuthController {
     const result = await this.auth.verifyMfaLogin(dto.temp_token, dto.code, dto.method, ip, req.headers['user-agent']);
     this.setAuthCookies(res, result.accessToken, result.refreshToken);
     return { admin: result.admin };
+  }
+
+  @UseGuards(PlatformJwtGuard)
+  @Get('sessions')
+  async getSessions(@CurrentPlatformAdmin() admin: PlatformAdminUser) {
+    const sessions = await this.refreshTokens.findActiveForAdmin(admin.id);
+    return {
+      sessions: sessions.map((s) => ({
+        id: s.id,
+        ipAddress: s.ipAddress,
+        userAgent: s.userAgent,
+        createdAt: s.createdAt,
+        expiresAt: s.expiresAt,
+      })),
+    };
+  }
+
+  @UseGuards(PlatformJwtGuard)
+  @Delete('sessions/:sessionId')
+  @HttpCode(HttpStatus.OK)
+  async revokeSession(
+    @CurrentPlatformAdmin() admin: PlatformAdminUser,
+    @Param('sessionId') sessionId: string,
+  ) {
+    await this.refreshTokens.revokeOne(sessionId, admin.id);
+    return { ok: true };
+  }
+
+  @UseGuards(PlatformJwtGuard)
+  @Delete('sessions')
+  @HttpCode(HttpStatus.OK)
+  async revokeAllSessions(@CurrentPlatformAdmin() admin: PlatformAdminUser) {
+    await this.refreshTokens.revokeAllForAdmin(admin.id);
+    return { ok: true };
   }
 }

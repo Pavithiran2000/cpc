@@ -42,7 +42,15 @@ export class PlatformAdminsService {
 
     const qb = this.admins
       .createQueryBuilder('a')
-      .select(['a.id', 'a.email', 'a.name', 'a.platformRole', 'a.status', 'a.lastLoginAt', 'a.createdAt', 'a.updatedAt', 'a.twoFactorEnabled', 'a.mfaMethod', 'a.invitedBy']);
+      .select(['a.id', 'a.email', 'a.name', 'a.platformRole', 'a.status', 'a.lastLoginAt', 'a.createdAt', 'a.updatedAt', 'a.twoFactorEnabled', 'a.mfaMethod', 'a.invitedBy'])
+      .addSelect(
+        (sub) => sub.select('pa.email').from('platform_admins', 'pa').where('pa.id = a.invited_by'),
+        'invited_by_email',
+      )
+      .addSelect(
+        (sub) => sub.select('pa.name').from('platform_admins', 'pa').where('pa.id = a.invited_by'),
+        'invited_by_name',
+      );
 
     if (query.status) qb.andWhere('a.status = :status', { status: query.status });
     if (query.platform_role) qb.andWhere('a.platformRole = :role', { role: query.platform_role });

@@ -9,6 +9,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum AlertSeverity {
+  Info = 'INFO',
+  Warning = 'WARNING',
+  Critical = 'CRITICAL',
+}
+
 export enum PlatformRole {
   SuperAdmin = 'SUPER_ADMIN',
   Admin = 'ADMIN',
@@ -187,6 +193,52 @@ export class PlatformActivityLog {
 
   @Column({ name: 'user_agent', type: 'text', nullable: true })
   userAgent?: string;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+}
+
+@Entity('platform_alerts')
+@Index(['severity'])
+@Index(['acknowledged'])
+@Index(['createdAt'])
+export class PlatformAlert {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ length: 100 })
+  type: string;
+
+  @Column({ type: 'varchar', length: 20, default: AlertSeverity.Info })
+  severity: AlertSeverity;
+
+  @Column({ length: 255 })
+  message: string;
+
+  @Column({ name: 'related_entity_type', length: 100, nullable: true })
+  relatedEntityType?: string;
+
+  @Column({ name: 'related_entity_id', length: 36, nullable: true })
+  relatedEntityId?: string;
+
+  @Column({ name: 'related_entity_label', length: 255, nullable: true })
+  relatedEntityLabel?: string;
+
+  @Column({ default: false })
+  acknowledged: boolean;
+
+  @Column({ name: 'acknowledged_by_admin_id', type: 'uuid', nullable: true })
+  acknowledgedByAdminId?: string;
+
+  @ManyToOne(() => PlatformAdmin, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'acknowledged_by_admin_id' })
+  acknowledgedBy?: PlatformAdmin;
+
+  @Column({ name: 'acknowledged_at', type: 'timestamptz', nullable: true })
+  acknowledgedAt?: Date;
+
+  @Column({ type: 'jsonb', nullable: true })
+  metadata?: Record<string, unknown>;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   createdAt: Date;

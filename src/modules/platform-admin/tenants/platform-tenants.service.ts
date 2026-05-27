@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { AuditLog, PlatformActivityLog, PortalUser, Tenant, TenantSetting } from '../../../database/entities';
+import { AuditLog, PlatformActivityLog, AlertSeverity, PortalUser, Tenant, TenantSetting } from '../../../database/entities';
 import { TenantsService } from '../../tenants/tenants.service';
 import { paginated, sortDirection, safeSortBy } from '../../../common/dto';
+import { PlatformAlertsService } from '../alerts/platform-alerts.service';
 import { PlatformCreateTenantDto } from './dto/platform-create-tenant.dto';
 import { PlatformUpdateTenantDto } from './dto/platform-update-tenant.dto';
 
@@ -15,6 +16,7 @@ export class PlatformTenantsService {
     @InjectRepository(TenantSetting) private readonly settings: Repository<TenantSetting>,
     @InjectRepository(PortalUser) private readonly portalUsers: Repository<PortalUser>,
     @InjectRepository(PlatformActivityLog) private readonly activityLogs: Repository<PlatformActivityLog>,
+    private readonly alertsService: PlatformAlertsService,
     private readonly tenantsService: TenantsService,
   ) {}
 
@@ -81,12 +83,12 @@ export class PlatformTenantsService {
     const [portalUserCount, shiftCount, staffCount] = await Promise.all([
       this.dataSource.query<[{ count: string }]>('SELECT COUNT(*) as count FROM portal_users WHERE tenant_id = $1', [id]),
       this.dataSource.query<[{ count: string }]>('SELECT COUNT(*) as count FROM shift_sessions WHERE tenant_id = $1', [id]),
-      this.dataSource.query<[{ count: string }]>('SELECT COUNT(*) as count FROM staff_profiles WHERE tenant_id = $1 AND deleted_at IS NULL', [id]),
+      this.dataSource.query<[{ count: string }]>('SELECT COUNT(*) as count FROM staff_profiles WHERE tenant_id = $1', [id]),
     ]);
     return {
       ...tenant,
       settings,
-      _counts: {
+      counts: {
         portal_users: Number(portalUserCount[0]?.count ?? 0),
         shift_sessions: Number(shiftCount[0]?.count ?? 0),
         staff_profiles: Number(staffCount[0]?.count ?? 0),
@@ -100,7 +102,7 @@ export class PlatformTenantsService {
 
     const [staff, shifts, products, activeSessions, lastActivity] = await Promise.all([
       this.dataSource.query<[{ count: string }]>(
-        'SELECT COUNT(*) as count FROM staff_profiles WHERE tenant_id = $1 AND deleted_at IS NULL',
+        'SELECT COUNT(*) as count FROM staff_profiles WHERE tenant_id = $1',
         [id],
       ),
       this.dataSource.query<[{ count: string }]>(
@@ -205,6 +207,17 @@ export class PlatformTenantsService {
       to: status,
       reason,
     });
+    if (status === 'SUSPENDED') {
+      await this.alertsService.create({
+        type: 'TENANT_SUSPENDED',
+        severity: AlertSeverity.Warning,
+        message: `Tenant suspended: ${tenant.stationName} (${tenant.stationCode})`,
+        relatedEntityType: 'tenant',
+        relatedEntityId: id,
+        relatedEntityLabel: tenant.stationName,
+        metadata: { reason, suspended_by: adminEmail },
+      }).catch(() => undefined);
+    }
     return saved;
   }
 

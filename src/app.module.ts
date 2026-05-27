@@ -16,6 +16,8 @@ import { PlatformAdminsModule } from './modules/platform-admin/admins/platform-a
 import { PlatformDashboardModule } from './modules/platform-admin/dashboard/platform-dashboard.module';
 import { PlatformActivityModule } from './modules/platform-admin/activity/platform-activity.module';
 import { SystemHealthModule } from './modules/platform-admin/system-health/system-health.module';
+import { PlatformRegistrationsModule } from './modules/platform-admin/registrations/platform-registrations.module';
+import { PlatformAlertsModule } from './modules/platform-admin/alerts/platform-alerts.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { TenantGuard } from './common/guards/tenant.guard';
@@ -64,6 +66,8 @@ import { GeoModule } from './modules/geo/geo.module';
           { path: 'dashboard', module: PlatformDashboardModule },
           { path: 'activity-logs', module: PlatformActivityModule },
           { path: 'system-health', module: SystemHealthModule },
+          { path: 'registrations', module: PlatformRegistrationsModule },
+          { path: 'alerts', module: PlatformAlertsModule },
         ],
       },
     ]),

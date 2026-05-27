@@ -14,10 +14,12 @@ export class PlatformActivityService {
     page?: number;
     limit?: number;
     admin_id?: string;
+    admin_email?: string;
     action?: string;
     target_type?: string;
     date_from?: string;
     date_to?: string;
+    sort_by?: string;
     sort_order?: string;
   }) {
     const page = query.page ?? 1;
@@ -28,7 +30,15 @@ export class PlatformActivityService {
       .leftJoinAndSelect('log.admin', 'admin');
 
     if (query.admin_id) qb.andWhere('log.adminId = :adminId', { adminId: query.admin_id });
-    if (query.action) qb.andWhere('log.action = :action', { action: query.action });
+    if (query.admin_email) qb.andWhere('admin.email ILIKE :adminEmail', { adminEmail: `%${query.admin_email}%` });
+    if (query.action) {
+      const actions = query.action.split(',').map((a) => a.trim()).filter(Boolean);
+      if (actions.length === 1) {
+        qb.andWhere('log.action = :action', { action: actions[0] });
+      } else {
+        qb.andWhere('log.action IN (:...actions)', { actions });
+      }
+    }
     if (query.target_type) qb.andWhere('log.targetType = :targetType', { targetType: query.target_type });
     if (query.date_from) qb.andWhere('log.createdAt >= :dateFrom', { dateFrom: query.date_from });
     if (query.date_to) {
@@ -36,7 +46,10 @@ export class PlatformActivityService {
     }
 
     const direction = (query.sort_order?.toUpperCase() === 'ASC' ? 'ASC' : 'DESC') as 'ASC' | 'DESC';
-    qb.orderBy('log.createdAt', direction).take(limit).skip((page - 1) * limit);
+    const sortField = query.sort_by === 'admin_email' ? 'admin.email'
+      : query.sort_by === 'action' ? 'log.action'
+      : 'log.createdAt';
+    qb.orderBy(sortField, direction).take(limit).skip((page - 1) * limit);
 
     const [data, total] = await qb.getManyAndCount();
     return paginated(data, total, { page, limit });

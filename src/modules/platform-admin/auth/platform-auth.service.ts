@@ -7,8 +7,9 @@ import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'crypt
 import * as otplib from 'otplib';
 import * as QRCode from 'qrcode';
 import { Repository } from 'typeorm';
-import { PlatformActivityLog, PlatformAdmin, PlatformAdminStatus, MfaMethod } from '../../../database/entities';
+import { PlatformActivityLog, PlatformAdmin, PlatformAdminStatus, MfaMethod, AlertSeverity } from '../../../database/entities';
 import { EmailService } from '../../email/email.service';
+import { PlatformAlertsService } from '../alerts/platform-alerts.service';
 import { PlatformChangePasswordDto } from './dto/platform-change-password.dto';
 import { PlatformLoginDto } from './dto/platform-login.dto';
 import { PlatformUpdateProfileDto } from './dto/platform-update-profile.dto';
@@ -27,6 +28,7 @@ export class PlatformAuthService {
     private readonly admins: Repository<PlatformAdmin>,
     @InjectRepository(PlatformActivityLog)
     private readonly activityLogs: Repository<PlatformActivityLog>,
+    private readonly alertsService: PlatformAlertsService,
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
     private readonly refreshTokens: PlatformRefreshTokenService,
@@ -50,8 +52,20 @@ export class PlatformAuthService {
       admin.failedLoginAttempts += 1;
       if (admin.failedLoginAttempts >= MAX_ATTEMPTS) {
         admin.lockedUntil = new Date(Date.now() + LOCK_MINUTES * 60 * 1000);
+        await this.admins.save(admin);
+        await this.logActivity(admin, 'LOGIN_FAILED', ipAddress, userAgent);
+        await this.createAlert({
+          type: 'ACCOUNT_LOCKED',
+          severity: AlertSeverity.Warning,
+          message: `Admin account locked after ${MAX_ATTEMPTS} failed attempts: ${admin.email}`,
+          relatedEntityType: 'platform_admin',
+          relatedEntityId: admin.id,
+          relatedEntityLabel: admin.email,
+        });
+      } else {
+        await this.admins.save(admin);
+        await this.logActivity(admin, 'LOGIN_FAILED', ipAddress, userAgent);
       }
-      await this.admins.save(admin);
       throw new UnauthorizedException('Invalid credentials');
     }
 
@@ -244,6 +258,14 @@ export class PlatformAuthService {
 
     await this.refreshTokens.revokeAllForAdmin(adminId);
     await this.logActivity(admin, 'MFA_DISABLED');
+    await this.createAlert({
+      type: 'MFA_DISABLED',
+      severity: AlertSeverity.Info,
+      message: `MFA disabled for admin account: ${admin.email}`,
+      relatedEntityType: 'platform_admin',
+      relatedEntityId: admin.id,
+      relatedEntityLabel: admin.email,
+    });
 
     return { success: true };
   }
@@ -361,6 +383,21 @@ export class PlatformAuthService {
     );
   }
 
+  private async createAlert(data: {
+    type: string;
+    severity: AlertSeverity;
+    message: string;
+    relatedEntityType?: string;
+    relatedEntityId?: string;
+    relatedEntityLabel?: string;
+  }) {
+    try {
+      await this.alertsService.create(data);
+    } catch {
+      // non-critical — do not fail the main operation
+    }
+  }
+
   private async logActivity(admin: PlatformAdmin, action: string, ipAddress?: string, userAgent?: string) {
     await this.activityLogs.save(
       this.activityLogs.create({
@@ -383,6 +420,7 @@ export class PlatformAuthService {
       lastLoginAt: admin.lastLoginAt,
       twoFactorEnabled: admin.twoFactorEnabled,
       mfaMethod: admin.mfaMethod,
+      createdAt: admin.createdAt,
     };
   }
 

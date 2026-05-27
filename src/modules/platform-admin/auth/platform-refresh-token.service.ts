@@ -32,6 +32,23 @@ export class PlatformRefreshTokenService {
     return { refreshToken, record };
   }
 
+  async findActiveForAdmin(adminId: string): Promise<PlatformAdminRefreshToken[]> {
+    return this.tokens
+      .createQueryBuilder('t')
+      .where('t.admin_id = :adminId AND t.revoked_at IS NULL AND t.expires_at > NOW()', { adminId })
+      .orderBy('t.created_at', 'DESC')
+      .getMany();
+  }
+
+  async revokeOne(tokenId: string, adminId: string): Promise<void> {
+    await this.tokens
+      .createQueryBuilder()
+      .update()
+      .set({ revokedAt: new Date() })
+      .where('id = :tokenId AND admin_id = :adminId AND revoked_at IS NULL', { tokenId, adminId })
+      .execute();
+  }
+
   async revokeAllForAdmin(adminId: string): Promise<void> {
     await this.tokens
       .createQueryBuilder()
