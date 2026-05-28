@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PlatformAlert, AlertSeverity } from '../../../database/entities';
@@ -41,12 +41,15 @@ export class PlatformAlertsService {
   }
 
   async acknowledge(id: string, adminId: string) {
+    const existing = await this.alerts.findOne({ where: { id }, relations: ['acknowledgedBy'] });
+    if (!existing) throw new NotFoundException('Alert not found');
     await this.alerts.update(id, {
       acknowledged: true,
       acknowledgedByAdminId: adminId,
       acknowledgedAt: new Date(),
     });
-    return this.alerts.findOne({ where: { id }, relations: ['acknowledgedBy'] }).then((a) => this.toDto(a!));
+    const updated = await this.alerts.findOne({ where: { id }, relations: ['acknowledgedBy'] });
+    return this.toDto(updated!);
   }
 
   async acknowledgeAll(adminId: string) {

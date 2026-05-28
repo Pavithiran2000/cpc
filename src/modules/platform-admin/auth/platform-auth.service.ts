@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'crypto';
+import { createCipheriv, createDecipheriv, createHash, randomBytes, randomInt } from 'crypto';
 import * as otplib from 'otplib';
 import * as QRCode from 'qrcode';
 import { Repository } from 'typeorm';
@@ -70,6 +70,13 @@ export class PlatformAuthService {
     }
 
     if (admin.twoFactorEnabled) {
+      if (admin.mfaMethod === MfaMethod.Email || admin.mfaMethod === MfaMethod.Both) {
+        try {
+          await this.sendEmailOtp(admin.id);
+        } catch {
+          // cooldown or send failure — login still proceeds; user can request resend
+        }
+      }
       const tempToken = await this.signTempToken(admin.id);
       return { requires_mfa: true, temp_token: tempToken, mfa_method: admin.mfaMethod };
     }
@@ -111,7 +118,9 @@ export class PlatformAuthService {
   async updateProfile(adminId: string, dto: PlatformUpdateProfileDto) {
     const admin = await this.admins.findOneBy({ id: adminId });
     if (!admin) throw new NotFoundException('Admin not found');
-    admin.name = dto.name.trim();
+    const trimmed = dto.name.trim();
+    if (!trimmed) throw new BadRequestException('Name cannot be blank');
+    admin.name = trimmed;
     await this.admins.save(admin);
     await this.logActivity(admin, 'PROFILE_UPDATED');
     return this.toShape(admin);
@@ -275,14 +284,13 @@ export class PlatformAuthService {
     if (!admin) throw new NotFoundException('Admin not found');
 
     if (admin.emailOtpExpiresAt) {
-      const remainingTtl = admin.emailOtpExpiresAt.getTime() - Date.now();
       const sentAt = admin.emailOtpExpiresAt.getTime() - EMAIL_OTP_TTL_MS;
       if (Date.now() - sentAt < EMAIL_OTP_COOLDOWN_MS) {
         throw new HttpException('Please wait before requesting another code', HttpStatus.TOO_MANY_REQUESTS);
       }
     }
 
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otp = randomInt(100000, 1000000).toString();
     admin.emailOtpCodeHash = await bcrypt.hash(otp, 10);
     admin.emailOtpExpiresAt = new Date(Date.now() + EMAIL_OTP_TTL_MS);
     await this.admins.save(admin);
@@ -441,6 +449,6 @@ export class PlatformAuthService {
     const encrypted = buf.subarray(28);
     const decipher = createDecipheriv('aes-256-gcm', key, iv);
     decipher.setAuthTag(tag);
-    return decipher.update(encrypted) + decipher.final('utf8');
+    return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString('utf8');
   }
 }

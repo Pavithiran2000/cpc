@@ -29,12 +29,12 @@ export class PlatformAlertsController {
   @Patch(':id/acknowledge')
   acknowledge(@Param('id') id: string, @Req() req: Request) {
     const admin = (req as any).user;
-    return this.service.acknowledge(id, admin.sub);
+    return this.service.acknowledge(id, admin.id);
   }
 
   @Patch('acknowledge-all')
   acknowledgeAll(@Req() req: Request) {
     const admin = (req as any).user;
-    return this.service.acknowledgeAll(admin.sub);
+    return this.service.acknowledgeAll(admin.id);
   }
 }

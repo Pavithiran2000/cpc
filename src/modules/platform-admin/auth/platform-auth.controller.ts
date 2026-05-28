@@ -83,8 +83,8 @@ export class PlatformAuthController {
     @Ip() ip: string,
   ) {
     await this.auth.logout(admin.id, ip, req.headers['user-agent']);
-    res.clearCookie(ACCESS_COOKIE, { path: '/' });
-    res.clearCookie(REFRESH_COOKIE, { path: '/' });
+    res.clearCookie(ACCESS_COOKIE, { ...this.cookieOptions });
+    res.clearCookie(REFRESH_COOKIE, { ...this.cookieOptions });
     return { ok: true };
   }
 

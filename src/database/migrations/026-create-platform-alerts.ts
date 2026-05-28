@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreatePlatformAlerts1710000000025 implements MigrationInterface {
-  name = 'CreatePlatformAlerts1710000000025';
+export class CreatePlatformAlerts1710000000026 implements MigrationInterface {
+  name = 'CreatePlatformAlerts1710000000026';
 
   async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

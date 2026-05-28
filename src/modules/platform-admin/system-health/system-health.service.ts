@@ -2,13 +2,12 @@ import * as os from 'os';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
-import { PlatformAdminRefreshToken, Tenant } from '../../../database/entities';
+import { Tenant } from '../../../database/entities';
 
 @Injectable()
 export class SystemHealthService {
   constructor(
     private readonly dataSource: DataSource,
-    @InjectRepository(PlatformAdminRefreshToken) private readonly tokens: Repository<PlatformAdminRefreshToken>,
     @InjectRepository(Tenant) private readonly tenants: Repository<Tenant>,
   ) {}
 

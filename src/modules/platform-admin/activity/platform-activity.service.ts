@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PlatformActivityLog } from '../../../database/entities';
-import { paginated, safeSortBy } from '../../../common/dto';
+import { paginated } from '../../../common/dto';
 
 @Injectable()
 export class PlatformActivityService {

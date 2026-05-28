@@ -2,7 +2,7 @@ import { BadRequestException, ConflictException, ForbiddenException, Injectable,
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
-import { IsNull, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { PlatformActivityLog, PlatformAdmin, PlatformAdminRefreshToken, PlatformAdminStatus, PlatformRole } from '../../../database/entities';
 import { EmailService } from '../../email/email.service';
 import { paginated, safeSortBy } from '../../../common/dto';
@@ -122,11 +122,12 @@ export class PlatformAdminsService {
     const admin = await this.admins.findOneBy({ id });
     if (!admin) throw new NotFoundException('Admin not found');
 
+    const oldRole = admin.platformRole;
     admin.platformRole = dto.platform_role as unknown as PlatformRole;
     await this.admins.save(admin);
 
     await this.logActivity(requestingAdmin.id, requestingAdmin.email, 'ADMIN_ROLE_CHANGED', 'platform_admin', id, admin.email, {
-      from: admin.platformRole,
+      from: oldRole,
       to: dto.platform_role,
     });
 

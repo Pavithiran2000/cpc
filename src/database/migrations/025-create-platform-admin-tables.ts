@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreatePlatformAdminTables1710000000015 implements MigrationInterface {
-  name = 'CreatePlatformAdminTables1710000000015';
+export class CreatePlatformAdminTables1710000000025 implements MigrationInterface {
+  name = 'CreatePlatformAdminTables1710000000025';
 
   async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
