@@ -8,6 +8,7 @@ export interface ListQueryConfig {
   dateColumn?: string;
   sortColumns?: Record<string, string>;
   defaultSort?: string;
+  defaultSortOrder?: 'ASC' | 'DESC';
 }
 
 export async function executeListQuery<T extends ObjectLiteral>(
@@ -36,7 +37,10 @@ export async function executeListQuery<T extends ObjectLiteral>(
   }
 
   const sortBy = safeSortBy(query.sort_by, config.sortColumns ?? {}, config.defaultSort ?? `${config.alias}.createdAt`);
-  qb.orderBy(sortBy, sortDirection(query));
+  const direction = query.sort_order
+    ? sortDirection(query)
+    : (config.defaultSortOrder ?? 'DESC');
+  qb.orderBy(sortBy, direction);
 
   const page = query.page ?? 1;
   const limit = query.limit ?? 25;

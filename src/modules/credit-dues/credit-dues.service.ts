@@ -46,6 +46,7 @@ export class CreditDuesService {
         created_at: 'customer.createdAt',
       },
       defaultSort: 'customer.customerName',
+      defaultSortOrder: 'ASC',
     });
   }
 

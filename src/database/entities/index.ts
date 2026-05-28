@@ -11,6 +11,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { PlatformAdmin, PlatformAdminRefreshToken, PlatformActivityLog, PlatformAlert } from './platform-admin.entity';
+export { PlatformAdmin, PlatformAdminRefreshToken, PlatformActivityLog, PlatformAlert, AlertSeverity, PlatformRole, PlatformAdminStatus, MfaMethod } from './platform-admin.entity';
 import { PortalRole } from '../../common/enums/portal-role.enum';
 
 export abstract class UuidEntity {
@@ -1293,6 +1295,52 @@ export class ShiftCorrectionRequest extends TenantEntity {
   approvedAt?: Date;
 }
 
+// ─── Platform Registration (station application review) ───────────────────────
+
+@Entity('platform_registrations')
+@Index(['status'])
+@Index(['stationCode'])
+export class PlatformRegistration extends UuidEntity {
+  @Column({ name: 'station_code', length: 50 })
+  stationCode: string;
+
+  @Column({ name: 'station_name', length: 150 })
+  stationName: string;
+
+  @Column({ length: 150 })
+  name: string;
+
+  @Column({ length: 150 })
+  email: string;
+
+  @Column({ length: 100, nullable: true })
+  district?: string;
+
+  @Column({ name: 'contact_number', length: 50, nullable: true })
+  contactNumber?: string;
+
+  @Column({ type: 'text', nullable: true })
+  address?: string;
+
+  @Column({ length: 20, default: 'PENDING' })
+  status: 'PENDING' | 'APPROVED' | 'REJECTED';
+
+  @Column({ name: 'reviewed_at', type: 'timestamptz', nullable: true })
+  reviewedAt?: Date;
+
+  @Column({ name: 'reviewed_by_email', length: 150, nullable: true })
+  reviewedByEmail?: string;
+
+  @Column({ name: 'rejection_reason', type: 'text', nullable: true })
+  rejectionReason?: string;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  updatedAt: Date;
+}
+
 export const entities = [
   Tenant,
   TenantSetting,
@@ -1337,4 +1385,10 @@ export const entities = [
   GeoCity,
   GeoCustomCity,
   TenantRegistrationAttempt,
+  // Platform Admin (separate auth domain — no tenant_id)
+  PlatformAdmin,
+  PlatformAdminRefreshToken,
+  PlatformActivityLog,
+  PlatformAlert,
+  PlatformRegistration,
 ];
